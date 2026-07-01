@@ -1,4 +1,4 @@
-# World Cup 2026 — Fan Site
+# World Cup 2026 — Simulation Site
 
 [![Validate](https://github.com/USERNAME/REPO/actions/workflows/validate.yml/badge.svg)](https://github.com/USERNAME/REPO/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
