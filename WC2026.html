@@ -4348,8 +4348,8 @@ const FC = (function(){
                                  // the field fills as much of the screen as possible
                                  // (clamped to a sensible aspect range in resize()).
   const MARGIN = 6;              // minimal padding — field fills the canvas, nets draw inward
-  const GOAL_H = 240;            // goal mouth height (smaller nets)
-  const PLAYER_R = 50, BALL_R = 40;   // smaller players; ball unchanged
+  const GOAL_H = 200;            // goal mouth height (smaller nets, v2)
+  const PLAYER_R = 40, BALL_R = 32;   // smaller players and ball (v2)
 
   // ---- State ----
   let state = 'idle';            // idle|vs|countdown|play|half|end
@@ -4920,9 +4920,17 @@ const FC = (function(){
         if(ball.x<W/2) nx=1; else nx=-1;
       }
       const nm=Math.hypot(nx,ny)||1; nx/=nm; ny/=nm;
-      // place ball at contact distance along the (possibly redirected) normal,
-      // then clamp inside the field so it can never be pushed out of bounds
-      ball.x=p.x+nx*min; ball.y=p.y+ny*min;
+      // INCREMENTAL overlap resolution (teleport fix): push the ball out by
+      // only the penetration depth along the (possibly redirected) normal.
+      // The old code snapped the ball to p + n*min — after a wall-aware
+      // redirect that point can be a full contact-distance sideways, which
+      // relocated the ball ~70px in one frame and looked like a teleport at
+      // the field edges. Moving by just the overlap keeps it continuous;
+      // repeated frames finish separating the pair smoothly.
+      // Cap the per-frame push so even a deep overlap (fast player landing on
+      // the ball) separates over a few frames instead of one big jump.
+      const overlap = Math.min((min - d) + 0.5, 12);
+      ball.x += nx*overlap; ball.y += ny*overlap;
       if(!inGoalY){ ball.x=Math.max(minX,Math.min(maxX,ball.x)); }
       ball.y=Math.max(minY,Math.min(maxY,ball.y));
       // ball takes player velocity plus a firm push along the resolved normal,
@@ -5193,50 +5201,112 @@ const FC = (function(){
     el.cornerL.classList.remove('hidden'); el.cornerR.classList.remove('hidden');
   }
   function drawHalfFlags(){ /* corner flags are DOM chips now — see updateCornerFlags() */ }
-  function drawPitch(t){
+  // ── PITCH, redesigned ────────────────────────────────────────────────
+  //  All STATIC artwork (grass, mow pattern, circular cut rings, grain,
+  //  floodlight pools, vignette, apron and the painted markings with their
+  //  soft under-shadow) is pre-rendered ONCE into an offscreen cache at the
+  //  current device-pixel scale and simply blitted each frame — crisper
+  //  lines AND far less per-frame work. The cache rebuilds automatically
+  //  whenever the pitch size or render scale changes (resize/fullscreen/
+  //  rotate). Only the goals stay dynamic (their nets billow).
+  let FC_pitchCache=null, FC_pitchKey='';
+  function paintMarkings(c, shadowPass){
+    // one geometry, two passes: a soft dark offset shadow first, then the
+    // crisp white paint — the lines read as painted ON the grass.
     const pw=W-2*MARGIN, ph=H-2*MARGIN;
-    // base grass gradient fills the entire canvas (no stadium surround)
-    const base=ctx.createLinearGradient(0,0,0,H);
-    base.addColorStop(0,'#0c6e36'); base.addColorStop(0.5,'#119447'); base.addColorStop(1,'#0e7d3c');
-    ctx.fillStyle=base; ctx.fillRect(0,0,W,H);
-    // mow stripes across the full width
-    const stripes=11, sw=W/stripes;
-    for(let i=0;i<stripes;i++){
-      ctx.fillStyle = i%2? 'rgba(255,255,255,.05)':'rgba(0,0,0,.05)';
-      ctx.fillRect(i*sw, 0, sw+1, H);
-    }
-    // faint speckle texture for grass grain
-    ctx.save(); ctx.globalAlpha=0.04; ctx.fillStyle='#ffffff';
-    for(let i=0;i<80;i++){ const gx=((i*73)%W), gy=((i*149)%H); ctx.fillRect(gx,gy,1.4,1.4); }
-    ctx.restore();
-    // floodlight pools (depth + atmosphere)
-    const g=ctx.createRadialGradient(W/2,H*0.16,40,W/2,H/2,W*0.72);
-    g.addColorStop(0,'rgba(255,255,250,.14)'); g.addColorStop(0.6,'rgba(255,255,255,.02)'); g.addColorStop(1,'rgba(0,10,4,.30)');
-    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-    // ---- crisp white markings ----
-    ctx.strokeStyle='rgba(255,255,255,.92)'; ctx.lineWidth=3; ctx.lineCap='butt';
-    ctx.strokeRect(MARGIN,MARGIN,pw,ph);
-    ctx.beginPath(); ctx.moveTo(W/2,MARGIN); ctx.lineTo(W/2,H-MARGIN); ctx.stroke();
-    ctx.beginPath(); ctx.arc(W/2,H/2,60,0,Math.PI*2); ctx.stroke();
-    ctx.fillStyle='rgba(255,255,255,.92)'; ctx.beginPath(); ctx.arc(W/2,H/2,3.5,0,Math.PI*2); ctx.fill();
-    // penalty boxes + 6-yard boxes + penalty spots
+    const off = shadowPass? 1.3 : 0;
+    c.save();
+    c.translate(0, off);
+    c.strokeStyle = shadowPass? 'rgba(2,22,10,.38)' : 'rgba(255,255,255,.94)';
+    c.fillStyle   = shadowPass? 'rgba(2,22,10,.38)' : 'rgba(255,255,255,.94)';
+    c.lineWidth   = shadowPass? 4.4 : 3;
+    c.lineCap='butt'; c.lineJoin='round';
+    c.strokeRect(MARGIN,MARGIN,pw,ph);                                   // touch/goal lines
+    c.beginPath(); c.moveTo(W/2,MARGIN); c.lineTo(W/2,H-MARGIN); c.stroke();  // halfway line
+    c.beginPath(); c.arc(W/2,H/2,60,0,Math.PI*2); c.stroke();            // centre circle
+    c.beginPath(); c.arc(W/2,H/2,3.5,0,Math.PI*2); c.fill();             // centre mark
     const boxH=340, boxW=92, smallH=150, smallW=42;
-    ctx.strokeRect(MARGIN, H/2-boxH/2, boxW, boxH);
-    ctx.strokeRect(W-MARGIN-boxW, H/2-boxH/2, boxW, boxH);
-    ctx.strokeRect(MARGIN, H/2-smallH/2, smallW, smallH);
-    ctx.strokeRect(W-MARGIN-smallW, H/2-smallH/2, smallW, smallH);
-    ctx.beginPath(); ctx.arc(MARGIN+56,H/2,3,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(W-MARGIN-56,H/2,3,0,Math.PI*2); ctx.fill();
-    // penalty arcs
-    ctx.beginPath(); ctx.arc(MARGIN+56,H/2,26,-0.5,0.5); ctx.stroke();
-    ctx.beginPath(); ctx.arc(W-MARGIN-56,H/2,26,Math.PI-0.5,Math.PI+0.5); ctx.stroke();
-    // corner arcs
-    [[MARGIN,MARGIN,0,0.5],[W-MARGIN,MARGIN,0.5,1],[MARGIN,H-MARGIN,1.5,2],[W-MARGIN,H-MARGIN,1,1.5]].forEach(c=>{
-      ctx.beginPath(); ctx.arc(c[0],c[1],9,c[2]*Math.PI,c[3]*Math.PI); ctx.stroke();
+    c.strokeRect(MARGIN, H/2-boxH/2, boxW, boxH);                        // penalty areas
+    c.strokeRect(W-MARGIN-boxW, H/2-boxH/2, boxW, boxH);
+    c.strokeRect(MARGIN, H/2-smallH/2, smallW, smallH);                  // six-yard boxes
+    c.strokeRect(W-MARGIN-smallW, H/2-smallH/2, smallW, smallH);
+    c.beginPath(); c.arc(MARGIN+56,H/2,3,0,Math.PI*2); c.fill();         // penalty spots
+    c.beginPath(); c.arc(W-MARGIN-56,H/2,3,0,Math.PI*2); c.fill();
+    c.beginPath(); c.arc(MARGIN+56,H/2,26,-0.5,0.5); c.stroke();         // penalty arcs
+    c.beginPath(); c.arc(W-MARGIN-56,H/2,26,Math.PI-0.5,Math.PI+0.5); c.stroke();
+    [[MARGIN,MARGIN,0,0.5],[W-MARGIN,MARGIN,0.5,1],[MARGIN,H-MARGIN,1.5,2],[W-MARGIN,H-MARGIN,1,1.5]]
+      .forEach(k=>{ c.beginPath(); c.arc(k[0],k[1],9,k[2]*Math.PI,k[3]*Math.PI); c.stroke(); });  // corner arcs
+    c.restore();
+  }
+  function buildPitchCache(){
+    const sc=Math.min(fitScale||1, 2);
+    const key=W+'x'+H+'@'+sc.toFixed(2);
+    if(FC_pitchCache && FC_pitchKey===key) return;
+    FC_pitchKey=key;
+    const cv=document.createElement('canvas');
+    cv.width=Math.max(2,Math.round(W*sc)); cv.height=Math.max(2,Math.round(H*sc));
+    const c=cv.getContext('2d');
+    c.scale(sc,sc);
+    // ---- 1 · grass base: deep emerald with a lighter spine down the middle ----
+    const base=c.createLinearGradient(0,0,0,H);
+    base.addColorStop(0,'#0a6132'); base.addColorStop(0.5,'#108c43'); base.addColorStop(1,'#0b6a35');
+    c.fillStyle=base; c.fillRect(0,0,W,H);
+    const spine=c.createLinearGradient(0,0,W,0);
+    spine.addColorStop(0,'rgba(0,0,0,.10)'); spine.addColorStop(0.5,'rgba(255,255,255,.05)'); spine.addColorStop(1,'rgba(0,0,0,.10)');
+    c.fillStyle=spine; c.fillRect(0,0,W,H);
+    // ---- 2 · mow pattern: alternating stripes with soft blended edges ----
+    const stripes=12, sw=W/stripes;
+    for(let i=0;i<stripes;i++){
+      const g=c.createLinearGradient(i*sw,0,(i+1)*sw,0);
+      const a = i%2? 0.055 : 0;
+      g.addColorStop(0,'rgba(255,255,255,0)');
+      g.addColorStop(0.18,'rgba(255,255,255,'+a+')');
+      g.addColorStop(0.82,'rgba(255,255,255,'+a+')');
+      g.addColorStop(1,'rgba(255,255,255,0)');
+      c.fillStyle=g; c.fillRect(i*sw,0,sw+1,H);
+      if(i%2===0){ c.fillStyle='rgba(0,20,8,.045)'; c.fillRect(i*sw,0,sw+1,H); }
+    }
+    // ---- 3 · circular mow rings around the centre (stadium cut) ----
+    c.save(); c.strokeStyle='rgba(255,255,255,.028)';
+    [95,155,215].forEach((r,i)=>{ c.lineWidth=26-i*3; c.beginPath(); c.arc(W/2,H/2,r,0,Math.PI*2); c.stroke(); });
+    c.restore();
+    // ---- 4 · grass grain: deterministic light + dark specks ----
+    c.save();
+    for(let i=0;i<260;i++){
+      const gx=((i*97)%W)+((i*31)%7)*0.5, gy=((i*211)%H)+((i*17)%5)*0.5;
+      c.globalAlpha = 0.028+((i*13)%20)/1000;
+      c.fillStyle = i%3? '#ffffff' : '#05300f';
+      c.fillRect(gx,gy,1.3,1.3);
+    }
+    c.restore(); c.globalAlpha=1;
+    // ---- 5 · floodlight pools from both top corners + centre sheen ----
+    [[W*0.12,-H*0.15],[W*0.88,-H*0.15]].forEach(P=>{
+      const fl=c.createRadialGradient(P[0],P[1],20,P[0],P[1],W*0.62);
+      fl.addColorStop(0,'rgba(255,255,246,.085)'); fl.addColorStop(0.55,'rgba(255,255,250,.028)'); fl.addColorStop(1,'rgba(255,255,255,0)');
+      c.fillStyle=fl; c.fillRect(0,0,W,H);
     });
-    // goals — clean nets (drawn inward onto the pitch since there's no outer margin)
-    drawGoal(MARGIN, true);
-    drawGoal(W-MARGIN, false);
+    const sheen=c.createRadialGradient(W/2,H*0.34,30,W/2,H/2,W*0.5);
+    sheen.addColorStop(0,'rgba(255,255,255,.05)'); sheen.addColorStop(1,'rgba(255,255,255,0)');
+    c.fillStyle=sheen; c.fillRect(0,0,W,H);
+    // ---- 6 · vignette: gently darkened edges give the field depth ----
+    const vg=c.createRadialGradient(W/2,H/2,H*0.35,W/2,H/2,Math.max(W,H)*0.72);
+    vg.addColorStop(0,'rgba(0,12,5,0)'); vg.addColorStop(1,'rgba(0,12,5,.34)');
+    c.fillStyle=vg; c.fillRect(0,0,W,H);
+    // ---- 7 · apron: the slim out-of-bounds band framed a touch darker ----
+    c.fillStyle='rgba(0,10,4,.22)';
+    c.fillRect(0,0,W,MARGIN); c.fillRect(0,H-MARGIN,W,MARGIN);
+    c.fillRect(0,0,MARGIN,H); c.fillRect(W-MARGIN,0,MARGIN,H);
+    // ---- 8 · markings: shadow pass, then crisp white paint ----
+    paintMarkings(c,true);
+    paintMarkings(c,false);
+    FC_pitchCache=cv;
+  }
+  function drawPitch(t){
+    buildPitchCache();
+    ctx.drawImage(FC_pitchCache, 0, 0, W, H);
+    // goals stay dynamic — their nets billow with time
+    drawGoal(MARGIN, true, t);
+    drawGoal(W-MARGIN, false, t);
   }
   // Offscreen emoji-flag sprites (rendered once, unrotated) so the flag survives the
   // rotated game canvas — drawImage of a canvas is transform-safe, unlike fillText.
@@ -5261,35 +5331,121 @@ const FC = (function(){
     }
     FC_flagCache[code]=cv; return cv;
   }
-  function drawGoal(x, left){
-    const y0=H/2-GOAL_H/2, dir=left?-1:1;
-    const inward = -dir;                    // net opens onto the pitch
-    const depth = 46;                       // net depth into the field
-    const fx = x + inward*depth;            // back of the net (on the pitch side)
+  function drawGoal(x, left, t){
+    // ── Stylised top-down goal, redesigned ─────────────────────────────
+    //  • trapezoid side-netting that tapers toward a gently BULGED back
+    //    line (billowing net), with a barely-perceptible slow sway;
+    //  • two-layer mesh (square weave + diagonal weave) CLIPPED to the
+    //    net silhouette so no strand ever pokes outside the frame;
+    //  • interior depth gradient (darker at the back) for volume;
+    //  • glossy 3-D posts: gradient goal-line bar, rounded post caps at
+    //    the mouth, slimmer back frame and corner stanchions;
+    //  • soft ground shadow under the whole structure.
+    //  Purely visual — GOAL_H / MARGIN geometry and physics untouched.
+    const y0=H/2-GOAL_H/2, y1=H/2+GOAL_H/2, dir=left?-1:1;
+    const inward=-dir;                       // net opens onto the pitch
+    const depth=38;                          // matches ball pass-through zone
+    const taper=GOAL_H*0.07;                 // back of net slightly narrower
+    const sway=Math.sin((t||0)*0.8 + (left?0:2.1))*1.4;   // subtle billow
+    const bx=x+inward*(depth+sway);          // back-line x (breathes ±1.4px)
+    const by0=y0+taper, by1=y1-taper;
+    const bulge=inward*depth*0.30;           // back line bows away from mouth
     ctx.save();
-    // subtle goal-mouth glow
-    const gg=ctx.createLinearGradient(x,0,fx,0);
-    gg.addColorStop(0,'rgba(255,255,255,.10)'); gg.addColorStop(1,'rgba(255,255,255,0)');
-    ctx.fillStyle=gg; ctx.fillRect(Math.min(x,fx),y0,depth,GOAL_H);
-    // ---- net mesh ----
-    ctx.strokeStyle='rgba(255,255,255,.30)'; ctx.lineWidth=1;
+
+    // ---- ground shadow under the net ----
+    ctx.fillStyle='rgba(0,0,0,.20)';
     ctx.beginPath();
-    for(let i=0;i<=GOAL_H;i+=9){ ctx.moveTo(x,y0+i); ctx.lineTo(fx,y0+i); }
-    for(let v=0;v<=depth;v+=6){ ctx.moveTo(x+inward*v,y0); ctx.lineTo(x+inward*v,y0+GOAL_H); }
-    ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.16)';
+    ctx.moveTo(x,y0+3);
+    ctx.lineTo(bx,by0+3);
+    ctx.quadraticCurveTo(bx+bulge,H/2,bx,by1+3);
+    ctx.lineTo(x,y1+3);
+    ctx.closePath(); ctx.fill();
+
+    // ---- net silhouette (trapezoid with bulged back) ----
+    function netPath(){
+      ctx.beginPath();
+      ctx.moveTo(x,y0);
+      ctx.lineTo(bx,by0);
+      ctx.quadraticCurveTo(bx+bulge,H/2,bx,by1);
+      ctx.lineTo(x,y1);
+      ctx.closePath();
+    }
+    // interior: cool gradient, darker toward the back for depth
+    const ig=ctx.createLinearGradient(x,0,bx+bulge,0);
+    ig.addColorStop(0,'rgba(214,226,240,.16)');
+    ig.addColorStop(0.55,'rgba(150,168,192,.13)');
+    ig.addColorStop(1,'rgba(20,30,48,.30)');
+    netPath(); ctx.fillStyle=ig; ctx.fill();
+
+    // ---- two-layer mesh, clipped to the silhouette ----
+    ctx.save(); netPath(); ctx.clip();
+    // layer 1 — square weave that FOLLOWS the taper (strands converge)
+    ctx.strokeStyle='rgba(255,255,255,.34)'; ctx.lineWidth=1;
     ctx.beginPath();
-    for(let i=-GOAL_H;i<GOAL_H;i+=12){ ctx.moveTo(x,y0+i); ctx.lineTo(fx,y0+i+depth); }
+    const ROWS=10;
+    for(let i=0;i<=ROWS;i++){                       // long strands mouth→back
+      const u=i/ROWS;
+      ctx.moveTo(x, y0+GOAL_H*u);
+      ctx.lineTo(bx+bulge*Math.sin(Math.PI*u), by0+(by1-by0)*u);
+    }
+    for(let v=1;v<=5;v++){                          // cross strands, bowing back
+      const w=v/5;
+      const cxv=x+inward*depth*w;
+      ctx.moveTo(cxv, y0+taper*w);
+      ctx.quadraticCurveTo(cxv+bulge*w, H/2, cxv, y1-taper*w);
+    }
     ctx.stroke();
-    // ---- posts & frame ----
-    ctx.lineCap='round';
-    ctx.strokeStyle='#e8edf5'; ctx.lineWidth=5;
-    ctx.beginPath(); ctx.moveTo(x,y0); ctx.lineTo(x,y0+GOAL_H); ctx.stroke();          // goal-line post
-    ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=2.4;
-    ctx.beginPath(); ctx.moveTo(fx,y0); ctx.lineTo(fx,y0+GOAL_H); ctx.stroke();         // back post
-    ctx.beginPath(); ctx.moveTo(x,y0); ctx.lineTo(fx,y0); ctx.moveTo(x,y0+GOAL_H); ctx.lineTo(fx,y0+GOAL_H); ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.95)'; ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(x,y0+2); ctx.lineTo(x,y0+GOAL_H-2); ctx.stroke();
+    // layer 2 — soft diagonal weave for the woven-net look
+    ctx.strokeStyle='rgba(255,255,255,.13)'; ctx.lineWidth=1;
+    ctx.beginPath();
+    for(let i=-GOAL_H;i<GOAL_H;i+=14){
+      ctx.moveTo(x,y0+i); ctx.lineTo(bx,y0+i+depth*1.4);
+      ctx.moveTo(x,y0+i); ctx.lineTo(bx,y0+i-depth*1.4);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // ---- back frame + corner stanchions (slim, behind the posts) ----
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.strokeStyle='rgba(232,238,248,.60)'; ctx.lineWidth=2.2;
+    ctx.beginPath();
+    ctx.moveTo(bx,by0);
+    ctx.quadraticCurveTo(bx+bulge,H/2,bx,by1);      // bulged back bar
+    ctx.stroke();
+    ctx.strokeStyle='rgba(232,238,248,.45)'; ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(x,y0); ctx.lineTo(bx,by0);           // top stanchion
+    ctx.moveTo(x,y1); ctx.lineTo(bx,by1);           // bottom stanchion
+    ctx.stroke();
+
+    // ---- goal-mouth glow (kept, refined) ----
+    const gg=ctx.createLinearGradient(x,0,x+inward*depth,0);
+    gg.addColorStop(0,'rgba(255,255,255,.12)'); gg.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=gg;
+    ctx.fillRect(Math.min(x,x+inward*depth),y0,depth,GOAL_H);
+
+    // ---- glossy goal-line post (the star of the frame) ----
+    // subtle dark keyline behind the bar so it pops on bright pitch stripes
+    ctx.strokeStyle='rgba(10,16,30,.35)'; ctx.lineWidth=7.5;
+    ctx.beginPath(); ctx.moveTo(x,y0); ctx.lineTo(x,y1); ctx.stroke();
+    // 3-D bar: horizontal gradient = cylindrical sheen
+    const pg=ctx.createLinearGradient(x-3,0,x+3,0);
+    pg.addColorStop(0,'#9fb0c6'); pg.addColorStop(0.45,'#ffffff'); pg.addColorStop(1,'#c3cfe0');
+    ctx.strokeStyle=pg; ctx.lineWidth=5.5;
+    ctx.beginPath(); ctx.moveTo(x,y0); ctx.lineTo(x,y1); ctx.stroke();
+    // crisp centre highlight
+    ctx.strokeStyle='rgba(255,255,255,.95)'; ctx.lineWidth=1.6;
+    ctx.beginPath(); ctx.moveTo(x,y0+3); ctx.lineTo(x,y1-3); ctx.stroke();
+
+    // ---- rounded post caps at the mouth corners ----
+    [y0,y1].forEach(py=>{
+      const cg=ctx.createRadialGradient(x-1.5,py-1.5,0.5,x,py,5);
+      cg.addColorStop(0,'#ffffff'); cg.addColorStop(0.7,'#dbe4f0'); cg.addColorStop(1,'#93a4bc');
+      ctx.fillStyle=cg;
+      ctx.beginPath(); ctx.arc(x,py,4.6,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle='rgba(10,16,30,.30)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.arc(x,py,4.6,0,Math.PI*2); ctx.stroke();
+    });
     ctx.restore();
   }
   // A team's national flag shown OUTSIDE the court in the side surround, beside its
@@ -5322,7 +5478,7 @@ const FC = (function(){
     if(!p) return;
     const bob = Math.sin(t*3.2)*4;
     const cx = p.x;
-    const cy = p.y - PLAYER_R - 54 + bob;   // float clearly above the (bigger) head + horns
+    const cy = p.y - PLAYER_R - 46 + bob;   // float clearly above the head + horns
     ctx.save();
     // soft glow disc
     const g = ctx.createRadialGradient(cx, cy+6, 1, cx, cy+6, 24);
@@ -5358,40 +5514,34 @@ const FC = (function(){
   // ════════════════════════════════════════════════════════════════════
   // Two cute cartoon MONSTER mascots (original art in the spirit of the
   // reference): round single-colour head, two ribbed curved horns, big glossy
-  // eyes, soft button nose, rosy cheeks, wide grin with two little bottom fangs.
-  // The monster colour/horn colour is a fixed character trait; the KIT (jersey,
-  // shorts, socks) still follows the selected national team.
-  //   A = cyan/teal monster, purple horns, dark eyebrows, blue nose.
-  //   B = red monster,       green  horns, dark eyebrows, blue nose.
+  // eyes with bright blue irises, wide grey-blue button nose with nostril
+  // dimples, thick soft brows, and a wide closed grin with ONE white fang.
+  // Per the reference the two FACES are IDENTICAL — same eye/brow/nose/smile
+  // geometry and the SAME bright-blue iris on both — only the body colour,
+  // horn colour and brow tint (a dark shade of the body) differ, plus the KIT
+  // (jersey, shorts, socks) which follows the selected national team.
+  //   A = teal monster, purple horns.   B = red monster, green horns.
+  const FACE_GEO = {                       // shared, reference-identical face
+    face:1.04,
+    eyeR:0.215, eyeDX:0.33, eyeYo:0.04, eyeAsp:1.18,
+    browW:0.080, browArch:0.062, browLift:0.68,
+    noseR:0.080, noseYo:0.28,
+    smile:0.44, smileYo:0.355,
+    iris:'#2b9fd6',                        // same bright blue iris on BOTH
+    nose:'#7d9cb8', noseHi:'#a8c3da',      // grey-blue button nose (both)
+    hornSide:1
+  };
   const LOOKS = {
-    A: { // teal monster (purple horns)
+    A: Object.assign({ // teal monster (purple horns)
       skin:'#1ec5d0', skinSh:'#0a9aa6', skinHi:'#8aeaef',
-      iris:'#16313f',                       // deep navy-slate eyes (very dark)
       hornCol:'#7c3fb0', hornHi:'#a36fd8', hornDk:'#54287f',
-      nose:'#6f9fc0', noseHi:'#9cc2dd',     // soft blue button nose
-      brow:'#0e7d8f',                       // brow same family, a touch darker
-      face:1.05,
-      eyeR:0.212, eyeDX:0.33, eyeYo:0.04, eyeAsp:1.18,
-      browW:0.075, browArch:0.075, browLift:0.66,
-      noseR:0.078, noseYo:0.28,
-      smile:0.40, smileYo:0.36,
-      cheek:'rgba(255,120,140,.38)',
-      hornSide:1                            // horns curve outward
-    },
-    B: { // red monster (green horns)
+      brow:'#0c5b6e'                       // dark teal-navy shade of the body
+    }, FACE_GEO),
+    B: Object.assign({ // red monster (green horns)
       skin:'#f2453f', skinSh:'#d11d16', skinHi:'#ff8a7e',
-      iris:'#2fa3d8',                       // bright blue eyes (the key red-monster trait)
       hornCol:'#57bf36', hornHi:'#82dc5a', hornDk:'#368c20',
-      nose:'#6f9fc0', noseHi:'#9cc2dd',
-      brow:'#6e1f17',                       // darker maroon-brown, thicker/raised
-      face:1.02,
-      eyeR:0.212, eyeDX:0.335, eyeYo:0.04, eyeAsp:1.18,
-      browW:0.082, browArch:0.05, browLift:0.70,
-      noseR:0.076, noseYo:0.29,
-      smile:0.40, smileYo:0.35,
-      cheek:'rgba(220,60,80,.34)',
-      hornSide:1
-    }
+      brow:'#6e1f17'                       // dark maroon shade of the body
+    }, FACE_GEO)
   };
 
   function drawPlayer(p, kit, t, code, isControlled){
@@ -5646,11 +5796,7 @@ const FC = (function(){
       ctx.moveTo(cx+eyeDX-eyeR*0.6, bL);
       ctx.quadraticCurveTo(cx+eyeDX, bL-headR*L.browArch, cx+eyeDX+eyeR*0.6, bL+headR*L.browArch);
       ctx.stroke();
-      // rosy cheeks
-      ctx.fillStyle=L.cheek; ctx.globalAlpha=0.75;
-      ctx.beginPath(); ctx.arc(cx-faceW*0.5,eyeY+headR*0.28,headR*0.15,0,Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx+faceW*0.5,eyeY+headR*0.28,headR*0.15,0,Math.PI*2); ctx.fill();
-      ctx.globalAlpha=1;
+      // (no cheek blush — in the reference art only the BALL has rosy cheeks)
       // nose (soft blue glossy button nose)
       const nx=cx+gaze*0.4, ny=eyeY+headR*L.noseYo, nr=headR*L.noseR;
       const ng=ctx.createRadialGradient(nx-nr*0.4,ny-nr*0.4,nr*0.2,nx,ny,nr*1.1);
@@ -5677,7 +5823,7 @@ const FC = (function(){
       // exactly as in the reference art — a single tooth, not a pair.
       ctx.fillStyle='#ffffff';
       (function fang(){
-        const fx=cx+mW*0.46, fy=my+mDip*0.30, fw=headR*0.05, fh=headR*0.115;
+        const fx=cx+mW*0.46, fy=my+mDip*0.30, fw=headR*0.058, fh=headR*0.135;
         ctx.beginPath();
         ctx.moveTo(fx-fw, fy);
         ctx.lineTo(fx+fw, fy);
