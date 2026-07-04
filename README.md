@@ -1,6 +1,6 @@
 # World Cup 2026 — Simulation Site
 
-[![Validate](https://github.com/USERNAME/REPO/actions/workflows/validate.yml/badge.svg)](https://github.com/USERNAME/REPO/actions/workflows/validate.yml)
+[![Validate](https://github.com/alisarmusa/World-Cup-2026-Simulation/actions/workflows/validate.yml/badge.svg)](https://github.com/alisarmusa/World-Cup-2026-Simulation/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![No build step](https://img.shields.io/badge/build-none-brightgreen)
 ![Single file](https://img.shields.io/badge/architecture-single--file-orange)
@@ -26,8 +26,9 @@ A single-file, data-driven fan site tracking the **2026 World Cup** — 48 teams
 - **Today's Matches** — a day-by-day schedule; all times shown in **Türkiye Standard Time (TRT, UTC+3)**.
 - **Leaderboards** — Goals, Assists, Clean Sheets, Yellow Cards, Red Cards, and Average Ratings.
 - **Breaking ticker** — a rolling strip of the latest results and fixtures.
-- **Editorial** — Power Rankings (#1–48), Predictions, Favorites, Dark Horses, Tier Breakdown, Questions, Analysis, and an Executive Summary.
-- **Simulation** — a Poisson goal model plus a Monte Carlo run projecting the rest of the tournament, with real played results locked so they are never re-decided.
+- **Editorial** — Power Rankings (#1–48), Predictions, Favorites, Dark Horses, Tier Breakdown, Questions, Analysis, and an Executive Summary. Each carries flags, stat chips, and compact progress/meter visuals for fast scanning.
+- **Current vs Before the Tournament** — Power Rankings, Simulation, Favorites, Predictions, Tier Breakdown, and Questions each have a two-way toggle: **Current** reflects the tournament as it stands, while **Before the Tournament** shows the same view driven by pre-tournament strength ratings.
+- **Simulation** — a Poisson goal model plus a Monte Carlo run projecting the rest of the tournament, with real played results locked so they are never re-decided. A **Before the Tournament** mode re-simulates the whole event from scratch on pre-tournament ratings alone.
 - **Team of the Week** — a rotating best XI.
 - **Fantasy World Cup** — build an XI under a credit budget.
 - **FC Game** — a self-contained HTML canvas arcade football mini-game (you vs. CPU) on desktop and mobile.
