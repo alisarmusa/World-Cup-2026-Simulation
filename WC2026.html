@@ -4877,8 +4877,8 @@ const FC = (function(){
   const HALF_BREAK = 5;          // seconds halftime
   const DIFF = {
     easy:   { aiSpeed:0.55, aiReact:0.34, aiKick:5.2, aiErr:0.70, aiAim:0.10 },   // softened again (Jul 2)
-    medium: { aiSpeed:0.84, aiReact:0.70, aiKick:8.0, aiErr:0.30, aiAim:0.42 },   // softened (Jul 2)
-    hard:   { aiSpeed:1.12, aiReact:0.98, aiKick:10.4, aiErr:0.05, aiAim:0.82 }
+    medium: { aiSpeed:0.72, aiReact:0.56, aiKick:6.8, aiErr:0.44, aiAim:0.30 },   // eased (v3)
+    hard:   { aiSpeed:0.96, aiReact:0.82, aiKick:9.0, aiErr:0.16, aiAim:0.66 }    // eased (v3)
   };
 
   // ---- World units (logical coordinates; canvas scales to fit) ----
@@ -4887,8 +4887,8 @@ const FC = (function(){
                                  // the field fills as much of the screen as possible
                                  // (clamped to a sensible aspect range in resize()).
   const MARGIN = 6;              // minimal padding — field fills the canvas, nets draw inward
-  const GOAL_H = 300;            // goal mouth height (bigger nets, v4)
-  const PLAYER_R = 60, BALL_R = 48;   // bigger players and ball (v4)
+  const GOAL_H = 272;            // goal mouth height (v5, slightly smaller)
+  const PLAYER_R = 54, BALL_R = 44;   // players and ball (v5, slightly smaller)
 
   // ---- State ----
   let state = 'idle';            // idle|vs|countdown|play|half|end
