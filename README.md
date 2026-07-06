@@ -7,7 +7,7 @@
 
 A single-file, data-driven fan site tracking the **2026 World Cup** — 48 teams, 12 groups, hosted across the United States, Canada, and Mexico — in near real time.
 
-> The entire site is one self-contained HTML file. No build step, no dependencies, no backend. Open it in a browser and it works.
+> The entire site is one self-contained HTML file. No build step, no dependencies, no backend, and **no third-party requests** — fonts are embedded, so nothing loads from an external server. Open it in a browser and it works.
 
 ## Contents
 
@@ -31,7 +31,7 @@ A single-file, data-driven fan site tracking the **2026 World Cup** — 48 teams
 - **Simulation** — a Poisson goal model plus a Monte Carlo run projecting the rest of the tournament, with real played results locked so they are never re-decided. A **Before the Tournament** mode re-simulates the whole event from scratch on pre-tournament ratings alone.
 - **Team of the Week** — a rotating best XI.
 - **Fantasy World Cup** — build an XI under a credit budget.
-- **FC Game** — a self-contained HTML canvas arcade football mini-game (you vs. CPU) on desktop and mobile.
+- **FC Game** — a self-contained HTML canvas arcade football mini-game (you vs. CPU) on desktop and mobile. Every nation carries a **5-star power rating**, and an **adaptive difficulty system** blends your chosen level (Easy / Medium / Hard) with the opponent's strength: a 5★ side like England plays markedly tougher than a 1★ side at the same setting. Each pairing resolves to a single **1–10 Match Difficulty** score (Stroll → Relaxed → Balanced → Tough → Brutal), shown on the match preview and in a full **Difficulty by Nation** list ranking all 48 teams.
 
 ## Screenshots
 
@@ -66,6 +66,16 @@ The JavaScript is organised into self-contained IIFE modules (tournament data, s
 ## Data integrity
 
 Only **real, web-verified final scores** are entered, cross-checked against multiple reliable sources. Match referees stay `TBD` unless source-confirmed. Unplayed matches are only ever *projected* by the Simulation module — never hard-coded as results.
+
+## Privacy & security
+
+Built to be safe to publish as-is:
+
+- **No tracking.** No analytics, no third-party scripts, no cookies, no `localStorage`/`sessionStorage`, no beacons — the site collects and transmits nothing about visitors.
+- **No external requests.** Fonts (Inter and Bebas Neue, both under the SIL Open Font License) are embedded directly in the file, so the page makes zero calls to any outside server.
+- **Content-Security-Policy.** A restrictive CSP is set via meta tag: only same-origin and inline resources are allowed; `object-src`, `frame-src`, and `form-action` are disabled.
+- **No injection surface.** There are no text inputs or URL-parameter reads, so there is no user-supplied content that could reach the DOM.
+- **Independent fan project.** A visible footer disclaims any affiliation with FIFA; all trademarks belong to their respective owners.
 
 ## Deploying
 
