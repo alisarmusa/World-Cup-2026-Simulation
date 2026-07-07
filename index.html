@@ -818,7 +818,7 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .pp-odds-row.head{background:var(--surface);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint)}
 .pp-odds-row.head .pp-o-num{color:var(--text-faint)}
 .pp-o-num{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--text-primary)}
-.pp-o-team{display:flex;align-items:center;gap:9px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pp-o-team{display:flex;align-items:center;gap:9px;min-width:0;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pp-o-val{text-align:right;font-variant-numeric:tabular-nums}
 .pp-o-val.win{font-weight:800;color:var(--green-700)}
 .pp-o-bar{position:relative}
@@ -961,7 +961,7 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 
 @media(max-width:600px){
   .pp-regen{margin-left:0}
-  .pp-odds-row{grid-template-columns:24px 1fr repeat(4,minmax(40px,1fr));font-size:11.5px;gap:5px;padding:9px 10px}
+  .pp-odds-row{grid-template-columns:22px minmax(0,1fr) repeat(4,44px);font-size:11.5px;gap:5px;padding:9px 8px}
   .pp-champion-final{flex-direction:column;gap:8px}
   .pp-pfix-team .nm{font-size:12.5px}
 }
@@ -1419,7 +1419,7 @@ body.fc-immersive-lock{overflow:hidden}
   <button class="ticker-tag" id="breakingBtn" type="button" data-view="breaking" title="Open the Breaking News section">Breaking<span class="ticker-tag-caret" aria-hidden="true">&#9656;</span></button>
   <div style="overflow:hidden;flex:1">
     <div class="ticker-track">
-      <span class="ticker-item">&#127942; Round of 16 &#8212; Morocco, France, Norway and England are through to the quarter-finals; four ties remain, all across July 6&#8211;7 before the last eight is complete</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127475;&#127476; Norway stun Brazil &#8212; Erling Haaland&#8217;s late double (79&#8242;, 90&#8242;) knocks out the five-time champions 2&#8211;1 at MetLife; Neymar&#8217;s stoppage-time penalty is only a consolation as Norway reach a first-ever quarter-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127468;&#127463; England survive the Azteca &#8212; a Jude Bellingham brace and a Harry Kane penalty edge hosts Mexico 3&#8211;2 in a five-goal thriller, sending the Three Lions to the last eight despite a red card</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127477;&#127481;&#127466;&#127480; Today (TRT) &#8212; Portugal v Spain in Dallas (Monday 22:00) is the heavyweight all-Iberian tie of the round, with one title contender guaranteed to fall before the quarter-finals</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127482;&#127480; Also today &#8212; USA v Belgium at Lumen Field, Seattle (03:00 TRT Tuesday): the last co-host standing takes on the Belgians, who came from two down to beat Senegal in the last round</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina v Egypt &amp; &#127464;&#127469; Switzerland v Colombia close the Round of 16 on Tuesday July 7 &#8212; Messi&#8217;s holders in Atlanta (19:00 TRT), the unbeaten Swiss against Los Cafeteros in Vancouver (23:00 TRT)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Haaland&#8217;s brace lifts him level at the top on seven goals alongside Messi and Mbapp&eacute;; the race for the tournament&#8217;s scoring crown is wide open heading into the quarter-finals</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127946; Quarter-finals locked &#8212; Morocco v France in Boston (July 9) and Norway v England in Miami (July 11) are the first two last-eight ties confirmed; the other two await the July 6&#8211;7 winners</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; Farewells &#8212; five-time winners Brazil crash out to Norway, and co-hosts Mexico bow out at home to England; Canada, Paraguay, Croatia and Cape Verde have also exited the knockouts</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127477;&#127481; Ronaldo&#8217;s Portugal meet De la Fuente&#8217;s Spain in a rematch of the Euro 2016 final &#8212; the pick of the remaining ties, and a last-16 collision of two of the tournament&#8217;s heavyweights</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Road to the final &#8212; from the quarter-finals it is three wins to the trophy, with the 2026 World Cup final set for MetLife Stadium, New Jersey on July 19</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Round of 16 &#8212; Morocco, France, Norway and England are through to the quarter-finals; four ties remain, all across July 6&#8211;7 before the last eight is complete</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127475;&#127476; Norway stun Brazil &#8212; Erling Haaland&#8217;s late double (79&#8242;, 90&#8242;) knocks out the five-time champions 2&#8211;1 at MetLife; Neymar&#8217;s stoppage-time penalty is only a consolation as Norway reach a first-ever quarter-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127468;&#127463; England survive the Azteca &#8212; a Jude Bellingham brace and a Harry Kane penalty edge hosts Mexico 3&#8211;2 in a five-goal thriller, sending the Three Lions to the last eight despite a red card</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127477;&#127481;&#127466;&#127480; Today (TRT) &#8212; Portugal v Spain in Dallas (Monday 22:00) is the heavyweight all-Iberian tie of the round, with one title contender guaranteed to fall before the quarter-finals</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127482;&#127480; Also today &#8212; USA v Belgium at Lumen Field, Seattle (03:00 TRT Tuesday): the last co-host standing takes on the Belgians, who came from two down to beat Senegal in the last round</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina v Egypt &amp; &#127464;&#127469; Switzerland v Colombia close the Round of 16 on Tuesday July 7 &#8212; Messi&#8217;s holders in Atlanta (19:00 TRT), the unbeaten Swiss against Los Cafeteros in Vancouver (23:00 TRT)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Haaland&#8217;s brace lifts him level at the top on seven goals alongside Messi and Mbapp&eacute;; the race for the tournament&#8217;s scoring crown is wide open heading into the quarter-finals</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127946; Quarter-finals locked &#8212; Morocco v France in Boston (July 9) and Norway v England in Miami (July 11) are the first two last-eight ties confirmed; the other two await the July 6&#8211;7 winners</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; Farewells &#8212; five-time winners Brazil crash out to Norway, and co-hosts Mexico bow out at home to England; Canada, Paraguay, Croatia and Cape Verde have also exited the knockouts</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127477;&#127481; Ronaldo&#8217;s Portugal meet De la Fuente&#8217;s Spain in a rematch of the Euro 2016 final &#8212; the pick of the remaining ties, and a last-16 collision of two of the tournament&#8217;s heavyweights</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Road to the final &#8212; from the quarter-finals it is three wins to the trophy, with the 2026 World Cup final set for MetLife Stadium, New Jersey on July 19</span><span class="ticker-sep">&#9670;</span>
+      <span class="ticker-item">&#127942; Round of 16 almost done &#8212; Spain, Belgium, Morocco, France, Norway and England are into the quarter-finals; only Argentina&#8211;Egypt and Switzerland&#8211;Colombia remain, both today (Tue July 7)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain edge Portugal &#8212; substitute Mikel Merino&#8217;s stoppage-time strike settles a tense all-Iberian tie 1&#8211;0 in Dallas, sending De la Fuente&#8217;s side into the last eight without conceding all tournament</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127477;&#127481; End of an era &#8212; at 41, Cristiano Ronaldo&#8217;s final World Cup ends in defeat as Portugal fall to Spain; the first man to score at six World Cups bows out in the Round of 16</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127463;&#127466; Belgium dismantle the USA &#8212; a Charles De Ketelaere brace, Vanaken and a late Lukaku strike sink the co-hosts 4&#8211;1 in Seattle; the Red Devils reach a third straight quarter-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127482;&#127480; Hosts out &#8212; Malik Tillman&#8217;s free-kick briefly levelled, but the USMNT&#8217;s home run ends in the last 16 once more; Pochettino&#8217;s three wins are still a record for a US men&#8217;s coach</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Today (TRT) &#8212; Argentina v Egypt in Atlanta (Tue 19:00): Messi&#8217;s holders, seven goals to his name, face a Salah-led Egypt in their first-ever Round of 16</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127464;&#127469; Also today &#8212; Switzerland v Colombia in Vancouver (Tue 23:00 TRT) closes the Round of 16; the unbeaten Swiss meet Los Cafeteros for the last quarter-final place</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127946; Quarter-finals taking shape &#8212; Spain v Belgium (Los Angeles) and Norway v England (Miami, July 11) join Morocco v France (Boston, July 9); the fourth QF awaits tonight&#8217;s winners</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Messi, Mbapp&eacute; and Haaland stay locked together on seven goals as the last eight nears; Kane leads the chasing pack on six</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; Farewells &#8212; Portugal and the co-hosts USA join Brazil, Mexico, Canada and Paraguay on the way out; six of the original 16 last-16 sides have now fallen</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Road to the final &#8212; from the quarter-finals it is three wins to the trophy, with the 2026 World Cup final set for MetLife Stadium, New Jersey on July 19</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Round of 16 almost done &#8212; Spain, Belgium, Morocco, France, Norway and England are into the quarter-finals; only Argentina&#8211;Egypt and Switzerland&#8211;Colombia remain, both today (Tue July 7)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain edge Portugal &#8212; substitute Mikel Merino&#8217;s stoppage-time strike settles a tense all-Iberian tie 1&#8211;0 in Dallas, sending De la Fuente&#8217;s side into the last eight without conceding all tournament</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127477;&#127481; End of an era &#8212; at 41, Cristiano Ronaldo&#8217;s final World Cup ends in defeat as Portugal fall to Spain; the first man to score at six World Cups bows out in the Round of 16</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127463;&#127466; Belgium dismantle the USA &#8212; a Charles De Ketelaere brace, Vanaken and a late Lukaku strike sink the co-hosts 4&#8211;1 in Seattle; the Red Devils reach a third straight quarter-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127482;&#127480; Hosts out &#8212; Malik Tillman&#8217;s free-kick briefly levelled, but the USMNT&#8217;s home run ends in the last 16 once more; Pochettino&#8217;s three wins are still a record for a US men&#8217;s coach</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Today (TRT) &#8212; Argentina v Egypt in Atlanta (Tue 19:00): Messi&#8217;s holders, seven goals to his name, face a Salah-led Egypt in their first-ever Round of 16</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127464;&#127469; Also today &#8212; Switzerland v Colombia in Vancouver (Tue 23:00 TRT) closes the Round of 16; the unbeaten Swiss meet Los Cafeteros for the last quarter-final place</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127946; Quarter-finals taking shape &#8212; Spain v Belgium (Los Angeles) and Norway v England (Miami, July 11) join Morocco v France (Boston, July 9); the fourth QF awaits tonight&#8217;s winners</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Messi, Mbapp&eacute; and Haaland stay locked together on seven goals as the last eight nears; Kane leads the chasing pack on six</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; Farewells &#8212; Portugal and the co-hosts USA join Brazil, Mexico, Canada and Paraguay on the way out; six of the original 16 last-16 sides have now fallen</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Road to the final &#8212; from the quarter-finals it is three wins to the trophy, with the 2026 World Cup final set for MetLife Stadium, New Jersey on July 19</span><span class="ticker-sep">&#9670;</span>
     </div>
   </div>
 </div>
@@ -1484,7 +1484,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="totw-head-l">
           <span class="totw-matchday">Round of 16 &middot; Team of the Week</span>
           <h2 class="totw-title">The <span>Best XI</span></h2>
-          <p class="totw-sub">Standout XI from the Round of 16&#8217;s first four ties &#8212; a 4&#8211;3&#8211;3. Tap any player for their squad.</p>
+          <p class="totw-sub">Standout XI from the Round of 16 so far &#8212; a 4&#8211;3&#8211;3. Tap any player for their squad.</p>
         </div>
         <div class="totw-formation">
           <div class="totw-formation-tag">4&#8211;3&#8211;3</div>
@@ -1513,10 +1513,10 @@ body.fc-immersive-lock{overflow:hidden}
                 <div class="totw-name">K. Mbappé</div>
                 <div class="totw-stat">Winning goal</div>
               </div>
-              <div class="totw-player tm-team" data-team="ENG" role="button" tabindex="0" aria-label="Jude Bellingham, England — open squad">
-                <div class="totw-jersey"><span class="totw-flag">&#127468;&#127463;</span></div>
-                <div class="totw-name">J. Bellingham</div>
-                <div class="totw-stat">2 goals</div>
+              <div class="totw-player tm-team" data-team="BEL" role="button" tabindex="0" aria-label="Charles De Ketelaere, Belgium — open squad">
+                <div class="totw-jersey"><span class="totw-flag">&#127463;&#127466;</span></div>
+                <div class="totw-name">C. De Ketelaere</div>
+                <div class="totw-stat">2 goals · 1 assist</div>
               </div>
             </div>
             <!-- Midfield -->
@@ -1590,14 +1590,14 @@ body.fc-immersive-lock{overflow:hidden}
 
           <div class="totw-note">
             <div class="totw-note-h">Selector&#8217;s Notes</div>
-            <p>Front three of R16 drama: captain <strong>Haaland</strong> (brace to dump out Brazil), <strong>Mbappé</strong>&#8217;s decisive penalty past Paraguay, and <strong>Bellingham</strong>&#8217;s 98-second brace at the Azteca.</p>
+            <p>Front three of R16 drama: captain <strong>Haaland</strong> (brace to dump out Brazil), <strong>Mbappé</strong>&#8217;s decisive penalty past Paraguay, and <strong>De Ketelaere</strong>&#8217;s two goals and an assist in Belgium&#8217;s 4&#8211;1 rout of the USA.</p>
             <p>Engine room: <strong>Ounahi</strong> (two goals v Canada), <strong>Ødegaard</strong> driving Norway, and <strong>Brahim Díaz</strong> (two assists, an African World Cup record). Behind them <strong>Hakimi</strong> &amp; <strong>Aguerd</strong> anchored Morocco&#8217;s shutout, <strong>Ajer</strong> subdued Brazil, <strong>Konsa</strong> marshalled England&#8217;s ten men, and <strong>Nyland</strong> saved a penalty.</p>
             <div class="totw-bench">
               <span class="totw-bench-tag">On the bench</span>
+              <span class="totw-bench-chip tm-team" data-team="ENG" role="button" tabindex="0" aria-label="Jude Bellingham, England — open squad"><span class="fl">&#127468;&#127463;</span> Bellingham</span>
+              <span class="totw-bench-chip tm-team" data-team="ESP" role="button" tabindex="0" aria-label="Mikel Merino, Spain — open squad"><span class="fl">&#127466;&#127480;</span> Merino</span>
               <span class="totw-bench-chip tm-team" data-team="ENG" role="button" tabindex="0" aria-label="Harry Kane, England — open squad"><span class="fl">&#127468;&#127463;</span> Kane</span>
-              <span class="totw-bench-chip tm-team" data-team="ENG" role="button" tabindex="0" aria-label="Bukayo Saka, England — open squad"><span class="fl">&#127468;&#127463;</span> Saka</span>
-              <span class="totw-bench-chip tm-team" data-team="MAR" role="button" tabindex="0" aria-label="Soufiane Rahimi, Morocco — open squad"><span class="fl">&#127474;&#127462;</span> Rahimi</span>
-              <span class="totw-bench-chip tm-team" data-team="NOR" role="button" tabindex="0" aria-label="Andreas Schjelderup, Norway — open squad"><span class="fl">&#127475;&#127476;</span> Schjelderup</span>
+              <span class="totw-bench-chip tm-team" data-team="BEL" role="button" tabindex="0" aria-label="Romelu Lukaku, Belgium — open squad"><span class="fl">&#127463;&#127466;</span> Lukaku</span>
             </div>
           </div>
         </div>
@@ -1610,14 +1610,14 @@ body.fc-immersive-lock{overflow:hidden}
       <div class="es-facts">
         <div class="es-fact"><div class="es-fact-num">48</div><div class="es-fact-lbl">Teams · 3 hosts</div></div>
         <div class="es-fact"><div class="es-fact-num es-fact-flag">🇫🇷</div><div class="es-fact-lbl">Model leader</div></div>
-        <div class="es-fact"><div class="es-fact-num">12</div><div class="es-fact-lbl">Left · R16 on</div></div>
-        <div class="es-fact"><div class="es-fact-num">4</div><div class="es-fact-lbl">Into the QF</div></div>
+        <div class="es-fact"><div class="es-fact-num">10</div><div class="es-fact-lbl">Left · R16 ends</div></div>
+        <div class="es-fact"><div class="es-fact-num">6</div><div class="es-fact-lbl">Into the QF</div></div>
       </div>
       <p>First-ever 48-team World Cup, across USA, Canada and Mexico. The new Round of 32 shields the big sides but opens a knockout path for outsiders.</p>
-      <p><b>Europe on top &#8212; but fragile.</b> France lead the model with Spain, England and Portugal close. Yet R32 claimed two giants: Germany and Netherlands both out on penalties.</p>
-      <p><b>Disruptors are real.</b> Haaland's Norway stunned five-time winners Brazil 2&#8211;1 to reach a first-ever quarter-final; Morocco knocked out the Dutch and then swept co-hosts Canada aside to reach back-to-back last eights. Brazil's exit is their earliest since 1990.</p>
+      <p><b>Europe on top.</b> France lead the model with Spain and England close behind, all three into the quarter-finals. But the knockouts have bitten: Germany and Netherlands fell on penalties in the R32, and Ronaldo's Portugal are out, beaten 1&#8211;0 by Spain in the last 16.</p>
+      <p><b>Disruptors are real.</b> Haaland's Norway stunned five-time winners Brazil 2&#8211;1 to reach a first-ever quarter-final, and Belgium put four past co-hosts USA to make the last eight. Morocco knocked out the Dutch and swept Canada aside to reach back-to-back quarter-finals. Brazil's exit is their earliest since 1990.</p>
       <p><b>Argentina lean on Messi.</b> He passed Klose, hit a record 20th WC goal, and shares the Golden Boot lead on seven with Mbappé and Haaland &#8212; but needed 111 mins past Cape Verde. Durability over a seven-game run is the question, with Egypt next in the R16.</p>
-      <p><b>R16 winding down.</b> Morocco, France, Norway and England are through. Haaland&#8217;s late double sank Brazil 2&#8211;1, and England edged hosts Mexico 3&#8211;2 in an Azteca classic. Morocco&#8211;France (Boston, July 9) and Norway&#8211;England (Miami, July 11) are the first two quarter-finals set. Four ties remain across July 6&#8211;7: Portugal&#8211;Spain and USA&#8211;Belgium today, then Argentina&#8211;Egypt and Switzerland&#8211;Colombia.</p>
+      <p><b>R16 all but done.</b> Spain, Belgium, Morocco, France, Norway and England are through. Merino&#8217;s late goal ended Ronaldo&#8217;s Portugal 1&#8211;0, and Belgium routed the co-hosts USA 4&#8211;1. Morocco&#8211;France (Boston, July 9), Norway&#8211;England (Miami, July 11) and Spain&#8211;Belgium (Los Angeles) are set. Two ties remain, both today (Tuesday July 7): Argentina&#8211;Egypt and Switzerland&#8211;Colombia.</p>
     </div>
   </div>
 </section>
@@ -1640,12 +1640,12 @@ body.fc-immersive-lock{overflow:hidden}
           <tr class="row-top3"><td class="tbl-rank gold">2</td><td class="tbl-name">Spain</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:92%"></div></div><span class="score-val">92</span></div></td><td class="tbl-prob">18.0%</td><td class="tbl-odds hot">Front-runner</td></tr>
           <tr class="row-top3"><td class="tbl-rank gold">3</td><td class="tbl-name">Argentina</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">90</span></div></td><td class="tbl-prob">15.0%</td><td class="tbl-odds hot">Strong</td></tr>
           <tr><td class="tbl-rank">4</td><td class="tbl-name">England</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:89%"></div></div><span class="score-val">89</span></div></td><td class="tbl-prob">13.5%</td><td class="tbl-odds hot">Strong</td></tr>
-          <tr><td class="tbl-rank">5</td><td class="tbl-name">Portugal</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:84%"></div></div><span class="score-val">84</span></div></td><td class="tbl-prob">8.5%</td><td class="tbl-odds">In the mix</td></tr>
+          <tr><td class="tbl-rank">5</td><td class="tbl-name">Belgium</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:76%"></div></div><span class="score-val">76</span></div></td><td class="tbl-prob">6.5%</td><td class="tbl-odds">In the mix</td></tr>
           <tr><td class="tbl-rank">6</td><td class="tbl-name">Norway</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:77%"></div></div><span class="score-val">77</span></div></td><td class="tbl-prob">6.5%</td><td class="tbl-odds">Into QF</td></tr>
           <tr><td class="tbl-rank">7</td><td class="tbl-name">Colombia</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:75%"></div></div><span class="score-val">75</span></div></td><td class="tbl-prob">4.0%</td><td class="tbl-odds">Long shot</td></tr>
           <tr><td class="tbl-rank">8</td><td class="tbl-name">Morocco</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:68%"></div></div><span class="score-val">68</span></div></td><td class="tbl-prob">3.8%</td><td class="tbl-odds">Into QF</td></tr>
-          <tr><td class="tbl-rank">9</td><td class="tbl-name">Belgium</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:72%"></div></div><span class="score-val">72</span></div></td><td class="tbl-prob">3.5%</td><td class="tbl-odds">Dark horse</td></tr>
-          <tr><td class="tbl-rank">10</td><td class="tbl-name">Switzerland</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:67%"></div></div><span class="score-val">67</span></div></td><td class="tbl-prob">2.6%</td><td class="tbl-odds">Long shot</td></tr>
+          <tr><td class="tbl-rank">9</td><td class="tbl-name">Switzerland</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:67%"></div></div><span class="score-val">67</span></div></td><td class="tbl-prob">2.6%</td><td class="tbl-odds">Long shot</td></tr>
+          <tr><td class="tbl-rank">10</td><td class="tbl-name">Egypt</td><td><span class="tier-badge tier-3">Dark Horse</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:58%"></div></div><span class="score-val">58</span></div></td><td class="tbl-prob">1.3%</td><td class="tbl-odds">Long shot</td></tr>
         </tbody>
       </table>
     </div>
@@ -1674,7 +1674,7 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="section-tag">Section 01</div>
     <div class="section-eyebrow">Group Stage</div>
     <h2 class="section-h2">Knockout Bracket</h2>
-    <p class="section-lead">Road to the final. R16 under way &#8212; Morocco, France, Norway and England are into the quarter-finals; bracket sits above full group tables, live standings and fixtures. Tap any fixture for venue, kickoff and officials.</p>
+    <p class="section-lead">Road to the final. R16 almost complete &#8212; Spain, Belgium, Morocco, France, Norway and England are into the quarter-finals; bracket sits above full group tables, live standings and fixtures. Tap any fixture for venue, kickoff and officials.</p>
     <div class="kb-progress">
       <span class="kb-prog done">Groups ✓</span><span class="kb-prog-arrow">→</span>
       <span class="kb-prog done">R32 ✓</span><span class="kb-prog-arrow">→</span>
@@ -1742,7 +1742,7 @@ body.fc-immersive-lock{overflow:hidden}
     <p class="section-lead">Model projects the whole tournament forward &#8212; every unplayed match, group tables, bracket, champion. <b>Current</b> keeps played results, sims the rest; <b>Before the Tournament</b> re-sims everything from pre-tournament ratings.</p>
     <div class="pp-banner reveal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <div class="pp-banner-txt"><b>Model predictions, not official results.</b> Poisson goal model + power ratings, form and home edge; probabilities from a Monte Carlo run. Real results (through <span id="ppCutoffDate">July&nbsp;5</span>) never overwritten. Hit Regenerate any time.</div>
+      <div class="pp-banner-txt"><b>Model predictions, not official results.</b> Poisson goal model + power ratings, form and home edge; probabilities from a Monte Carlo run. Real results (through <span id="ppCutoffDate">July&nbsp;6</span>) never overwritten. Hit Regenerate any time.</div>
     </div>
     <div class="pp-method reveal">
       <span class="pp-method-chip">⚽ Poisson goals</span>
@@ -1969,19 +1969,19 @@ body.fc-immersive-lock{overflow:hidden}
       <div id="rankList">
         <div class="tier-divider-row" data-tier="t1"><div class="tdiv-dot tdiv-1"></div><span class="tdiv-name">Tier 1 — Title Favorites</span><span class="tdiv-count">6 teams</span></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">1</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇫🇷 France</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP I</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Perfect group stage and Group I winners, capped by a 4–1 rout of Norway (Dembélé hat-trick).</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:94%"></i></div><div class="score-big">94</div><div class="score-prob">19.5%</div></div></div>
-        <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">2</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇪🇸 Spain</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP H</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Won Group H without conceding — a first in their history — then swept Austria 3–0 as Unai Simón broke the all-time unbeaten-minutes record.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:92%"></i></div><div class="score-big">92</div><div class="score-prob">18.0%</div></div></div>
+        <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">2</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇪🇸 Spain</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP H</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Still yet to concede after five games; Merino's late goal saw off Portugal 1–0 to reach the quarter-finals, where Belgium await.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:92%"></i></div><div class="score-big">92</div><div class="score-prob">19.5%</div></div></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">3</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇦🇷 Argentina</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP J</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Group J winners; Messi passed Klose as all-time top scorer.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:90%"></i></div><div class="score-big">90</div><div class="score-prob">15.0%</div></div></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col">4</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP L</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Group L winners who edged co-hosts Mexico 3–2 in an Azteca classic (Bellingham brace) to reach the quarter-finals; Norway next in Miami.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:89%"></i></div><div class="score-big">89</div><div class="score-prob">13.5%</div></div></div>
-        <div class="rank-item" data-tier="t1"><div class="rank-num-col">5</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇵🇹 Portugal</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP K</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Runners-up in Group K, then a Toronto epic against Croatia — Ronaldo's penalty and Ramos' 94th-minute winner sealing 2–1.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:84%"></i></div><div class="score-big">84</div><div class="score-prob">8.5%</div></div></div>
+        <div class="rank-item" data-tier="t1"><div class="rank-num-col">5</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇵🇹 Portugal</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP K</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Out in the last 16 — Merino's stoppage-time strike won it 1–0 for Spain in Dallas, ending Ronaldo's final World Cup.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:84%"></i></div><div class="score-big">84</div><div class="score-prob">OUT</div></div></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col">6</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇧🇷 Brazil</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP C</span><span class="rank-move up" title="Up 1 from #7">&#9650;&nbsp;1</span></div><div class="rank-analysis">Out in the last 16, stunned 2–1 by Norway as Haaland struck twice late — their earliest World Cup exit since 1990.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:81%"></i></div><div class="score-big">81</div><div class="score-prob">OUT</div></div></div>
         <div class="tier-divider-row" data-tier="t2"><div class="tdiv-dot tdiv-2"></div><span class="tdiv-name">Tier 2 — Contenders</span><span class="tdiv-count">7 teams</span></div>
         <div class="rank-item" data-tier="t2"><div class="rank-num-col">7</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇳🇴 Norway</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP I</span><span class="rank-move up" title="Up 1 from #8">&#9650;&nbsp;1</span></div><div class="rank-analysis">Through as Group I runners-up, then the shock of the round — Haaland's late double sank Brazil 2–1 to reach a first-ever World Cup quarter-final; England await in Miami.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:77%"></i></div><div class="score-big">77</div><div class="score-prob">6.5%</div></div></div>
         <div class="rank-item" data-tier="t2"><div class="rank-num-col">8</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇲🇽 Mexico</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP A</span><span class="rank-move up" title="Up 6 from #14">&#9650;&nbsp;6</span></div><div class="rank-analysis">Co-hosts' unbeaten run ended in the last 16, edged 3–2 by England at a raucous Azteca despite a spirited fightback.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:76%"></i></div><div class="score-big">76</div><div class="score-prob">OUT</div></div></div>
         <div class="rank-item" data-tier="t2"><div class="rank-num-col">9</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇨🇴 Colombia</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP K</span><span class="rank-move up" title="Up 1 from #10">&#9650;&nbsp;1</span></div><div class="rank-analysis">Group K winners, conceding once all stage.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:75%"></i></div><div class="score-big">75</div><div class="score-prob">4.0%</div></div></div>
-        <div class="rank-item" data-tier="t2"><div class="rank-num-col">10</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇧🇪 Belgium</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP G</span><span class="rank-move up" title="Up 1 from #11">&#9650;&nbsp;1</span></div><div class="rank-analysis">Roared to life late, topping Group G, then the comeback of the tournament — 2–0 down to Senegal, winning 3–2 on a 120th-minute penalty.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:72%"></i></div><div class="score-big">72</div><div class="score-prob">3.5%</div></div></div>
+        <div class="rank-item" data-tier="t2"><div class="rank-num-col">10</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇧🇪 Belgium</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP G</span><span class="rank-move up" title="Up 1 from #11">&#9650;&nbsp;1</span></div><div class="rank-analysis">Unbeaten in 18 and clinical — De Ketelaere's brace fired them past the USA 4–1 into a third straight quarter-final, Spain next.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:75%"></i></div><div class="score-big">75</div><div class="score-prob">5.5%</div></div></div>
         <div class="rank-item" data-tier="t2"><div class="rank-num-col">11</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇲🇦 Morocco</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP C</span><span class="rank-move up" title="Up 2 from #13">&#9650;&nbsp;2</span></div><div class="rank-analysis">Group C runners-up who beat the Dutch on penalties and Canada 3–0 to reach back-to-back quarter-finals; France next.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:68%"></i></div><div class="score-big">68</div><div class="score-prob">3.8%</div></div></div>
         <div class="rank-item" data-tier="t2"><div class="rank-num-col">12</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇨🇭 Switzerland</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP B</span><span class="rank-move up" title="Up 3 from #15">&#9650;&nbsp;3</span></div><div class="rank-analysis">Group B winners.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:67%"></i></div><div class="score-big">67</div><div class="score-prob">2.6%</div></div></div>
-        <div class="rank-item" data-tier="t2"><div class="rank-num-col">13</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇺🇸 USA</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP D</span><span class="rank-move up" title="Up 6 from #19">&#9650;&nbsp;6</span></div><div class="rank-analysis">Won Group D, then held on with ten men to beat Bosnia 2–0 — a first knockout win since 2002.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:66%"></i></div><div class="score-big">66</div><div class="score-prob">2.3%</div></div></div>
+        <div class="rank-item" data-tier="t2"><div class="rank-num-col">13</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇺🇸 USA</span><span class="tier-badge tier-2">Contender</span><span class="group-badge">GRP D</span><span class="rank-move up" title="Up 6 from #19">&#9650;&nbsp;6</span></div><div class="rank-analysis">Out in the last 16 — the co-hosts' home run ended in a 4–1 defeat to Belgium, De Ketelaere scoring twice in Seattle.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:66%"></i></div><div class="score-big">66</div><div class="score-prob">OUT</div></div></div>
         <div class="tier-divider-row" data-tier="t3"><div class="tdiv-dot tdiv-3"></div><span class="tdiv-name">Tier 3 — Dark Horses</span><span class="tdiv-count">9 teams</span></div>
         <div class="rank-item" data-tier="t3"><div class="rank-num-col">14</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇨🇦 Canada</span><span class="tier-badge tier-3">Dark Horse</span><span class="group-badge">GRP B</span><span class="rank-move up" title="Up 7 from #21">&#9650;&nbsp;7</span></div><div class="rank-analysis">A record-breaking run ends in the last 16, beaten 3–0 by Morocco in Houston after reaching the knockouts for the first time.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:63%"></i></div><div class="score-big">63</div><div class="score-prob">OUT</div></div></div>
         <div class="rank-item" data-tier="t3"><div class="rank-num-col">15</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇵🇾 Paraguay</span><span class="tier-badge tier-3">Dark Horse</span><span class="group-badge">GRP D</span><span class="rank-move up" title="Up 15 from #30">&#9650;&nbsp;15</span></div><div class="rank-analysis">Stunned Germany on penalties, then pushed France hard before falling 1–0 to a Mbappé penalty in the last 16. A campaign to be proud of.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:61%"></i></div><div class="score-big">61</div><div class="score-prob">OUT</div></div></div>
@@ -2094,16 +2094,16 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="tier-block-head"><div class="tbdot tbd-1"></div><div class="tier-block-title">Tier 1 &#8212; Title Favorites</div><div class="tier-count">6<span>teams</span></div></div>
         <div class="tier-block-body">
           <div class="tier-pills"><span class="tier-pill">🇫🇷 France</span><span class="tier-pill">🇪🇸 Spain</span><span class="tier-pill">🇦🇷 Argentina</span><span class="tier-pill">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="tier-pill">🇵🇹 Portugal</span><span class="tier-pill">🇧🇷 Brazil</span></div>
-          <div class="tier-stats"><span class="tier-stat alive">5/6 into the QF picture</span><span class="tier-stat out">Brazil out in R16</span></div>
-          <div class="tier-desc">Real path to the trophy &#8212; depth, pedigree, seven-game staying power. France and England are into the quarter-finals; Brazil are the first of the group to fall, beaten by Norway. Spain–Portugal in Dallas guarantees one more exit.</div>
+          <div class="tier-stats"><span class="tier-stat alive">4/6 into the QF</span><span class="tier-stat out">Brazil &amp; Portugal out</span></div>
+          <div class="tier-desc">Real path to the trophy &#8212; depth, pedigree, seven-game staying power. France, Spain and England are into the quarter-finals; Brazil fell to Norway and Portugal to Spain, ending Ronaldo's final World Cup. Four of the six remain.</div>
         </div>
       </div>
       <div class="tier-block reveal">
         <div class="tier-block-head"><div class="tbdot tbd-2"></div><div class="tier-block-title">Tier 2 &#8212; Contenders</div><div class="tier-count">7<span>teams</span></div></div>
         <div class="tier-block-body">
           <div class="tier-pills"><span class="tier-pill">🇳🇴 Norway</span><span class="tier-pill">🇲🇽 Mexico</span><span class="tier-pill">🇨🇴 Colombia</span><span class="tier-pill">🇧🇪 Belgium</span><span class="tier-pill">🇲🇦 Morocco</span><span class="tier-pill">🇨🇭 Switzerland</span><span class="tier-pill">🇺🇸 USA</span></div>
-          <div class="tier-stats"><span class="tier-stat alive">Norway &amp; Morocco into QF</span><span class="tier-stat out">Mexico out in R16</span></div>
-          <div class="tier-desc">Can reach a final with the right variance. Norway (past Brazil) and Morocco (past Canada) are already into the quarter-finals; co-hosts Mexico fell to England. Colombia, Belgium, Switzerland and USA play their R16 ties next.</div>
+          <div class="tier-stats"><span class="tier-stat alive">Norway, Morocco &amp; Belgium in QF</span><span class="tier-stat out">Mexico &amp; USA out</span></div>
+          <div class="tier-desc">Can reach a final with the right variance. Norway (past Brazil), Morocco (past Canada) and Belgium (4–1 over the USA) are into the quarter-finals; co-hosts Mexico and the USA are out. Colombia and Switzerland play the last R16 tie between them.</div>
         </div>
       </div>
       <div class="tier-block reveal">
@@ -2221,10 +2221,10 @@ body.fc-immersive-lock{overflow:hidden}
       </div>
       <div class="dh-card reveal">
         <div class="dh-card-head"><div class="dh-card-team">🇺🇸 USA</div><span class="tier-badge tier-2">Contender</span></div>
-        <div class="dh-stats"><span class="dh-stat">#13</span><span class="dh-stat">PWR 66</span><span class="dh-stat live">R16 ✓</span></div>
-        <div class="dh-card-text">Beat Bosnia 2&#8211;0 a man down for a first knockout win since 2002. Pochettino&#8217;s side has depth, a home crowd and momentum &#8212; Belgium in Seattle next.</div>
+        <div class="dh-stats"><span class="dh-stat">#13</span><span class="dh-stat">PWR 66</span><span class="dh-stat out">OUT · R16</span></div>
+        <div class="dh-card-text">The co-hosts' home run ended in the last 16, beaten 4&#8211;1 by Belgium in Seattle. Three group wins were a US-record haul, but the step up proved too steep.</div>
         <div class="dh-player">⭐ Malik Tillman</div>
-        <div class="dh-upside">&#8593; Deep run on home soil</div>
+        <div class="dh-upside">&#8595; Out in the Round of 16</div>
       </div>
       <div class="dh-card reveal">
         <div class="dh-card-head"><div class="dh-card-team">🇨🇭 Switzerland</div><span class="tier-badge tier-2">Contender</span></div>
@@ -2311,15 +2311,15 @@ body.fc-immersive-lock{overflow:hidden}
     <div id="qCurrent">
     <div class="bq-list">
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#1</div><div class="bq-team-name">🇫🇷 France</div><div class="bq-score-label">Power Score 94</div></div><div class="bq-right"><div class="bq-question">Can they keep Mbappé fit for 7 games?</div><div class="bq-risk hi">● Mbappé fitness</div><div class="bq-detail">Perfect Group I, model favourite, now into the quarter-finals after seeing off Paraguay. Whole ceiling still rides on Mbappé's body — Morocco next in Boston.</div><div class="bq-watch">⚠️ Kylian Mbappé</div></div></div>
-      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#2</div><div class="bq-team-name">🇪🇸 Spain</div><div class="bq-score-label">Power Score 92</div></div><div class="bq-right"><div class="bq-question">Is Yamal fully match-ready?</div><div class="bq-risk md">● Yamal durability</div><div class="bq-detail">Won Group H without conceding. With Nico Williams out, attack leans hard on a managed Yamal — Portugal next.</div><div class="bq-watch">⚠️ Lamine Yamal</div></div></div>
+      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#2</div><div class="bq-team-name">🇪🇸 Spain</div><div class="bq-score-label">Power Score 92</div></div><div class="bq-right"><div class="bq-question">Is Yamal fully match-ready?</div><div class="bq-risk md">● Yamal durability</div><div class="bq-detail">Five games, no goals conceded; Merino's late strike saw off Portugal. With Nico Williams out, attack leans hard on a managed Yamal — Belgium next in the QF.</div><div class="bq-watch">⚠️ Lamine Yamal</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#3</div><div class="bq-team-name">🇦🇷 Argentina</div><div class="bq-score-label">Power Score 90</div></div><div class="bq-right"><div class="bq-question">Can 39-yr Messi last 7 games?</div><div class="bq-risk hi">● Messi legs</div><div class="bq-detail">Won Group J, Messi now all-time top scorer. Needed 111 mins past Cape Verde — fatigue is the risk. Egypt next.</div><div class="bq-watch">⚠️ Lionel Messi</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#4</div><div class="bq-team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div><div class="bq-score-label">Power Score 89</div></div><div class="bq-right"><div class="bq-question">Will the pressure culture repeat?</div><div class="bq-risk md">● Big-game nerves</div><div class="bq-detail">Kane their WC top scorer; survived the Azteca with ten men to beat Mexico 3–2. 60-year drought, James out, Norway in the Miami quarter-final next.</div><div class="bq-watch">⚠️ Reece James (out)</div></div></div>
-      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#5</div><div class="bq-team-name">🇵🇹 Portugal</div><div class="bq-score-label">Power Score 84</div></div><div class="bq-right"><div class="bq-question">Ronaldo: help or hurt?</div><div class="bq-risk md">● Selection calls</div><div class="bq-detail">Ramos' 94th-min header beat Croatia. At 41 Ronaldo's lethal in the box but can constrain the press. Spain next.</div><div class="bq-watch">⚠️ Cristiano Ronaldo</div></div></div>
+      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#5</div><div class="bq-team-name">🇧🇪 Belgium</div><div class="bq-score-label">Power Score 76</div></div><div class="bq-right"><div class="bq-question">Peaking at the right time?</div><div class="bq-risk md">● Defensive lapses</div><div class="bq-detail">Unbeaten in 18; De Ketelaere's brace crushed the USA 4–1. The front line clicks, but Spain's clean-sheet defence is a sterner QF test.</div><div class="bq-watch">⚠️ Charles De Ketelaere</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#6</div><div class="bq-team-name">🇲🇦 Morocco</div><div class="bq-score-label">Power Score 68</div></div><div class="bq-right"><div class="bq-question">Can they finish the chances they create?</div><div class="bq-risk md">● Cutting edge</div><div class="bq-detail">Beat the Dutch on penalties and Canada 3–0 to reach back-to-back quarter-finals, but were second best for a half. France next in Boston.</div><div class="bq-watch">⚠️ Achraf Hakimi</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#7</div><div class="bq-team-name">🇳🇴 Norway</div><div class="bq-score-label">Power Score 77</div></div><div class="bq-right"><div class="bq-question">Can they handle a second heavyweight?</div><div class="bq-risk md">● Zero pedigree</div><div class="bq-detail">Haaland's late double stunned Brazil to reach a first-ever quarter-final. Pedigree still thin, but the ceiling is obvious — England next in Miami.</div><div class="bq-watch">⚠️ Erling Haaland</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#8</div><div class="bq-team-name">🇨🇭 Switzerland</div><div class="bq-score-label">Power Score 67</div></div><div class="bq-right"><div class="bq-question">Enough goals to go deep?</div><div class="bq-risk md">● Cutting edge</div><div class="bq-detail">Beat Algeria 2–0 for a first knockout win since 1938 — efficient and well-drilled, but reliant on Manzambi's spark. Colombia next in Vancouver.</div><div class="bq-watch">⚠️ Johan Manzambi</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#9</div><div class="bq-team-name">🇨🇴 Colombia</div><div class="bq-score-label">Power Score 75</div></div><div class="bq-right"><div class="bq-question">Who scores when Díaz is contained?</div><div class="bq-risk md">● Díaz dependency</div><div class="bq-detail">Group K winners; Díaz muted twice. Arias beat Ghana without him — good sign. Switzerland a sterner test.</div><div class="bq-watch">⚠️ Luis Díaz</div></div></div>
-      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#10</div><div class="bq-team-name">🇧🇪 Belgium</div><div class="bq-score-label">Power Score 72</div></div><div class="bq-right"><div class="bq-question">One run left, or window shut?</div><div class="bq-risk hi">● Consistency</div><div class="bq-detail">Escaped Senegal 3–2 from 2–0 down in 120'. Heroic, but needing it says consistency's unproven. USA next.</div><div class="bq-watch">⚠️ Kevin De Bruyne</div></div></div>
+      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#10</div><div class="bq-team-name">🇪🇬 Egypt</div><div class="bq-score-label">Power Score 58</div></div><div class="bq-right"><div class="bq-question">Can Salah drag them through?</div><div class="bq-risk hi">● Lone talisman</div><div class="bq-detail">Beat Australia on penalties for a first-ever last-16 place. Salah is the difference-maker, but holders Argentina are a huge step up.</div><div class="bq-watch">⚠️ Mohamed Salah</div></div></div>
     </div>
     </div>
     <div id="qPre" style="display:none">
@@ -2355,7 +2355,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="pred-card-label">Most Likely Semifinalists</div>
         <div class="pred-flags">🇫🇷 🇪🇸 🇦🇷 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
         <div class="pred-card-value">France · Spain · Argentina · England</div>
-        <div class="pred-card-reason">France headline a cleared left half; Spain, Argentina and England crowd the right — so one falls early, and Spain–Portugal in Dallas removes a favorite outright.</div>
+        <div class="pred-card-reason">France headline a cleared left half; Spain, Argentina and England crowd the right — Spain already saw off Portugal, so the survivors now collide early on that side.</div>
         <div class="pred-meter"><span class="pred-meter-lbl">Confidence</span><span class="pred-bar"><i style="width:62%"></i></span><span class="pred-meter-val">Medium</span></div>
         <div class="pred-alt">Gatecrashers: Brazil · Portugal</div>
       </div>
@@ -2405,7 +2405,7 @@ body.fc-immersive-lock{overflow:hidden}
       </div>
       <div class="analyst-body">
         <p><span class="an-chip">🇳🇴 #7 ▲</span><strong>Norway vindicated:</strong> form (8/8 qualifying wins, 37 goals) kept them high all along — and Haaland&#8217;s late double to knock out Brazil has carried them to a first-ever quarter-final against England.</p>
-        <p><span class="an-chip">🇦🇷 #3</span><strong>Argentina above England &amp; Portugal:</strong> a perfect Group J and elite squad quality earn third, but a survived 3&#8211;2 scare against Cape Verde sets up a brutal right-half gauntlet.</p>
+        <p><span class="an-chip">🇦🇷 #3</span><strong>Argentina hold third:</strong> a perfect Group J and elite squad quality earn the spot, but a survived 3&#8211;2 scare against Cape Verde sets up a brutal right-half gauntlet — Egypt next in the last 16.</p>
         <p><span class="an-chip down">🇩🇪 #18 ▼12</span><strong>Germany&#8217;s fall — the price of a KO exit:</strong> an excellent squad topped Group E, then lost the shootout 4&#8211;3 to Paraguay. An eliminated side can&#8217;t hold a title-tier slot.</p>
         <p><span class="an-chip down">🇧🇷 #6 ▼</span><strong>Brazil out — the system never clicked:</strong> a flat draw with Morocco and a stoppage-time escape past Japan flagged the doubts, and Norway confirmed them, winning 2&#8211;1 in the last 16. An eliminated side can no longer hold a title-tier ranking.</p>
         <p><span class="an-chip">🇪🇸 #2</span><strong>Spain a fraction behind France:</strong> won Group H without conceding, then dismantled Austria 3&#8211;0 as Simón broke the shutout record. On talent it&#8217;s a coin flip; France lead on depth.</p>
@@ -2656,13 +2656,14 @@ const LB = (function(){
     {n:'Mikel Oyarzabal', t:'ESP', v:4},
     {n:'Ousmane Dembélé', t:'FRA', v:4},
     {n:'Julián Quiñones', t:'MEX', v:4},
+    {n:'Romelu Lukaku', t:'BEL', v:4},
     {n:'Brian Brobbey', t:'NED', v:3},
     {n:'Jonathan David', t:'CAN', v:3},
     {n:'Johan Manzambi', t:'SUI', v:3},
     {n:'Riyad Mahrez', t:'ALG', v:3},
     {n:'Folarin Balogun', t:'USA', v:3},
-    {n:'Romelu Lukaku', t:'BEL', v:3},
     {n:'Cristiano Ronaldo', t:'POR', v:3},
+    {n:'Charles De Ketelaere', t:'BEL', v:2},
     {n:'Jude Bellingham', t:'ENG', v:2},
     {n:'Azzedine Ounahi', t:'MAR', v:2},
     {n:'Rúben Vargas', t:'SUI', v:2},
@@ -2682,13 +2683,15 @@ const LB = (function(){
     {n:'Youri Tielemans', t:'BEL', v:2},
     {n:'Habib Diarra', t:'SEN', v:2},
     {n:'Raúl Jiménez', t:'MEX', v:2},
+    {n:'Malik Tillman', t:'USA', v:2},
     {n:'Casemiro', t:'BRA', v:1},
     {n:'Neymar', t:'BRA', v:1},
     {n:'Gabriel Martinelli', t:'BRA', v:1},
     {n:'Bradley Barcola', t:'FRA', v:1},
     {n:'Antonio Nusa', t:'NOR', v:1},
     {n:'Amad Diallo', t:'CIV', v:1},
-    {n:'Malik Tillman', t:'USA', v:1},
+    {n:'Hans Vanaken', t:'BEL', v:1},
+    {n:'Mikel Merino', t:'ESP', v:1},
     {n:'Brian Cipenga', t:'COD', v:1},
     {n:'Gonçalo Ramos', t:'POR', v:1},
     {n:'Ivan Perišić', t:'CRO', v:1},
@@ -2745,6 +2748,9 @@ const LB = (function(){
     {n:'Anthony Gordon', t:'ENG', v:1},
     {n:'Leandro Trossard', t:'BEL', v:1},
     {n:'Thomas Meunier', t:'BEL', v:1},
+    {n:'Charles De Ketelaere', t:'BEL', v:1},
+    {n:'Nicolas Raskin', t:'BEL', v:1},
+    {n:'Ferran Torres', t:'ESP', v:1},
     {n:'Moussa Niakhaté', t:'SEN', v:1}
   ];
   // Clean sheets — goalkeepers confirmed to have kept a shutout. Rangel (MEX)
@@ -2753,8 +2759,8 @@ const LB = (function(){
   // 519 unbeaten minutes, past Zenga's 1990 mark (AP/FIFA). Kobel (SUI) opened
   // his account in the 2–0 over Algeria.
   const CLEAN = [
+    {n:'Unai Simón', t:'ESP', v:5},
     {n:'Raúl Rangel', t:'MEX', v:4},
-    {n:'Unai Simón', t:'ESP', v:4},
     {n:'Mike Maignan', t:'FRA', v:4},
     {n:'Camilo Vargas', t:'COL', v:3},
     {n:'Emiliano Martínez', t:'ARG', v:2},
@@ -2817,29 +2823,32 @@ const LB = (function(){
     {n:'Jorge Sánchez', t:'MEX', v:1},
     {n:'Marc Guéhi', t:'ENG', v:1},
     {n:'Nico O\u2019Reilly', t:'ENG', v:1},
-    {n:'Jordan Henderson', t:'ENG', v:1}
+    {n:'Jordan Henderson', t:'ENG', v:1},
+    {n:'Renato Veiga', t:'POR', v:1},
+    {n:'Ferran Torres', t:'ESP', v:1}
   ];
 
   // Average match ratings — a composite performance score (0–10) blending goals,
   // assists, key actions and overall influence across the player's appearances.
   // No single official ratings table is published mid-tournament, so this is a
   // model-based aggregate consistent with the results recorded across the site
-  // (not an official FIFA stat). `ap` = appearances; the Round of 16 is under
-  // way, so sides through to the quarter-finals have now played five matches
-  // (those eliminated in the R16 remain on four).
+  // (not an official FIFA stat). `ap` = appearances; the Round of 16 is all but
+  // complete, so sides through to the quarter-finals have now played five
+  // matches (those eliminated in the R16 remain on four).
   const RATINGS = [
     {n:'Lionel Messi',       t:'ARG', v:8.68, ap:4},
     {n:'Kylian Mbappé',      t:'FRA', v:8.60, ap:5},
     {n:'Erling Haaland',     t:'NOR', v:8.42, ap:5},
-    {n:'Mikel Oyarzabal',    t:'ESP', v:8.40, ap:4},
+    {n:'Mikel Oyarzabal',    t:'ESP', v:8.42, ap:5},
     {n:'Harry Kane',         t:'ENG', v:8.36, ap:5},
     {n:'Jude Bellingham',    t:'ENG', v:8.22, ap:5},
     {n:'Ousmane Dembélé',    t:'FRA', v:8.14, ap:5},
+    {n:'Pedri',              t:'ESP', v:8.12, ap:5},
     {n:'Michael Olise',      t:'FRA', v:8.10, ap:5},
-    {n:'Pedri',              t:'ESP', v:8.08, ap:4},
-    {n:'Lamine Yamal',       t:'ESP', v:8.02, ap:4},
+    {n:'Lamine Yamal',       t:'ESP', v:8.04, ap:5},
     {n:'Vinícius Júnior',    t:'BRA', v:7.98, ap:5},
-    {n:'Youri Tielemans',    t:'BEL', v:7.92, ap:4},
+    {n:'Charles De Ketelaere',t:'BEL', v:7.94, ap:5},
+    {n:'Youri Tielemans',    t:'BEL', v:7.90, ap:5},
     {n:'Ismaïla Sarr',       t:'SEN', v:7.84, ap:4},
     {n:'Bukayo Saka',        t:'ENG', v:7.80, ap:5},
     {n:'Johan Manzambi',     t:'SUI', v:7.74, ap:4}
@@ -3458,8 +3467,8 @@ const KB = (function(){
   const R16 = [
     { id:'m89', a:W('m74'), b:W('m77'), as:0, bs:1, meta:'Jul 4 \u00b7 Philadelphia \u00b7 Full time' },
     { id:'m90', a:W('m73'), b:W('m75'), as:0, bs:3, meta:'Jul 4 \u00b7 Houston \u00b7 Full time' },
-    { id:'m93', a:W('m83'), b:W('m84') },
-    { id:'m94', a:W('m81'), b:W('m82') },
+    { id:'m93', a:W('m83'), b:W('m84'), as:0, bs:1, meta:'Jul 6 \u00b7 Dallas \u00b7 Full time' },
+    { id:'m94', a:W('m81'), b:W('m82'), as:1, bs:4, meta:'Jul 6 \u00b7 Seattle \u00b7 Full time' },
     { id:'m91', a:W('m76'), b:W('m78'), as:1, bs:2, meta:'Jul 5 \u00b7 New York/New Jersey \u00b7 Full time' },
     { id:'m92', a:W('m79'), b:W('m80'), as:2, bs:3, meta:'Jul 5 \u00b7 Mexico City \u00b7 Full time' },
     { id:'m95', a:W('m86'), b:W('m88') },
@@ -3876,7 +3885,9 @@ const PP = (function(){
     'CAN|MAR': { hs:0, as:3, pens:false },
     'PAR|FRA': { hs:0, as:1, pens:false },
     'BRA|NOR': { hs:1, as:2, pens:false },
-    'MEX|ENG': { hs:2, as:3, pens:false }
+    'MEX|ENG': { hs:2, as:3, pens:false },
+    'POR|ESP': { hs:0, as:1, pens:false },
+    'USA|BEL': { hs:1, as:4, pens:false }
   };
   // Resolve a played tie regardless of which order the two codes are passed in.
   function fixedKO(a,b){
@@ -4366,8 +4377,8 @@ const TL = (function(){
     {id:'R89',round:'Round of 16',home:'PAR',away:'FRA',hs:0,as:1,note:'Mbapp\u00e9 70\u2032 pen',date:'2026-07-04',time:'17:00',venue:'philly',status:'finished',ref:'Ilgiz Tantashev'},
     {id:'R91',round:'Round of 16',home:'BRA',away:'NOR',hs:1,as:2,note:'Haaland 79′, 90′; Neymar 90+10′ pen',date:'2026-07-05',time:'16:00',venue:'metlife',status:'finished',ref:'Ismail Elfath'},
     {id:'R92',round:'Round of 16',home:'MEX',away:'ENG',hs:2,as:3,date:'2026-07-05',time:'18:00',venue:'azteca',status:'finished',ref:'Alireza Faghani'},
-    {id:'R93',round:'Round of 16',home:'POR',away:'ESP',hs:null,as:null,date:'2026-07-06',time:'14:00',venue:'dallas',status:'upcoming',ref:'TBD'},
-    {id:'R94',round:'Round of 16',home:'USA',away:'BEL',hs:null,as:null,date:'2026-07-06',time:'17:00',venue:'seattle',status:'upcoming',ref:'TBD'},
+    {id:'R93',round:'Round of 16',home:'POR',away:'ESP',hs:0,as:1,note:'Merino 90+1′',date:'2026-07-06',time:'14:00',venue:'dallas',status:'finished',ref:'Anthony Taylor'},
+    {id:'R94',round:'Round of 16',home:'USA',away:'BEL',hs:1,as:4,note:'De Ketelaere 9′, 33′; Tillman 31′; Vanaken 57′; Lukaku 90+3′',date:'2026-07-06',time:'17:00',venue:'seattle',status:'finished',ref:'TBD'},
     {id:'R95',round:'Round of 16',home:'ARG',away:'EGY',hs:null,as:null,date:'2026-07-07',time:'12:00',venue:'atlanta',status:'upcoming',ref:'TBD'},
     {id:'R96',round:'Round of 16',home:'SUI',away:'COL',hs:null,as:null,date:'2026-07-07',time:'13:00',venue:'bcplace',status:'upcoming',ref:'TBD'}
   ];
@@ -4377,7 +4388,7 @@ const TL = (function(){
   // Sorted unique list of Turkish match dates.
   const DATES=[...new Set(ALL.map(m=>m._tr.date))].sort();
   // Site's current day expressed in Turkish time (kickoffs that day land in TR).
-  const TODAY='2026-07-06';                 // Turkish-local "current" date (Monday)
+  const TODAY='2026-07-07';                 // Turkish-local "current" date (Tuesday)
   let activeDate=TODAY;
   if(!DATES.includes(activeDate)){            // fallback to nearest upcoming date
     activeDate=DATES.find(d=>d>=TODAY)||DATES[DATES.length-1];
@@ -4496,7 +4507,7 @@ const FW = (function(){
       {n:'Unai Simón',          t:'ESP', cost:6.0, pts:25},
       {n:'Jordan Pickford',     t:'ENG', cost:5.5, pts:27},
       {n:'Yassine Bounou',      t:'MAR', cost:5.5, pts:23},
-      {n:'Diogo Costa',         t:'POR', cost:6.0, pts:24},
+      {n:'Thibaut Courtois',    t:'BEL', cost:6.0, pts:22},
       {n:'Matt Freese',         t:'USA', cost:5.0, pts:16},
       {n:'Gregor Kobel',        t:'SUI', cost:5.0, pts:17},
       {n:'Ørjan Nyland',        t:'NOR', cost:5.5, pts:26},
@@ -4518,18 +4529,18 @@ const FW = (function(){
       {n:'Pedro Porro',      t:'ESP', cost:6.0, pts:20},
       {n:'Julian Ryerson',   t:'NOR', cost:5.5, pts:17},
       {n:'Daniel Muñoz',     t:'COL', cost:5.5, pts:14},
-      {n:'Nuno Mendes',      t:'POR', cost:6.0, pts:16}
+      {n:'Maxim De Cuyper',  t:'BEL', cost:5.5, pts:15}
     ],
     MID: [
       {n:'Johan Manzambi',   t:'SUI', cost:9.0, pts:32},
       {n:'Mohamed Salah',    t:'EGY', cost:10.5,pts:24},
       {n:'Antoine Griezmann',t:'FRA', cost:9.5, pts:24},
-      {n:'Bruno Fernandes',  t:'POR', cost:9.0, pts:22},
+      {n:'Charles De Ketelaere',t:'BEL', cost:8.0, pts:29},
       {n:'Azzedine Ounahi',  t:'MAR', cost:6.5, pts:26},
       {n:'Bruno Guimarães',  t:'BRA', cost:8.0, pts:20},
       {n:'Juan F. Quintero', t:'COL', cost:6.0, pts:16},
       {n:'Brahim Díaz',      t:'MAR', cost:7.0, pts:24},
-      {n:'Malik Tillman',    t:'USA', cost:7.0, pts:21},
+      {n:'Malik Tillman',    t:'USA', cost:7.0, pts:24},
       {n:'Jude Bellingham',  t:'ENG', cost:11.0,pts:38},
       {n:'Pedri',            t:'ESP', cost:8.5, pts:21},
       {n:'Martin Ødegaard',  t:'NOR', cost:8.0, pts:25},
@@ -4544,10 +4555,10 @@ const FW = (function(){
       {n:'Erling Haaland',   t:'NOR', cost:14.0,pts:53},
       {n:'Cody Gakpo',       t:'NED', cost:10.0,pts:28},
       {n:'Soufiane Rahimi',  t:'MAR', cost:7.0, pts:20},
-      {n:'Cristiano Ronaldo',t:'POR', cost:11.0,pts:30},
+      {n:'Mikel Merino',     t:'ESP', cost:8.0, pts:24},
       {n:'Harry Kane',       t:'ENG', cost:12.5,pts:46},
-      {n:'Romelu Lukaku',    t:'BEL', cost:9.0, pts:19},
-      {n:'Rafael Leão',      t:'POR', cost:8.5, pts:19},
+      {n:'Romelu Lukaku',    t:'BEL', cost:9.0, pts:24},
+      {n:'Jérémy Doku',      t:'BEL', cost:8.5, pts:19},
       {n:'Gonçalo Ramos',    t:'POR', cost:7.5, pts:15},
       {n:'Julián Quiñones',  t:'MEX', cost:7.0, pts:32},
       {n:'Lautaro Martínez', t:'ARG', cost:9.5, pts:20},
