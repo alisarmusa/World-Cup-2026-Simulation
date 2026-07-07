@@ -1933,7 +1933,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="fc-dl-head">
           <div>
             <h4 style="margin-bottom:2px">📊 Difficulty by Nation</h4>
-            <div class="sub" style="margin-bottom:0">How hard each country plays &#8212; your level combined with their star strength.</div>
+            <div class="sub" style="margin-bottom:0">How hard each country plays &#8212; your level, their strength, and your own team's strength combined. Pick your team first to personalise it.</div>
           </div>
           <div class="fc-dl-tabs" id="fcDlTabs">
             <button data-d="easy" class="active">Easy</button>
@@ -5033,30 +5033,43 @@ const FC = (function(){
     hard:   { aiSpeed:0.96, aiReact:0.82, aiKick:9.0, aiErr:0.16, aiAim:0.66 }    // eased (v3)
   };
 
-  // ════════ ADAPTIVE DIFFICULTY (tier × opponent strength) ════════
-  // The three buttons (Easy/Medium/Hard) set a BASE tuning; on top of that, the
-  // opponent's own strength bends the AI. A 5★ England defends and finishes far
-  // sharper than a 1★ Haiti even on the same setting. We derive a 0..1 strength
-  // factor from FC_RATING and scale every AI parameter toward its tougher end as
-  // the opponent gets stronger, then fold both into ONE 1–10 "Match Difficulty".
-  const DIFF_BASE_W = { easy:0.34, medium:0.60, hard:0.86 };  // where each tier sits on the 0..1 skill axis
-  const DIFF_SPREAD = { easy:0.30, medium:0.34, hard:0.30 };  // how much opponent strength can swing it
+  // ════════ ADAPTIVE DIFFICULTY (tier × opponent strength × YOUR strength) ════════
+  // Three inputs decide how hard the CPU plays:
+  //   1) the Easy/Medium/Hard button  → the BASE skill level,
+  //   2) the OPPONENT's strength       → a stronger rival pushes difficulty UP,
+  //   3) YOUR team's strength          → a stronger pick pulls difficulty DOWN.
+  // Intuition: what really matters is the MATCH-UP. Picking 5★ France vs 1★ Haiti
+  // should feel easy; picking 1★ Haiti vs 5★ France should feel brutal. So the AI
+  // skill is bent by the *strength gap* (opponent − you), not the opponent alone.
+  //
+  // Guard-rails (non-negotiable): Easy must stay comfortable, Hard must stay very
+  // hard. Each tier therefore has its OWN clamp window, so no match-up can drag
+  // Easy up into "brutal" or soften Hard down into a "stroll".
+  const DIFF_BASE_W = { easy:0.30, medium:0.58, hard:0.88 };  // base skill for an even match-up
+  const DIFF_GAP_W  = { easy:0.26, medium:0.30, hard:0.24 };  // how strongly the strength-gap bends it
+  // per-tier clamp windows [floor, ceiling] on the 0..1 skill axis:
+  const DIFF_CLAMP  = { easy:[0.12,0.50], medium:[0.40,0.78], hard:[0.72,0.99] };
 
-  // opponent strength → 0..1 (FC_RATING spans ~18..92)
-  function oppStrength(c){ return Math.max(0, Math.min(1, (fcRating(c) - 18) / (92 - 18))); }
+  // any team's strength → 0..1 (FC_RATING spans ~18..92)
+  function teamStrength(c){ return Math.max(0, Math.min(1, (fcRating(c) - 18) / (92 - 18))); }
+  function oppStrength(c){ return teamStrength(c); }   // kept for back-compat
 
-  // Effective 0..1 skill for a (tier, opponent) pairing — the master knob.
-  function effSkill(diff, c){
-    const base = DIFF_BASE_W[diff] != null ? DIFF_BASE_W[diff] : 0.6;
-    const spread = DIFF_SPREAD[diff] != null ? DIFF_SPREAD[diff] : 0.32;
-    // centre the strength swing around 0 so mid-strength ≈ the pure tier value
-    const k = base + (oppStrength(c) - 0.5) * 2 * spread;
-    return Math.max(0.08, Math.min(0.99, k));
+  // Effective 0..1 AI skill for (tier, opponent, me). The strength GAP is
+  // (opponent − me): positive when the rival is stronger (harder), negative when
+  // your pick is stronger (easier). Result is clamped to the tier's own window.
+  function effSkill(diff, oppC, meC){
+    meC = meC || myCode || oppC;
+    const base  = DIFF_BASE_W[diff] != null ? DIFF_BASE_W[diff] : 0.58;
+    const gapW  = DIFF_GAP_W[diff]  != null ? DIFF_GAP_W[diff]  : 0.28;
+    const gap   = oppStrength(oppC) - teamStrength(meC);   // −1..+1
+    let   k     = base + gap * gapW;
+    const win   = DIFF_CLAMP[diff] || [0.08, 0.99];
+    return Math.max(win[0], Math.min(win[1], k));
   }
 
   // Build the actual AI config from that 0..1 skill. Each param interpolates
   // between a deliberately weak floor and a strong ceiling, so the SAME maths
-  // powers all difficulties — the buttons just move the starting point.
+  // powers all difficulties — the buttons + match-up just move the starting point.
   function cfgFromSkill(k){
     const lerp=(a,b)=>a+(b-a)*k;
     return {
@@ -5069,12 +5082,12 @@ const FC = (function(){
     };
   }
 
-  // The live config used by the match = tier × current opponent strength.
-  function activeCfg(){ return cfgFromSkill(effSkill(difficulty, oppCode || myCode)); }
+  // The live config used by the match = tier × opponent × your pick.
+  function activeCfg(){ return cfgFromSkill(effSkill(difficulty, oppCode || myCode, myCode)); }
 
-  // 1–10 match-difficulty score + label/……class for any (tier, opponent).
-  function matchDifficulty(diff, c){
-    const k = effSkill(diff, c);
+  // 1–10 match-difficulty score + label/class for any (tier, opponent, me).
+  function matchDifficulty(diff, oppC, meC){
+    const k = effSkill(diff, oppC, meC);
     const score = Math.max(1, Math.min(10, Math.round(k*9 + 1)));   // 1..10
     let tier, cls;
     if(score<=2){ tier='Stroll';   cls='d1'; }
@@ -6737,7 +6750,7 @@ const FC = (function(){
     if(badge){ badge.textContent = md.tier+' · '+md.score+'/10'; }
     if(wrap){ wrap.className='fc-md '+md.cls; }
     if(note){ note.textContent = difficulty.charAt(0).toUpperCase()+difficulty.slice(1)
-        +' setting vs '+starsFor(oppCode)+'★ '+teams[oppCode].name+'.'; }
+        +' · your '+starsFor(myCode)+'★ '+teams[myCode].name+' vs '+starsFor(oppCode)+'★ '+teams[oppCode].name+'.'; }
     if(fill){ fill.style.width='0'; requestAnimationFrame(()=>requestAnimationFrame(()=>{ fill.style.width=(md.score*10)+'%'; })); }
     if(el.vsMateA) el.vsMateA.textContent='';
     if(el.vsMateB) el.vsMateB.textContent='';
@@ -7030,8 +7043,10 @@ const FC = (function(){
   function dlStars(n){ let s=''; for(let i=1;i<=5;i++) s+=`<span class="${i<=n?'':'off'}">★</span>`; return s; }
   function buildDiffList(){
     const host=document.getElementById('fcDiffList'); if(!host) return;
-    // rank the nations hardest → easiest at the selected level
-    const rows=[...codes].map(c=>({ c, md:matchDifficulty(dlLevel,c), st:starsFor(c), r:fcRating(c) }))
+    // difficulty is shown for YOUR currently-selected team (if none yet, a neutral
+    // mid-strength baseline). Rank the nations hardest → easiest at the set level.
+    const me = myCode || null;
+    const rows=[...codes].filter(c=>c!==me).map(c=>({ c, md:matchDifficulty(dlLevel,c,me), st:starsFor(c), r:fcRating(c) }))
                          .sort((a,b)=> b.md.score-a.md.score || b.r-a.r || teams[a.c].name.localeCompare(teams[b.c].name));
     host.innerHTML = rows.map((o,i)=>
       `<div class="fc-dl-row">`+
@@ -7063,6 +7078,7 @@ const FC = (function(){
       const t=e.target.closest('.fc-team'); if(!t) return;
       grid.querySelectorAll('.fc-team').forEach(x=>x.classList.remove('sel'));
       t.classList.add('sel'); myCode=t.dataset.c;
+      buildDiffList();   // difficulty list now reflects YOUR team's strength
       document.getElementById('fcToMatch').disabled=false;
     });
   }
