@@ -5098,6 +5098,32 @@ const FC = (function(){
     return { score, tier, cls, skill:k };
   }
 
+  // 0–100 "Difficulty by Nation" rating. Anchored to STAR level so each star is a
+  // clean 20-point band (5★→100, 4★→80, 3★→60, 2★→40, 1★→20), then NUDGED a little
+  // by the chosen tier (Hard pushes up, Easy down) and your own team's strength
+  // (a weaker pick nudges up, a stronger pick nudges down). The nudge is capped so
+  // a nation never drifts out of its star band — the star stays the headline.
+  function nationDifficulty100(diff, oppC, meC){
+    meC = meC || myCode || null;
+    const stars = starsFor(oppC);
+    const base  = stars * 20;                              // 20 / 40 / 60 / 80 / 100
+    // tier nudge: Easy −6, Medium 0, Hard +6
+    const tierNudge = diff==='hard' ? 6 : diff==='easy' ? -6 : 0;
+    // your-team nudge: gap (opponent − you) in −1..+1, scaled to about ±6
+    const gap   = meC ? (teamStrength(oppC) - teamStrength(meC)) : 0;
+    const teamNudge = Math.round(gap * 6);
+    let score = base + tierNudge + teamNudge;
+    // keep it inside the star's band (±10) so the star identity stays clear,
+    // and inside an overall 5..100 range.
+    score = Math.max(base - 10, Math.min(base + 10, score));
+    score = Math.max(5, Math.min(100, Math.round(score)));
+    // colour class by score → reuse the d1..d5 palette
+    let cls;
+    if(score<=20) cls='d1'; else if(score<=40) cls='d2';
+    else if(score<=60) cls='d3'; else if(score<=80) cls='d4'; else cls='d5';
+    return { score, cls, stars };
+  }
+
   // ---- World units (logical coordinates; canvas scales to fit) ----
   const H = 500;                 // logical pitch HEIGHT (fixed)
   let   W = 800;                 // logical pitch WIDTH — adapts to the viewport so
@@ -7046,15 +7072,15 @@ const FC = (function(){
     // difficulty is shown for YOUR currently-selected team (if none yet, a neutral
     // mid-strength baseline). Rank the nations hardest → easiest at the set level.
     const me = myCode || null;
-    const rows=[...codes].filter(c=>c!==me).map(c=>({ c, md:matchDifficulty(dlLevel,c,me), st:starsFor(c), r:fcRating(c) }))
-                         .sort((a,b)=> b.md.score-a.md.score || b.r-a.r || teams[a.c].name.localeCompare(teams[b.c].name));
+    const rows=[...codes].filter(c=>c!==me).map(c=>({ c, nd:nationDifficulty100(dlLevel,c,me), st:starsFor(c), r:fcRating(c) }))
+                         .sort((a,b)=> b.nd.score-a.nd.score || b.r-a.r || teams[a.c].name.localeCompare(teams[b.c].name));
     host.innerHTML = rows.map((o,i)=>
       `<div class="fc-dl-row">`+
         `<span class="fc-dl-rank">${i+1}</span>`+
         `<span class="fc-dl-flag">${teams[o.c].flag}</span>`+
         `<span class="fc-dl-name">${teams[o.c].name}</span>`+
         `<span class="fc-dl-stars">${dlStars(o.st)}</span>`+
-        `<span class="fc-dl-badge ${o.md.cls}">${o.md.tier} · ${o.md.score}/10</span>`+
+        `<span class="fc-dl-badge ${o.nd.cls}">${o.nd.score}/100</span>`+
       `</div>`
     ).join('');
     const tabs=document.getElementById('fcDlTabs');
