@@ -1578,13 +1578,13 @@ body.fc-immersive-lock{overflow:hidden}
               <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.9H22l-6 4.3 2.3 6.9-6.3-4.4-6.3 4.4L7.9 13.2 2 8.9h7.6z"/></svg>
               Player of the Round
             </div>
-            <div class="totw-mvp-name">👑 Lionel Messi</div>
-            <span class="totw-mvp-team tm-team" data-team="ARG" role="button" tabindex="0" aria-label="Argentina — open squad"><span class="fl">&#127462;&#127479;</span> Argentina</span>
-            <p class="totw-mvp-line">Dragged the holders back from 2&#8211;0 down to Egypt: a pinpoint cross for Romero, then a drilled equaliser of his own before Enzo Fernández's stoppage-time winner. His eighth goal of the tournament moves him clear at the top of the Golden Boot race.</p>
+            <div class="totw-mvp-name">👑 Erling Haaland</div>
+            <span class="totw-mvp-team tm-team" data-team="NOR" role="button" tabindex="0" aria-label="Norway — open squad"><span class="fl">&#127475;&#127476;</span> Norway</span>
+            <p class="totw-mvp-line">Sank five-time winners Brazil almost single-handed, striking twice late — including an 86th-minute winner — to send Norway to a first-ever World Cup quarter-final. His brace takes him to seven for the tournament, one behind Messi in the Golden Boot race.</p>
             <div class="totw-mvp-stats">
-              <div class="totw-mvp-stat"><b>1</b><span>Goal · 1 ast</span></div>
-              <div class="totw-mvp-stat"><b>8</b><span>Tourn. goals</span></div>
-              <div class="totw-mvp-stat"><b>1st</b><span>Golden Boot</span></div>
+              <div class="totw-mvp-stat"><b>2</b><span>Goals</span></div>
+              <div class="totw-mvp-stat"><b>7</b><span>Tourn. goals</span></div>
+              <div class="totw-mvp-stat"><b>=2nd</b><span>Golden Boot</span></div>
             </div>
           </div>
 
@@ -4398,14 +4398,12 @@ const TL = (function(){
   KO.forEach(m=>{ const b=m.round==='Quarter-final'?'QF':m.round==='Round of 16'?'R16':'R32'; m.group=b; m.gcode=b; m.ko=true; ALL.push(m); });
   // Compute each match's Turkish (TUR) date/time once for grouping & display.
   ALL.forEach(m=>{ m._tr = TM.toTR(m.date, m.time, m.venue); });
-  // Sorted unique list of Turkish match dates.
-  const DATES=[...new Set(ALL.map(m=>m._tr.date))].sort();
   // Site's current day expressed in Turkish time (kickoffs that day land in TR).
   const TODAY='2026-07-08';                 // Turkish-local "current" date (Wednesday)
+  // Sorted unique list of Turkish match dates — TODAY is always included so the
+  // schedule opens on the real current date even when no matches are played.
+  const DATES=[...new Set([...ALL.map(m=>m._tr.date), TODAY])].sort();
   let activeDate=TODAY;
-  if(!DATES.includes(activeDate)){            // fallback to nearest upcoming date
-    activeDate=DATES.find(d=>d>=TODAY)||DATES[DATES.length-1];
-  }
 
   function fmtLong(iso){
     return new Date(iso+'T00:00:00').toLocaleDateString('en-GB',
@@ -4441,7 +4439,6 @@ const TL = (function(){
     const rank = m => m.status==='finished' ? 0 : (m.status==='live' ? 1 : 2);
     const todays=ALL.filter(m=>m._tr.date===activeDate)
       .sort((a,b)=> rank(a)-rank(b) || a._tr.time.localeCompare(b._tr.time));
-    const idx=DATES.indexOf(activeDate);
     const isToday=activeDate===TODAY;
     const nFin=todays.filter(m=>m.status==='finished').length;
     const nLive=todays.filter(m=>m.status==='live').length;
@@ -4452,7 +4449,7 @@ const TL = (function(){
       (nUp?`<span class="tl-count up">⏱️ ${nUp} Upcoming</span>`:'')+`</div>`;
     const body = todays.length
       ? todays.map(matchRow).join('')
-      : '<div class="tm-empty">No matches scheduled on this date.</div>';
+      : `<div class="tm-empty">${isToday?'No matches today.':'No matches scheduled on this date.'}</div>`;
     C('tlCard').innerHTML=`
       <div class="tl-head">
         <button class="tl-close" aria-label="Close" onclick="TL.close()">×</button>
@@ -4462,15 +4459,23 @@ const TL = (function(){
         ${todays.length?chips:''}
       </div>
       <div class="tl-daynav">
-        <button ${idx<=0?'disabled':''} onclick="TL.shift(-1)">‹ Prev day</button>
+        <button ${activeDate<=DATES[0]?'disabled':''} onclick="TL.shift(-1)">‹ Prev day</button>
         <span class="lbl">${isToday?'Today':''}</span>
-        <button ${idx>=DATES.length-1?'disabled':''} onclick="TL.shift(1)">Next day ›</button>
+        <button onclick="TL.shift(1)">Next day ›</button>
       </div>
       <div class="tl-body">${body}</div>`;
   }
-  function open(){ activeDate = DATES.includes(TODAY)?TODAY:activeDate; render(); C('tlModal').classList.add('open'); document.body.style.overflow='hidden'; }
+  function open(){ activeDate = TODAY; render(); C('tlModal').classList.add('open'); document.body.style.overflow='hidden'; }
   function close(){ C('tlModal').classList.remove('open'); document.body.style.overflow=''; }
-  function shift(d){ const i=DATES.indexOf(activeDate)+d; if(i>=0&&i<DATES.length){ activeDate=DATES[i]; render(); } }
+  function shift(d){
+    // Step by a calendar DAY (not just dates that have fixtures) so you can walk
+    // into empty future dates like Jul 13. Prev is bounded at the first fixture
+    // date; Next is open-ended into the future.
+    const dt=new Date(activeDate+'T00:00:00'); dt.setDate(dt.getDate()+d);
+    const next=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+    if(next<DATES[0]) return;   // don't go before the first scheduled date
+    activeDate=next; render();
+  }
   function isOpen(){ return C('tlModal') && C('tlModal').classList.contains('open'); }
   function refresh(){ if(isOpen()) render(); }
   function init(){
@@ -5058,10 +5063,10 @@ const FC = (function(){
   // Guard-rails (non-negotiable): Easy must stay comfortable, Hard must stay very
   // hard. Each tier therefore has its OWN clamp window, so no match-up can drag
   // Easy up into "brutal" or soften Hard down into a "stroll".
-  const DIFF_BASE_W = { easy:0.30, medium:0.58, hard:0.88 };  // base skill for an even match-up
-  const DIFF_GAP_W  = { easy:0.26, medium:0.30, hard:0.24 };  // how strongly the strength-gap bends it
+  const DIFF_BASE_W = { easy:0.07, medium:0.38, hard:0.70 };  // base skill for an even match-up
+  const DIFF_GAP_W  = { easy:0.14, medium:0.26, hard:0.24 };  // how strongly the strength-gap bends it
   // per-tier clamp windows [floor, ceiling] on the 0..1 skill axis:
-  const DIFF_CLAMP  = { easy:[0.12,0.50], medium:[0.40,0.78], hard:[0.72,0.99] };
+  const DIFF_CLAMP  = { easy:[0.02,0.20], medium:[0.24,0.58], hard:[0.52,0.88] };
 
   // any team's strength → 0..1 (FC_RATING spans ~18..92)
   function teamStrength(c){ return Math.max(0, Math.min(1, (fcRating(c) - 18) / (92 - 18))); }
@@ -5086,11 +5091,11 @@ const FC = (function(){
   function cfgFromSkill(k){
     const lerp=(a,b)=>a+(b-a)*k;
     return {
-      aiSpeed: lerp(0.50, 1.02),   // chase speed
-      aiReact: lerp(0.28, 0.86),   // tracking / interception / commit rate
-      aiKick:  lerp(4.6, 9.4),     // shot power
-      aiErr:   lerp(0.78, 0.10),   // positional wobble (INVERTED — less error when strong)
-      aiAim:   lerp(0.06, 0.72),   // shot placement accuracy
+      aiSpeed: lerp(0.34, 0.84),   // chase speed
+      aiReact: lerp(0.14, 0.64),   // tracking / interception / commit rate
+      aiKick:  lerp(3.8, 8.0),     // shot power
+      aiErr:   lerp(1.00, 0.26),   // positional wobble (INVERTED — less error when strong)
+      aiAim:   lerp(0.02, 0.52),   // shot placement accuracy
       skill:   k
     };
   }
@@ -5115,21 +5120,20 @@ const FC = (function(){
   // clean 20-point band (5★→100, 4★→80, 3★→60, 2★→40, 1★→20), then NUDGED a little
   // by the chosen tier (Hard pushes up, Easy down) and your own team's strength
   // (a weaker pick nudges up, a stronger pick nudges down). The nudge is capped so
-  // a nation never drifts out of its star band — the star stays the headline.
+  // The chosen MODE is the main driver: it scales the star base so the same
+  // nation reads far easier on Easy than on Hard. Roughly — Easy ≈ 55% of the
+  // star value, Medium ≈ 75%, Hard ≈ 92% (a 5★ side → ~55 / ~75 / ~92). Your own
+  // team then nudges it a touch (weaker pick → up, stronger pick → down).
   function nationDifficulty100(diff, oppC, meC){
     meC = meC || myCode || null;
     const stars = starsFor(oppC);
     const base  = stars * 20;                              // 20 / 40 / 60 / 80 / 100
-    // tier nudge: Easy −6, Medium 0, Hard +6
-    const tierNudge = diff==='hard' ? 6 : diff==='easy' ? -6 : 0;
-    // your-team nudge: gap (opponent − you) in −1..+1, scaled to about ±6
+    const tierFactor = diff==='hard' ? 0.92 : diff==='easy' ? 0.55 : 0.75;
+    // your-team nudge: gap (opponent − you) in −1..+1, scaled to about ±5
     const gap   = meC ? (teamStrength(oppC) - teamStrength(meC)) : 0;
-    const teamNudge = Math.round(gap * 6);
-    let score = base + tierNudge + teamNudge;
-    // keep it inside the star's band (±10) so the star identity stays clear,
-    // and inside an overall 5..100 range.
-    score = Math.max(base - 10, Math.min(base + 10, score));
-    score = Math.max(5, Math.min(100, Math.round(score)));
+    const teamNudge = Math.round(gap * 5);
+    let score = base * tierFactor + teamNudge;
+    score = Math.max(4, Math.min(100, Math.round(score)));
     // colour class by score → reuse the d1..d5 palette
     let cls;
     if(score<=20) cls='d1'; else if(score<=40) cls='d2';
