@@ -4399,7 +4399,7 @@ const TL = (function(){
   // Compute each match's Turkish (TUR) date/time once for grouping & display.
   ALL.forEach(m=>{ m._tr = TM.toTR(m.date, m.time, m.venue); });
   // Site's current day expressed in Turkish time (kickoffs that day land in TR).
-  const TODAY='2026-07-08';                 // Turkish-local "current" date (Wednesday)
+  const TODAY='2026-07-09';                 // Turkish-local "current" date (Thursday)
   // Sorted unique list of Turkish match dates — TODAY is always included so the
   // schedule opens on the real current date even when no matches are played.
   const DATES=[...new Set([...ALL.map(m=>m._tr.date), TODAY])].sort();
