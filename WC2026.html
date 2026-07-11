@@ -214,6 +214,9 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .lb-apps{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--text-faint);text-align:right;line-height:1;position:relative}
 .lb-apps::before{content:"";position:absolute;left:-7px;top:50%;transform:translateY(-50%);height:18px;width:1px;background:var(--border)}
 .lb-row.lb-top1 .lb-apps{color:var(--text-secondary)}
+.lb-bar{margin-top:7px;height:4px;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden}
+.lb-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green-600),var(--gold-500));transition:width .4s ease}
+.lb-row.lb-top1 .lb-bar i{background:linear-gradient(90deg,var(--gold-500),var(--gold-300))}
 .lb-empty{font-size:14px;color:var(--text-muted);padding:18px 4px}
 @media(max-width:560px){.lb-head h3{font-size:25px}.lb-row{padding:10px 13px;gap:10px;grid-template-columns:26px 1fr auto}.lb-name{font-size:14px}.lb-val{font-size:22px}.lb-row.lb-row-rating{grid-template-columns:26px 1fr 60px 38px;gap:11px}.lb-collabel{grid-template-columns:26px 1fr 60px 38px;gap:11px;padding:0 13px 9px}.lb-apps{font-size:17px}.lb-apps::before{left:-6px;height:16px}}
 
@@ -226,6 +229,21 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .es-fact-num{font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;background:linear-gradient(180deg,#fff,var(--gold-300));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .es-fact-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-top:5px}
 .es-fact-flag{-webkit-text-fill-color:initial;background:none;font-size:34px}
+.es-fact-link{cursor:pointer;transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition)}
+.es-fact-link:hover{border-color:var(--gold-400);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.es-fact-link:focus-visible{outline:none;border-color:var(--gold-400);box-shadow:0 0 0 2px rgba(212,175,55,.35)}
+.es-fact-go{position:absolute;right:12px;top:12px;font-size:18px;line-height:1;color:var(--text-faint);opacity:0;transform:translateX(-4px);transition:opacity var(--transition),transform var(--transition)}
+.es-fact-link:hover .es-fact-go,.es-fact-link:focus-visible .es-fact-go{opacity:1;transform:translateX(0);color:var(--gold-400)}
+.es-glance{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;padding:13px 16px;background:var(--glass);border:1px solid var(--border);border-left:3px solid var(--gold-400);border-radius:var(--radius-md);cursor:pointer;transition:border-color var(--transition),background var(--transition)}
+.es-glance:hover{border-color:var(--gold-400);background:var(--glass-light)}
+.es-glance:focus-visible{outline:none;box-shadow:0 0 0 2px rgba(212,175,55,.35)}
+.es-glance-tag{font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--navy-950);background:linear-gradient(135deg,var(--gold-400),var(--gold-600));padding:4px 10px;border-radius:20px;white-space:nowrap}
+.es-glance-tie{font-size:13px;font-weight:700;color:var(--text-primary);display:inline-flex;align-items:center;gap:6px}
+.es-glance-tie .fl{font-size:15px}
+.es-glance-v{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint)}
+.es-glance-tbd{font-weight:600;color:var(--text-muted)}
+.es-glance-sep{color:var(--text-faint)}
+@media(max-width:560px){.es-glance-sep{display:none}.es-glance-tie{font-size:12px}}
 .champ-flag{-webkit-text-fill-color:initial;background:none}
 .prose p:last-child{margin-bottom:0}
 .prose strong{color:var(--text-primary);font-weight:600}
@@ -239,6 +257,9 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .method-weight{font-family:'Bebas Neue',sans-serif;font-size:32px;background:linear-gradient(180deg,var(--gold-300),var(--gold-500));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;flex-shrink:0}
 .method-bar{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
 .method-fill{height:100%;background:linear-gradient(90deg,var(--green-400),var(--gold-500));border-radius:3px;box-shadow:0 0 8px rgba(212,175,55,.4)}
+.method-card.mc-major .method-fill{background:linear-gradient(90deg,var(--gold-500),var(--gold-300));box-shadow:0 0 10px rgba(212,175,55,.5)}
+.method-card.mc-minor .method-fill{background:linear-gradient(90deg,rgba(255,255,255,.22),rgba(255,255,255,.34));box-shadow:none}
+.method-card.mc-minor .method-weight{background:linear-gradient(180deg,#fff,var(--text-muted));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 
 /* ── TOP 10 TABLE ── */
 .table-shell{background:var(--glass);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
@@ -304,6 +325,16 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .rank-score-col{display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid var(--border-light);padding:16px 10px;gap:3px}
 .score-big{font-family:'Bebas Neue',sans-serif;font-size:34px;background:linear-gradient(180deg,#fff,var(--gold-400));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
 .score-prob{font-size:11px;font-weight:600;color:var(--text-faint)}
+/* horizontal power-score bar in the score column */
+.rank-hbar{width:100%;max-width:64px;height:4px;margin-top:7px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.rank-hbar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--green-500),var(--gold-400))}
+.rank-item.gold-lead .rank-hbar i,.rank-num-col.gold-num~.rank-score-col .rank-hbar i{background:linear-gradient(90deg,var(--gold-400),var(--gold-300))}
+/* eliminated teams: dim so surviving sides stand out */
+.rank-item.is-out{opacity:.62}
+.rank-item.is-out .score-big{-webkit-text-fill-color:var(--text-muted);background:none;color:var(--text-muted)}
+.rank-item.is-out .rank-hbar i{background:rgba(255,255,255,.22)}
+.rank-item.is-out .score-prob{color:#f87171;font-weight:800;letter-spacing:.06em}
+.rank-item.is-out:hover{opacity:.82}
 .score-bar-mini{width:5px;height:34px;background:rgba(255,255,255,.09);border-radius:3px;overflow:hidden;display:flex;align-items:flex-end;margin-bottom:5px}
 .score-bar-mini i{display:block;width:100%;background:linear-gradient(180deg,var(--gold-300),var(--gold-600));border-radius:3px}
 
@@ -319,6 +350,10 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .tier-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
 .tier-pill{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:6px 16px;font-size:13px;font-weight:600;color:var(--text-secondary);transition:all var(--transition);cursor:default}
 .tier-pill:hover{background:rgba(212,175,55,.18);color:var(--gold-300);border-color:rgba(212,175,55,.4)}
+.tier-pill.tp-live{color:var(--green-300);background:rgba(31,196,111,.14);border-color:rgba(31,196,111,.34);font-weight:700}
+.tier-pill.tp-live::after{content:'✓';margin-left:6px;font-size:10px;color:var(--green-300)}
+.tier-pill.tp-out{opacity:.4;text-decoration:line-through;text-decoration-color:rgba(255,255,255,.35)}
+.tier-pill.tp-out:hover{opacity:.62;background:rgba(255,255,255,.05);color:var(--text-secondary);border-color:var(--border)}
 .tier-desc{font-size:14px;color:var(--text-muted);line-height:1.72;max-width:780px}
 .tier-count{margin-left:auto;font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold-400);line-height:1}
 .tier-count span{font-family:'Inter',sans-serif;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);display:block;text-align:right;margin-top:-3px}
@@ -341,6 +376,13 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .dh-stat{font-size:10.5px;font-weight:800;letter-spacing:.06em;color:var(--text-secondary);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:3px 9px;border-radius:6px}
 .dh-stat.live{color:var(--green-300);background:rgba(31,196,111,.14);border-color:rgba(31,196,111,.32)}
 .dh-player{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--gold-300);margin-bottom:12px}
+/* eliminated dark horses: dim + neutral border, red down-pill, so live ones pop */
+.dh-card.dh-out{opacity:.6;border-top-color:rgba(255,255,255,.14)}
+.dh-card.dh-out::after{background:none}
+.dh-card.dh-out:hover{opacity:.82;box-shadow:var(--shadow-lg)}
+.dh-card.dh-out .dh-card-team{color:var(--text-secondary)}
+.dh-card.dh-out .dh-upside{background:rgba(239,68,68,.10);border-color:rgba(239,68,68,.30);color:#f87171}
+.dh-card.dh-out .dh-stat.live{color:#f87171;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.30)}
 
 /* ── BIGGEST QUESTIONS ── */
 .bq-list{display:flex;flex-direction:column;gap:12px}
@@ -359,6 +401,13 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .bq-risk.md{color:var(--gold-300);background:rgba(212,175,55,.13);border:1px solid rgba(212,175,55,.32)}
 .bq-risk.lo{color:var(--green-300);background:rgba(31,196,111,.13);border:1px solid rgba(31,196,111,.32)}
 .bq-watch{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--gold-300);margin-top:10px}
+/* eliminated teams: dim the row + red pill so live questions stand out */
+.bq-item.bq-out{opacity:.58}
+.bq-item.bq-out:hover{opacity:.8}
+.bq-item.bq-out .bq-team-name{color:var(--text-secondary)}
+.bq-item.bq-out .bq-question{color:var(--text-secondary)}
+.bq-item.bq-out .bq-risk{color:#f87171!important;background:rgba(239,68,68,.12)!important;border-color:rgba(239,68,68,.32)!important}
+.bq-item.bq-out .bq-watch{color:#f87171}
 
 /* ── PREDICTIONS ── */
 .pred-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
@@ -397,6 +446,10 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .ps-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-600),var(--gold-400))}
 .pred-scorer.lead .ps-nm{color:var(--gold-300)}.pred-scorer.lead .ps-bar i{background:linear-gradient(90deg,var(--gold-500),var(--gold-300))}
 .ps-n{font-weight:800;color:#fff;min-width:14px;text-align:right}
+.ps-a{font-size:9px;font-weight:700;letter-spacing:.02em;color:var(--text-faint);min-width:30px;text-align:right;white-space:nowrap}
+.pred-scorer.lead .ps-a{color:var(--gold-300)}
+.ps-tiebreak{font-size:10px;color:var(--text-muted);margin:-4px 0 12px;padding-left:2px}
+.ps-tiebreak b{color:var(--gold-300);font-weight:700}
 .pred-card.upset::before{background:radial-gradient(circle,rgba(230,126,34,.14),transparent 70%)}
 .pred-upset-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:2px 0 12px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em}
 .pu-win{color:#fff}.pu-lose{color:var(--text-muted)}
@@ -437,7 +490,9 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .totw-box-top{width:46%;height:74px;left:50%;top:0;transform:translateX(-50%);border-top:none}
 .totw-box-bot{width:46%;height:74px;left:50%;bottom:0;transform:translateX(-50%);border-bottom:none}
 .totw-rows{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
-.totw-row{display:flex;justify-content:center;gap:clamp(8px,2.4vw,30px)}
+.totw-row{display:flex;justify-content:center;gap:clamp(8px,2.4vw,30px);position:relative}
+.totw-row[data-band]::before{content:attr(data-band);position:absolute;left:2px;top:50%;transform:translateY(-50%);font-size:8.5px;font-weight:800;letter-spacing:.16em;color:rgba(255,255,255,.20);pointer-events:none;z-index:1}
+@media(max-width:560px){.totw-row[data-band]::before{display:none}}
 .totw-player{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;width:84px;outline:none;-webkit-tap-highlight-color:transparent}
 .totw-jersey{position:relative;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;background:linear-gradient(145deg,var(--navy-800),var(--navy-950));border:2px solid rgba(212,175,55,.5);box-shadow:0 6px 16px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12);transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition)}
 .totw-jersey .totw-flag{font-size:21px;line-height:1}
@@ -544,6 +599,9 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .fw-pick-info{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
 .fw-pick-name{display:block;max-width:100%;font-size:12px;font-weight:700;color:#fff;white-space:normal;line-height:1.25;overflow-wrap:break-word}
 .fw-pick-meta{display:block;max-width:100%;font-size:9.5px;color:var(--text-muted);letter-spacing:.03em;white-space:normal;line-height:1.3;overflow-wrap:break-word}
+.fw-pick-ptbar{margin-top:5px;height:3px;border-radius:2px;background:rgba(255,255,255,.07);overflow:hidden}
+.fw-pick-ptbar i{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green-500),var(--gold-400));transition:width .35s ease}
+.fw-pick.selected .fw-pick-ptbar i{background:linear-gradient(90deg,var(--gold-400),var(--gold-300))}
 .fw-pick-cost{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--gold-300);flex-shrink:0;line-height:1}
 .fw-pick-check{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold-400),var(--gold-600));color:var(--navy-950);font-size:10px;font-weight:900;display:none;align-items:center;justify-content:center;border:1.5px solid var(--navy-900)}
 .fw-pick.selected .fw-pick-check{display:flex}
@@ -737,6 +795,9 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 /* ── TODAY'S MATCHES (Tournament Live) MODAL ── */
 .topbar-live{cursor:pointer;transition:background var(--transition)}
 .topbar-live:hover{background:rgba(192,57,43,.28)}
+.topbar-live.no-live{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:var(--text-muted)}
+.topbar-live.no-live:hover{background:rgba(255,255,255,.12);box-shadow:none}
+.topbar-live.no-live .live-dot{background:#9aa3a0;box-shadow:none;animation:none}
 .tl-card{background:var(--off-white);border-radius:var(--radius-lg);max-width:560px;width:100%;box-shadow:var(--shadow-lg);overflow:hidden;animation:tmpop .25s cubic-bezier(.4,0,.2,1);max-height:86vh;display:flex;flex-direction:column}
 .tl-head{background:var(--green-800);position:relative;overflow:hidden;padding:22px 24px 26px;flex-shrink:0;min-height:128px}
 .tl-head::after{content:'';position:absolute;top:-70px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(201,168,76,.13) 0%,transparent 65%);pointer-events:none}
@@ -813,7 +874,7 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 
 /* odds table */
 .pp-odds-grid{display:grid;grid-template-columns:1fr;gap:0;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:26px}
-.pp-odds-row{display:grid;grid-template-columns:30px 1fr repeat(4,minmax(52px,72px));align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border-light);font-size:13px}
+.pp-odds-row{display:grid;grid-template-columns:30px 1fr repeat(4,minmax(48px,64px)) minmax(64px,88px);align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border-light);font-size:13px}
 .pp-odds-row:last-child{border-bottom:none}
 .pp-odds-row.head{background:var(--surface);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint)}
 .pp-odds-row.head .pp-o-num{color:var(--text-faint)}
@@ -822,7 +883,7 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .pp-o-val{text-align:right;font-variant-numeric:tabular-nums}
 .pp-o-val.win{font-weight:800;color:var(--green-700)}
 .pp-o-bar{position:relative}
-.pp-o-bar .barbg{height:5px;background:var(--surface);border-radius:3px;overflow:hidden;margin-top:3px}
+.pp-o-bar .barbg{height:5px;background:var(--surface);border-radius:3px;overflow:hidden;margin-top:0}
 .pp-o-bar .barfill{height:100%;background:linear-gradient(90deg,var(--green-600),var(--gold-500));border-radius:3px}
 
 /* predicted fixtures */
@@ -915,6 +976,18 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 .kb-tree .ppt-row .nm.tm-team:hover::after{opacity:.7}
 .kb-tree .ppt-row.adv .nm.tm-team{color:var(--green-300)}
 .kb-tree .ppt-row .nm.tm-team:focus-visible{box-shadow:0 0 0 2px rgba(212,175,55,.35)}
+
+/* KB tree connectors — thread each tie into the next round so the path to the
+   Final reads clearly. Right stub leaves every non-final column; a matching
+   left stub enters every column after the first (and the Champion capsule). */
+.kb-tree .ppt-col{position:relative}
+.kb-tree .ppt-col:not(.ppt-col-champ) .ppt-tie::after{background:var(--gold-400);opacity:.5;right:-11px;width:11px}
+.kb-tree .ppt-col:not(:first-child) .ppt-tie::before,
+.kb-tree .ppt-col-champ .ppt-champ::before{content:'';position:absolute;top:50%;left:-11px;width:11px;height:1px;background:var(--gold-400);opacity:.5}
+.kb-tree .ppt-col:not(:first-child) .ppt-tie{position:relative}
+.kb-tree .ppt-col-champ .ppt-champ{position:relative}
+/* tint the existing column divider gold on the KB tree for a cleaner bracket spine */
+.kb-tree .ppt-col+.ppt-col{border-left-color:rgba(212,175,55,.22)}
 @media (hover:none){.kb-tree .ppt-row .nm.tm-team::after{opacity:.55}}
 
 /* ── KNOCKOUT BRACKET (Groups section — real qualifiers) ── */
@@ -961,7 +1034,7 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
 
 @media(max-width:600px){
   .pp-regen{margin-left:0}
-  .pp-odds-row{grid-template-columns:22px minmax(0,1fr) repeat(4,44px);font-size:11.5px;gap:5px;padding:9px 8px}
+  .pp-odds-row{grid-template-columns:22px minmax(0,1fr) repeat(4,38px) 46px;font-size:11.5px;gap:5px;padding:9px 8px}
   .pp-champion-final{flex-direction:column;gap:8px}
   .pp-pfix-team .nm{font-size:12.5px}
 }
@@ -981,8 +1054,11 @@ body.spa header.hero.active-view{display:block;animation:viewIn .32s ease}
   .hero{padding:64px 20px 52px}
   .page-section{padding:56px 0}
   .container{padding:0 18px}
-  .rank-item{grid-template-columns:46px 1fr}
-  .rank-score-col{display:none}
+  .rank-item{grid-template-columns:46px 1fr 66px}
+  .rank-score-col{padding:12px 8px}
+  .rank-score-col .score-big{font-size:26px}
+  .rank-score-col .score-bar-mini{display:none}
+  .rank-hbar{margin-top:5px}
   .pred-grid,.dh-grid{grid-template-columns:1fr}
   .method-grid{grid-template-columns:1fr}
   .hero-stats{flex-wrap:wrap;gap:18px 0}
@@ -1227,6 +1303,9 @@ body.fc-immersive-lock{overflow:hidden}
 .fc-stars{display:flex;gap:1px;line-height:1}
 .fc-star{font-size:9px;color:var(--gold-400)}
 .fc-star.off{color:rgba(255,255,255,.18)}
+.fc-legend{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10.5px;font-weight:600;letter-spacing:.02em;color:var(--text-muted);margin:-6px 0 16px}
+.fc-legend .fc-star{font-size:11px;color:var(--gold-400)}
+.fc-legend-sep{color:var(--text-faint)}
 
 /* difficulty + controls row */
 .fc-diff-label{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-300);margin-bottom:11px}
@@ -1419,7 +1498,7 @@ body.fc-immersive-lock{overflow:hidden}
   <button class="ticker-tag" id="breakingBtn" type="button" data-view="breaking" title="Open the Breaking News section">Breaking<span class="ticker-tag-caret" aria-hidden="true">&#9656;</span></button>
   <div style="overflow:hidden;flex:1">
     <div class="ticker-track">
-      <span class="ticker-item">&#128308; Latest &#8212; Spain 2&#8211;1 Belgium in Los Angeles: Fabi&aacute;n Ruiz opened, Charles De Ketelaere levelled on 41&#8242;, then Mikel Merino struck on 88&#8242; to send La Roja to a semi-final with France</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9876;&#65039; Semi-final set &#8212; France meet Spain in the last four, a rematch of the Euro 2024 semi; Les Bleus chase a third final in four tournaments, La Roja a first since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127463;&#127466; Belgium&#8217;s goodbye &#8212; Charles De Ketelaere&#8217;s equaliser in Los Angeles wasn&#8217;t enough as Spain won 2&#8211;1; a golden generation exits at the quarter-final stage once more</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain&#8217;s wall &#8212; De la Fuente&#8217;s side finally conceded (De Ketelaere) but still march on; unbeaten and now one win from a first final since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#129508; Golden Glove race &#8212; Mike Maignan&#8217;s shutout of Morocco was France&#8217;s fifth clean sheet in six; he and Spain&#8217;s Unai Sim&oacute;n lead the goalkeeping charts into the semis</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France cruise &#8212; Mbapp&eacute; and Demb&eacute;l&eacute; strike in a 2&#8211;0 win over Morocco in Boston, sending Les Bleus to a third straight World Cup semi-final; Spain now await</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Mbapp&eacute;&#8217;s goal v Morocco is his eighth, drawing level with Messi (both 8) but leading on the assists tiebreak (3 to 1); Haaland and Kane give chase</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; Belgium and Morocco join Portugal, the USA, Brazil, Mexico, Colombia, Egypt, Canada and Paraguay on the way home</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128506;&#65039; Two to come &#8212; Norway&#8211;England in Miami and Argentina&#8211;Switzerland in Kansas City complete the quarter-finals; the winners meet in the other semi-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Quarter-finals &#8212; France and Spain are through to the last four; two ties remain (all TRT): Norway&#8211;England (Sat Jul 11, Miami) and Argentina&#8211;Switzerland (Sun Jul 12, Kansas City)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Holders&#8217; road &#8212; Argentina&#8217;s title defence rolls into a quarter-final with Switzerland in Kansas City (Sun July 12, 04:00 TRT); three wins from the trophy</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127475;&#127476; Dream run &#8212; Haaland&#8217;s Norway, quarter-finalists for the first time ever after knocking out Brazil, meet England in Miami (Sat July 11, 17:00 TRT) with a semi-final place at stake</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi magic &#8212; Argentina roar back from 2&#8211;0 down with three goals in eight minutes to beat Egypt 3&#8211;2; Cristian Romero, Lionel Messi and a stoppage-time Enzo Fern&aacute;ndez header complete a stunning comeback in Atlanta</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127464;&#127469; Swiss hold their nerve &#8212; Switzerland edge Colombia 4&#8211;3 on penalties after a goalless 120 minutes in Vancouver, Gregor Kobel the shoot-out hero as they reach the quarter-finals for the first time since 1954</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127967;&#65039; The prize &#8212; the 2026 World Cup final is set for MetLife Stadium, New Jersey on July 19; from the last four, it is two wins to lift it</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128308; Latest &#8212; Spain 2&#8211;1 Belgium in Los Angeles: Fabi&aacute;n Ruiz opened, Charles De Ketelaere levelled on 41&#8242;, then Mikel Merino struck on 88&#8242; to send La Roja to a semi-final with France</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9876;&#65039; Semi-final set &#8212; France meet Spain in the last four, a rematch of the Euro 2024 semi; Les Bleus chase a third final in four tournaments, La Roja a first since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127463;&#127466; Belgium&#8217;s goodbye &#8212; Charles De Ketelaere&#8217;s equaliser in Los Angeles wasn&#8217;t enough as Spain won 2&#8211;1; a golden generation exits at the quarter-final stage once more</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain&#8217;s wall &#8212; De la Fuente&#8217;s side finally conceded (De Ketelaere) but still march on; unbeaten and now one win from a first final since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#129508; Golden Glove race &#8212; Mike Maignan&#8217;s shutout of Morocco was France&#8217;s fifth clean sheet in six; he and Spain&#8217;s Unai Sim&oacute;n lead the goalkeeping charts into the semis</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France cruise &#8212; Mbapp&eacute; and Demb&eacute;l&eacute; strike in a 2&#8211;0 win over Morocco in Boston, sending Les Bleus to a third straight World Cup semi-final; Spain now await</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Mbapp&eacute;&#8217;s goal v Morocco is his eighth, drawing level with Messi (both 8) but leading on the assists tiebreak (3 to 1); Haaland and Kane give chase</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; Belgium and Morocco join Portugal, the USA, Brazil, Mexico, Colombia, Egypt, Canada and Paraguay on the way home</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128506;&#65039; Two to come &#8212; Norway&#8211;England in Miami and Argentina&#8211;Switzerland in Kansas City complete the quarter-finals; the winners meet in the other semi-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Quarter-finals &#8212; France and Spain are through to the last four; two ties remain (all TRT): Norway&#8211;England (Sat Jul 11, Miami) and Argentina&#8211;Switzerland (Sun Jul 12, Kansas City)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Holders&#8217; road &#8212; Argentina&#8217;s title defence rolls into a quarter-final with Switzerland in Kansas City (Sun July 12, 04:00 TRT); three wins from the trophy</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127475;&#127476; Dream run &#8212; Haaland&#8217;s Norway, quarter-finalists for the first time ever after knocking out Brazil, meet England in Miami (Sat July 11, 17:00 TRT) with a semi-final place at stake</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi magic &#8212; Argentina roar back from 2&#8211;0 down with three goals in eight minutes to beat Egypt 3&#8211;2; Cristian Romero, Lionel Messi and a stoppage-time Enzo Fern&aacute;ndez header complete a stunning comeback in Atlanta</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127464;&#127469; Swiss hold their nerve &#8212; Switzerland edge Colombia 4&#8211;3 on penalties after a goalless 120 minutes in Vancouver, Gregor Kobel the shoot-out hero as they reach the quarter-finals for the first time since 1954</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127967;&#65039; The prize &#8212; the 2026 World Cup final is set for MetLife Stadium, New Jersey on July 19; from the last four, it is two wins to lift it</span><span class="ticker-sep">&#9670;</span>
+      <span class="ticker-item">Latest &#8212; Spain 2&#8211;1 Belgium in Los Angeles: Fabi&aacute;n Ruiz opened, Charles De Ketelaere levelled on 41&#8242;, then Mikel Merino struck on 88&#8242; to send La Roja to a semi-final with France</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9876;&#65039; Semi-final set &#8212; France meet Spain in the last four, a rematch of the Euro 2024 semi; Les Bleus chase a third final in four tournaments, La Roja a first since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127463;&#127466; Belgium&#8217;s goodbye &#8212; Charles De Ketelaere&#8217;s equaliser in Los Angeles wasn&#8217;t enough as Spain won 2&#8211;1; a golden generation exits at the quarter-final stage once more</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain&#8217;s wall &#8212; De la Fuente&#8217;s side finally conceded (De Ketelaere) but still march on; unbeaten and now one win from a first final since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#129508; Golden Glove race &#8212; Mike Maignan&#8217;s shutout of Morocco was France&#8217;s fifth clean sheet in six; he and Spain&#8217;s Unai Sim&oacute;n lead the goalkeeping charts into the semis</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France cruise &#8212; Mbapp&eacute; and Demb&eacute;l&eacute; strike in a 2&#8211;0 win over Morocco in Boston, sending Les Bleus to a third straight World Cup semi-final; Spain now await</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Mbapp&eacute;&#8217;s goal v Morocco is his eighth, drawing level with Messi (both 8) but leading on the assists tiebreak (3 to 1); Haaland and Kane give chase</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; Belgium and Morocco join Portugal, the USA, Brazil, Mexico, Colombia, Egypt, Canada and Paraguay on the way home</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128506;&#65039; Two to come &#8212; Norway&#8211;England in Miami and Argentina&#8211;Switzerland in Kansas City complete the quarter-finals; the winners meet in the other semi-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Quarter-finals &#8212; France and Spain are through to the last four; two ties remain (all TRT): Norway&#8211;England (Sat Jul 11, Miami) and Argentina&#8211;Switzerland (Sun Jul 12, Kansas City)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Holders&#8217; road &#8212; Argentina&#8217;s title defence rolls into a quarter-final with Switzerland in Kansas City (Sun July 12, 04:00 TRT); three wins from the trophy</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127475;&#127476; Dream run &#8212; Haaland&#8217;s Norway, quarter-finalists for the first time ever after knocking out Brazil, meet England in Miami (Sat July 11, 17:00 TRT) with a semi-final place at stake</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi magic &#8212; Argentina roar back from 2&#8211;0 down with three goals in eight minutes to beat Egypt 3&#8211;2; Cristian Romero, Lionel Messi and a stoppage-time Enzo Fern&aacute;ndez header complete a stunning comeback in Atlanta</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127464;&#127469; Swiss hold their nerve &#8212; Switzerland edge Colombia 4&#8211;3 on penalties after a goalless 120 minutes in Vancouver, Gregor Kobel the shoot-out hero as they reach the quarter-finals for the first time since 1954</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127967;&#65039; The prize &#8212; the 2026 World Cup final is set for MetLife Stadium, New Jersey on July 19; from the last four, it is two wins to lift it</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">Latest &#8212; Spain 2&#8211;1 Belgium in Los Angeles: Fabi&aacute;n Ruiz opened, Charles De Ketelaere levelled on 41&#8242;, then Mikel Merino struck on 88&#8242; to send La Roja to a semi-final with France</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9876;&#65039; Semi-final set &#8212; France meet Spain in the last four, a rematch of the Euro 2024 semi; Les Bleus chase a third final in four tournaments, La Roja a first since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127463;&#127466; Belgium&#8217;s goodbye &#8212; Charles De Ketelaere&#8217;s equaliser in Los Angeles wasn&#8217;t enough as Spain won 2&#8211;1; a golden generation exits at the quarter-final stage once more</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain&#8217;s wall &#8212; De la Fuente&#8217;s side finally conceded (De Ketelaere) but still march on; unbeaten and now one win from a first final since 2010</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#129508; Golden Glove race &#8212; Mike Maignan&#8217;s shutout of Morocco was France&#8217;s fifth clean sheet in six; he and Spain&#8217;s Unai Sim&oacute;n lead the goalkeeping charts into the semis</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France cruise &#8212; Mbapp&eacute; and Demb&eacute;l&eacute; strike in a 2&#8211;0 win over Morocco in Boston, sending Les Bleus to a third straight World Cup semi-final; Spain now await</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; Mbapp&eacute;&#8217;s goal v Morocco is his eighth, drawing level with Messi (both 8) but leading on the assists tiebreak (3 to 1); Haaland and Kane give chase</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; Belgium and Morocco join Portugal, the USA, Brazil, Mexico, Colombia, Egypt, Canada and Paraguay on the way home</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128506;&#65039; Two to come &#8212; Norway&#8211;England in Miami and Argentina&#8211;Switzerland in Kansas City complete the quarter-finals; the winners meet in the other semi-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Quarter-finals &#8212; France and Spain are through to the last four; two ties remain (all TRT): Norway&#8211;England (Sat Jul 11, Miami) and Argentina&#8211;Switzerland (Sun Jul 12, Kansas City)</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Holders&#8217; road &#8212; Argentina&#8217;s title defence rolls into a quarter-final with Switzerland in Kansas City (Sun July 12, 04:00 TRT); three wins from the trophy</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127475;&#127476; Dream run &#8212; Haaland&#8217;s Norway, quarter-finalists for the first time ever after knocking out Brazil, meet England in Miami (Sat July 11, 17:00 TRT) with a semi-final place at stake</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi magic &#8212; Argentina roar back from 2&#8211;0 down with three goals in eight minutes to beat Egypt 3&#8211;2; Cristian Romero, Lionel Messi and a stoppage-time Enzo Fern&aacute;ndez header complete a stunning comeback in Atlanta</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127464;&#127469; Swiss hold their nerve &#8212; Switzerland edge Colombia 4&#8211;3 on penalties after a goalless 120 minutes in Vancouver, Gregor Kobel the shoot-out hero as they reach the quarter-finals for the first time since 1954</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127967;&#65039; The prize &#8212; the 2026 World Cup final is set for MetLife Stadium, New Jersey on July 19; from the last four, it is two wins to lift it</span><span class="ticker-sep">&#9670;</span>
     </div>
   </div>
 </div>
@@ -1466,10 +1545,10 @@ body.fc-immersive-lock{overflow:hidden}
 <!-- SECTION: BREAKING NEWS (opens like any other section via the Breaking button) -->
 <section class="page-section" id="breaking">
   <div class="container">
-    <div class="section-eyebrow"><span class="breaking-live-dot"></span>Live Wire</div>
+    <div class="section-eyebrow">Live Wire</div>
     <h2 class="section-h2">Breaking News</h2>
     <p class="section-lead">Every ticker headline in one place &mdash; results, milestones, storylines. Newest first, live.</p>
-    <div class="breaking-meta"><span class="breaking-badge"><span class="breaking-live-dot"></span>Live feed</span><span class="breaking-badge alt">Newest first</span></div>
+    <div class="breaking-meta"><span class="breaking-badge">Live feed</span><span class="breaking-badge alt">Newest first</span></div>
     <ul class="breaking-list" id="breakingList"></ul>
     <div class="breaking-foot">Updated live as results come in</div>
   </div>
@@ -1501,7 +1580,7 @@ body.fc-immersive-lock{overflow:hidden}
           <div class="totw-pitch-deco totw-box-bot"></div>
           <div class="totw-rows">
             <!-- Forwards -->
-            <div class="totw-row">
+            <div class="totw-row" data-band="FWD">
               <div class="totw-player is-cap tm-team" data-team="FRA" role="button" tabindex="0" aria-label="Kylian Mbappé, France — open squad">
                 <span class="totw-cap-badge">C</span>
                 <div class="totw-jersey"><span class="totw-flag">&#127467;&#127479;</span></div>
@@ -1520,7 +1599,7 @@ body.fc-immersive-lock{overflow:hidden}
               </div>
             </div>
             <!-- Midfield -->
-            <div class="totw-row">
+            <div class="totw-row" data-band="MID">
               <div class="totw-player tm-team" data-team="ESP" role="button" tabindex="0" aria-label="Fabián Ruiz, Spain — open squad">
                 <div class="totw-jersey"><span class="totw-flag">&#127466;&#127480;</span></div>
                 <div class="totw-name">F. Ruiz</div>
@@ -1538,7 +1617,7 @@ body.fc-immersive-lock{overflow:hidden}
               </div>
             </div>
             <!-- Defence -->
-            <div class="totw-row">
+            <div class="totw-row" data-band="DEF">
               <div class="totw-player tm-team" data-team="MAR" role="button" tabindex="0" aria-label="Achraf Hakimi, Morocco — open squad">
                 <div class="totw-jersey"><span class="totw-flag">&#127474;&#127462;</span></div>
                 <div class="totw-name">A. Hakimi</div>
@@ -1561,7 +1640,7 @@ body.fc-immersive-lock{overflow:hidden}
               </div>
             </div>
             <!-- Goalkeeper -->
-            <div class="totw-row">
+            <div class="totw-row" data-band="GK">
               <div class="totw-player tm-team" data-team="FRA" role="button" tabindex="0" aria-label="Mike Maignan, France — open squad">
                 <div class="totw-jersey"><span class="totw-flag">&#127467;&#127479;</span></div>
                 <div class="totw-name">M. Maignan</div>
@@ -1611,10 +1690,16 @@ body.fc-immersive-lock{overflow:hidden}
     <h2 class="section-h2">Executive Summary</h2>
     <div class="prose reveal">
       <div class="es-facts">
-        <div class="es-fact"><div class="es-fact-num">48</div><div class="es-fact-lbl">Teams · 3 hosts</div></div>
-        <div class="es-fact"><div class="es-fact-num es-fact-flag">🇫🇷</div><div class="es-fact-lbl">Model leader</div></div>
-        <div class="es-fact"><div class="es-fact-num">6</div><div class="es-fact-lbl">Left · SFs set</div></div>
-        <div class="es-fact"><div class="es-fact-num">2</div><div class="es-fact-lbl">Into semis</div></div>
+        <div class="es-fact es-fact-link" data-view="top10" role="button" tabindex="0" aria-label="48 teams — see the Favorites"><div class="es-fact-num">48</div><div class="es-fact-lbl">Teams · 3 hosts</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
+        <div class="es-fact es-fact-link" data-view="predictor" role="button" tabindex="0" aria-label="France lead the model — open the Simulation"><div class="es-fact-num es-fact-flag">🇫🇷</div><div class="es-fact-lbl">Model leader</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
+        <div class="es-fact es-fact-link" data-view="groups" role="button" tabindex="0" aria-label="6 teams left — open the Knockout Bracket"><div class="es-fact-num">6</div><div class="es-fact-lbl">Left · SFs set</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
+        <div class="es-fact es-fact-link" data-view="predictions" role="button" tabindex="0" aria-label="2 into the semis — see the Predictions"><div class="es-fact-num">2</div><div class="es-fact-lbl">Into semis</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
+      </div>
+      <div class="es-glance" data-view="groups" role="button" tabindex="0" aria-label="Semi-finals at a glance — open the Knockout Bracket">
+        <span class="es-glance-tag">Semi-finals</span>
+        <span class="es-glance-tie"><span class="fl">&#127467;&#127479;</span> France <span class="es-glance-v">v</span> Spain <span class="fl">&#127466;&#127480;</span></span>
+        <span class="es-glance-sep">&#183;</span>
+        <span class="es-glance-tie es-glance-tbd">Norway&#8211;England winner <span class="es-glance-v">v</span> Argentina&#8211;Switzerland winner</span>
       </div>
       <p>First-ever 48-team World Cup, across USA, Canada and Mexico. The new Round of 32 shields the big sides but opens a knockout path for outsiders.</p>
       <p><b>Europe on top.</b> France lead the model with Spain and England close behind. France and Spain are already into the semis, where they meet; England await Norway in the last eight. But the knockouts have bitten: Germany and Netherlands fell on penalties in the R32, and Ronaldo's Portugal are out, beaten 1&#8211;0 by Spain in the last 16.</p>
@@ -1730,9 +1815,6 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="section-eyebrow">Player Stats</div>
     <h2 class="section-h2">Leaderboard</h2>
     <p class="section-lead">Standout individuals &#8212; scorers, creators, meanest defences, cards. Updated as results come in.</p>
-    <div class="lb-cats">
-      <span class="lb-cat">⚽ Goals</span><span class="lb-cat">🅰️ Assists</span><span class="lb-cat">🧤 Clean sheets</span><span class="lb-cat">🟨 Cards</span>
-    </div>
     <div class="lb-tabs reveal" id="lbTabs"></div>
     <div id="lbContent" class="reveal"></div>
   </div>
@@ -1831,6 +1913,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="fc-screen-title">Choose Your Nation</div>
         <div class="fc-screen-sub">Tap a flag to select your team, then choose your opponent.</div>
         <div class="fc-teamgrid" id="fcTeamGrid"></div>
+        <div class="fc-legend"><span class="fc-star">★</span> = team strength <span class="fc-legend-sep">·</span> more stars, tougher side</div>
         <span class="fc-diff-label">Difficulty</span>
         <div class="fc-diff" id="fcDiff">
           <button data-d="easy" class="active" aria-pressed="true"><span class="fc-diff-name">Easy</span><span class="fc-diff-desc">Relaxed</span></button>
@@ -1847,6 +1930,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="fc-screen-title">Choose Your Opponent</div>
         <div class="fc-screen-sub">Pick the nation you want to play against.</div>
         <div class="fc-teamgrid" id="fcOppGrid"></div>
+        <div class="fc-legend"><span class="fc-star">★</span> = team strength <span class="fc-legend-sep">·</span> more stars, tougher side</div>
         <div class="fc-btn-row">
           <button class="fc-btn ghost" id="fcBackTeam">Back</button>
           <button class="fc-btn" id="fcToVs" disabled>Confirm Opponent</button>
@@ -2388,11 +2472,12 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="pred-card-label">Predicted Golden Boot</div>
         <div class="pred-player"><span class="pred-player-flag">🇫🇷</span><div><span class="pred-player-nm">Kylian Mbappé</span><span class="pred-player-meta">France · 8 goals</span></div></div>
         <div class="pred-scorers">
-          <div class="pred-scorer lead"><span class="ps-flag">🇫🇷</span><span class="ps-nm">Mbappé</span><span class="ps-bar"><i style="width:100%"></i></span><span class="ps-n">8</span></div>
-          <div class="pred-scorer"><span class="ps-flag">🇦🇷</span><span class="ps-nm">Messi</span><span class="ps-bar"><i style="width:100%"></i></span><span class="ps-n">8</span></div>
-          <div class="pred-scorer"><span class="ps-flag">🇳🇴</span><span class="ps-nm">Haaland</span><span class="ps-bar"><i style="width:88%"></i></span><span class="ps-n">7</span></div>
-          <div class="pred-scorer"><span class="ps-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="ps-nm">Kane</span><span class="ps-bar"><i style="width:75%"></i></span><span class="ps-n">6</span></div>
+          <div class="pred-scorer lead"><span class="ps-flag">🇫🇷</span><span class="ps-nm">Mbappé</span><span class="ps-bar"><i style="width:100%"></i></span><span class="ps-n">8</span><span class="ps-a">+3a</span></div>
+          <div class="pred-scorer"><span class="ps-flag">🇦🇷</span><span class="ps-nm">Messi</span><span class="ps-bar"><i style="width:100%"></i></span><span class="ps-n">8</span><span class="ps-a">+1a</span></div>
+          <div class="pred-scorer"><span class="ps-flag">🇳🇴</span><span class="ps-nm">Haaland</span><span class="ps-bar"><i style="width:88%"></i></span><span class="ps-n">7</span><span class="ps-a">+0a</span></div>
+          <div class="pred-scorer"><span class="ps-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="ps-nm">Kane</span><span class="ps-bar"><i style="width:75%"></i></span><span class="ps-n">6</span><span class="ps-a">+1a</span></div>
         </div>
+        <div class="ps-tiebreak">Level on 8 goals — <b>Mbappé leads on assists (3 v 1)</b>.</div>
         <div class="pred-card-reason">Mbappé&#8217;s strike in the France&#8211;Morocco quarter-final takes him to eight, level with Messi but ahead on the assist tiebreak (three to one). Haaland and Kane give chase, and France&#8217;s deeper run could settle it.</div>
       </div>
       <div class="pred-card upset reveal">
@@ -2492,15 +2577,15 @@ body.fc-immersive-lock{overflow:hidden}
       <span class="lb-cat">🎯 9 factors</span><span class="lb-cat">🧮 Totals 100%</span><span class="lb-cat">📈 Power Score 0–100</span><span class="lb-cat">🔀 Form re-ranked</span>
     </div>
     <div class="method-grid">
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Current Squad Quality</span><span class="method-weight">25%</span></div><div class="method-bar"><div class="method-fill" style="width:100%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Recent International Form</span><span class="method-weight">20%</span></div><div class="method-bar"><div class="method-fill" style="width:80%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Depth &amp; Bench Strength</span><span class="method-weight">12%</span></div><div class="method-bar"><div class="method-fill" style="width:48%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Manager / Coaching Quality</span><span class="method-weight">10%</span></div><div class="method-bar"><div class="method-fill" style="width:40%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Tournament Experience</span><span class="method-weight">8%</span></div><div class="method-bar"><div class="method-fill" style="width:32%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">World / Elo Ranking</span><span class="method-weight">10%</span></div><div class="method-bar"><div class="method-fill" style="width:40%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Injury Concerns</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Group-Stage Performance</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
-      <div class="method-card reveal"><div class="method-card-top"><span class="method-name">Knockout Path (QF taking shape)</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
+      <div class="method-card mc-major reveal"><div class="method-card-top"><span class="method-name">Current Squad Quality</span><span class="method-weight">25%</span></div><div class="method-bar"><div class="method-fill" style="width:100%"></div></div></div>
+      <div class="method-card mc-major reveal"><div class="method-card-top"><span class="method-name">Recent International Form</span><span class="method-weight">20%</span></div><div class="method-bar"><div class="method-fill" style="width:80%"></div></div></div>
+      <div class="method-card mc-mid reveal"><div class="method-card-top"><span class="method-name">Depth &amp; Bench Strength</span><span class="method-weight">12%</span></div><div class="method-bar"><div class="method-fill" style="width:48%"></div></div></div>
+      <div class="method-card mc-mid reveal"><div class="method-card-top"><span class="method-name">Manager / Coaching Quality</span><span class="method-weight">10%</span></div><div class="method-bar"><div class="method-fill" style="width:40%"></div></div></div>
+      <div class="method-card mc-mid reveal"><div class="method-card-top"><span class="method-name">World / Elo Ranking</span><span class="method-weight">10%</span></div><div class="method-bar"><div class="method-fill" style="width:40%"></div></div></div>
+      <div class="method-card mc-mid reveal"><div class="method-card-top"><span class="method-name">Tournament Experience</span><span class="method-weight">8%</span></div><div class="method-bar"><div class="method-fill" style="width:32%"></div></div></div>
+      <div class="method-card mc-minor reveal"><div class="method-card-top"><span class="method-name">Injury Concerns</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
+      <div class="method-card mc-minor reveal"><div class="method-card-top"><span class="method-name">Group-Stage Performance</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
+      <div class="method-card mc-minor reveal"><div class="method-card-top"><span class="method-name">Knockout Path (QF taking shape)</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
     </div>
   </div>
 </section>
@@ -2587,6 +2672,58 @@ function switchQMode(mode, btn) {
   document.getElementById('qPre').style.display = (mode === 'pre') ? '' : 'none';
 }
 const revEls = document.querySelectorAll('.reveal');
+/* Power Rankings visual pass: mark eliminated ("OUT") rows so survivors stand
+   out, and give every row a clearer horizontal power-score bar (read from the
+   existing mini-bar height %). Runs once for both Current and Pre lists. */
+(function enhanceRankings(){
+  document.querySelectorAll('#rankList .rank-item, #rankList-pre .rank-item').forEach(row=>{
+    const probEl=row.querySelector('.score-prob');
+    const isOut=probEl && /out/i.test(probEl.textContent||'');
+    if(isOut) row.classList.add('is-out');
+    const mini=row.querySelector('.score-bar-mini i');
+    const col=row.querySelector('.rank-score-col');
+    if(mini && col && !col.querySelector('.rank-hbar')){
+      const h=parseFloat((mini.style.height||'0'))||0;
+      const bar=document.createElement('div');
+      bar.className='rank-hbar';
+      bar.innerHTML='<i style="width:'+h+'%"></i>';
+      col.appendChild(bar);
+    }
+  });
+  // Dark Horses: dim cards whose upside pill shows a down-arrow (eliminated) so
+  // the still-live dark horses stand out.
+  document.querySelectorAll('#dhCurrent .dh-card, #dhPre .dh-card').forEach(card=>{
+    const up=card.querySelector('.dh-upside');
+    const t=up?(up.innerHTML+' '+(up.textContent||'')):'';
+    if(up && (/8595|\u2193/.test(up.innerHTML)||/eliminated|out on|out in|round of 16|\bout\b/i.test(t))){
+      card.classList.add('dh-out');
+    }
+  });
+  // Tier Breakdown (Current only): dim eliminated team pills so the live sides
+  // stand out within each tier. Survivors are the teams still in the tournament.
+  (function(){
+    const alive=['France','Spain','Argentina','England','Norway','Switzerland'];
+    const cur=document.getElementById('tiersCurrent');
+    if(!cur) return;
+    cur.querySelectorAll('.tier-pill').forEach(pill=>{
+      const nm=(pill.textContent||'').replace(/[^A-Za-z &]/g,'').trim();
+      if(!alive.some(a=>nm===a)) pill.classList.add('tp-out');
+      else pill.classList.add('tp-live');
+    });
+  })();
+  // Questions (Current only): dim rows whose risk pill shows the team is out, so
+  // the live questions stand out.
+  (function(){
+    const cur=document.getElementById('qCurrent');
+    if(!cur) return;
+    cur.querySelectorAll('.bq-item').forEach(item=>{
+      const risk=item.querySelector('.bq-risk');
+      const watch=item.querySelector('.bq-watch');
+      const txt=((risk?risk.textContent:'')+' '+(watch?watch.textContent:''));
+      if(/\bout\b|eliminated/i.test(txt)) item.classList.add('bq-out');
+    });
+  })();
+})();
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
@@ -2627,10 +2764,18 @@ function showView(id){
 // the page nav (section-nav + topbar-nav) switches views; other data-view
 // controls (Groups/Predictor toggles) are left for their own handlers.
 document.addEventListener('click', e=>{
-  const a = e.target.closest('.section-nav [data-view], .topbar-nav [data-view], .topbar-brand[data-view], #breakingBtn[data-view]');
+  const a = e.target.closest('.section-nav [data-view], .topbar-nav [data-view], .topbar-brand[data-view], #breakingBtn[data-view], .es-fact[data-view], .es-glance[data-view]');
   if(!a) return;
   e.preventDefault();
   showView(a.dataset.view);
+});
+// keyboard activation for the tappable summary stat cards + semis glance strip
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Enter' && e.key!==' ') return;
+  const el = e.target.closest && e.target.closest('.es-fact-link[data-view], .es-glance[data-view]');
+  if(!el) return;
+  e.preventDefault();
+  showView(el.dataset.view);
 });
 // initial view = home
 document.body.classList.add('spa');
@@ -2899,14 +3044,20 @@ const LB = (function(){
       html += `<div class="lb-collabel"><span class="lb-collabel-rating">Rating</span><span class="lb-collabel-apps">Apps</span></div>`;
     }
     html += '<div class="lb-list">';
+    const maxV = Math.max(...rows.map(r=>r.v)) || 1;
+    // For ratings, scale the bar against the visible span (min→max) so small
+    // decimal gaps read clearly; for counts, scale from zero.
+    const minV = isRatings ? Math.min(...rows.map(r=>r.v)) : 0;
+    const span = (maxV - minV) || 1;
     rows.forEach((r,i)=>{
       const topCls = i===0?' lb-top1':(i===1?' lb-top2':(i===2?' lb-top3':''));
+      const pctW = Math.max(6, Math.round(((r.v - minV)/span)*100));
       const valBlock = isRatings
         ? `<div class="lb-val lb-val-rating">${r.v.toFixed(2)}</div><div class="lb-apps">${r.ap}</div>`
         : `<div class="lb-val">${r.v}</div>`;
       html += `<div class="lb-row${topCls}${isRatings?' lb-row-rating':''}">
         <div class="lb-rank">${i+1}</div>
-        <div class="lb-who"><span class="lb-flag">${fl(r.t)}</span><div style="min-width:0"><div class="lb-name">${r.n}</div><div class="lb-team">${tn(r.t)}</div></div></div>
+        <div class="lb-who"><span class="lb-flag">${fl(r.t)}</span><div style="min-width:0;flex:1"><div class="lb-name">${r.n}</div><div class="lb-team">${tn(r.t)}</div><div class="lb-bar"><i style="width:${pctW}%"></i></div></div></div>
         ${valBlock}
       </div>`;
     });
@@ -4119,7 +4270,8 @@ const PP = (function(){
         <span class="pp-o-val win">${pct(r.pChamp)}</span>
         <span class="pp-o-val">${pct(r.pF)}</span>
         <span class="pp-o-val">${pct(r.pSF)}</span>
-        <span class="pp-o-bar"><span class="pp-o-val" style="display:block">${pct(r.pQF)}</span><span class="barbg"><span class="barfill" style="width:${(r.pChamp/maxChamp*100).toFixed(0)}%"></span></span></span>
+        <span class="pp-o-val">${pct(r.pQF)}</span>
+        <span class="pp-o-bar"><span class="barbg"><span class="barfill" style="width:${(r.pChamp/maxChamp*100).toFixed(0)}%"></span></span></span>
       </div>`).join('');
     return `
       <div class="pp-champion">
@@ -4139,6 +4291,7 @@ const PP = (function(){
           <span class="pp-o-num">#</span><span class="pp-o-team">Team</span>
           <span class="pp-o-val">Champion</span><span class="pp-o-val">Final</span>
           <span class="pp-o-val">Semi</span><span class="pp-o-val">Quarter</span>
+          <span class="pp-o-val" style="text-align:left">Title odds</span>
         </div>
         ${oddsRows}
       </div>`;
@@ -4422,7 +4575,7 @@ const TL = (function(){
   function statusBadge(m){
     if(m.status==='live') return `<span class="tm-status live tl-status"><span class="dot"></span>Live ${m.minute||''}</span>`;
     if(m.status==='finished') return `<span class="tm-status finished tl-status">FT</span>`;
-    return `<span class="tm-status upcoming tl-status">${esc(m._tr.time)}</span>`;
+    return `<span class="tm-status upcoming tl-status">Upcoming</span>`;
   }
   function matchRow(m){
     const played=m.status!=='upcoming'&&m.hs!=null;
@@ -4430,7 +4583,7 @@ const TL = (function(){
     const hWin=played&&(m.hs>m.as||penH), aWin=played&&(m.as>m.hs||penA);
     const sc=h=>played?`<span class="sc">${h}</span>`:'';
     return `<div class="tl-match">
-      <div class="tl-time">${m.status==='upcoming'?esc(m._tr.time):(m.status==='live'?'LIVE':'FT')}<span class="grp">${esc(m.group)}</span></div>
+      <div class="tl-time">${esc(m._tr.time)}<span class="grp">${esc(m.group)}</span></div>
       <div class="tl-teams">
         <div class="tl-teamrow ${played&&!hWin?'dim':''}"><span class="fl">${fl(m.home)}</span><span class="tm-team" data-team="${m.home}" role="button" tabindex="0" aria-label="View ${esc(nm(m.home))} squad">${esc(nm(m.home))}</span>${sc(m.hs)}</div>
         <div class="tl-teamrow ${played&&!aWin?'dim':''}"><span class="fl">${fl(m.away)}</span><span class="tm-team" data-team="${m.away}" role="button" tabindex="0" aria-label="View ${esc(nm(m.away))} squad">${esc(nm(m.away))}</span>${sc(m.as)}</div>
@@ -4463,7 +4616,7 @@ const TL = (function(){
     C('tlCard').innerHTML=`
       <div class="tl-head">
         <button class="tl-close" aria-label="Close" onclick="TL.close()">×</button>
-        <div class="tl-head-live"><span class="dot"></span>${isToday?"Today's Matches":'Match Schedule'}</div>
+        <div class="tl-head-live">${nLive?'<span class="dot"></span>':''}${isToday?"Today's Matches":'Match Schedule'}</div>
         <h3>${todays.length} ${todays.length===1?'Match':'Matches'}</h3>
         <div class="date">${fmtLong(activeDate)} <span style="color:var(--gold-400);font-weight:700">· TRT</span></div>
         ${todays.length?chips:''}
@@ -4490,6 +4643,10 @@ const TL = (function(){
   function refresh(){ if(isOpen()) render(); }
   function init(){
     const btn=C('tlButton'); if(!btn) return;
+    // Only pulse the top-bar dot when a match is actually live today; otherwise
+    // keep it calm so it isn't a permanent false "live" signal.
+    const liveToday=ALL.some(m=>m._tr.date===TODAY && m.status==='live');
+    btn.classList.toggle('no-live', !liveToday);
     btn.addEventListener('click', open);
     btn.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
     C('tlModal').addEventListener('click', e=>{
@@ -4635,11 +4792,16 @@ const FW = (function(){
     const full=count[line]>=NEED[line] && !on;
     const tooPricey=!on && (cost+p.cost)>BUDGET;
     const locked=full||tooPricey;
+    // Scale the projected-points bar to the strongest player in this line so the
+    // best value picks pop visually rather than only as a number.
+    const lineMax=Math.max(...POOL[line].map(q=>q.pts))||1;
+    const ptW=Math.max(8, Math.round(p.pts/lineMax*100));
     return `<button class="fw-pick${on?' selected':''}${locked?' locked':''}" data-k="${k}" ${locked?'aria-disabled="true"':''} aria-pressed="${on}">
       <span class="fw-pick-flag">${fl(p.t)}</span>
       <span class="fw-pick-info">
         <span class="fw-pick-name">${esc(p.n)}</span>
         <span class="fw-pick-meta">${esc(tn(p.t))} · ${p.pts} pts</span>
+        <span class="fw-pick-ptbar"><i style="width:${ptW}%"></i></span>
       </span>
       <span class="fw-pick-cost">${p.cost.toFixed(1)}</span>
       <span class="fw-pick-check">✓</span>
@@ -4898,11 +5060,11 @@ function renderBreaking(){
   }
   list.innerHTML = items.map((html,i) => {
     const {ico,txt} = splitIcon(html);
-    const rank = i===0 ? '🔴 Latest' : ('#'+(i+1));
+    const rank = i===0 ? '' : ('#'+(i+1));
     return `<li class="breaking-item">
       <span class="breaking-item-ico">${ico}</span>
       <div class="breaking-item-body"><div class="breaking-item-txt">${txt}</div></div>
-      <span class="breaking-item-rank">${rank}</span>
+      ${rank?`<span class="breaking-item-rank">${rank}</span>`:''}
     </li>`;
   }).join('');
 }
