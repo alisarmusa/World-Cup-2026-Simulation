@@ -1,92 +1,44 @@
-# World Cup 2026 — Simulation Site
+# World Cup 2026 — Live Fan Site & Simulation
 
-[![Validate](https://github.com/alisarmusa/World-Cup-2026-Simulation/actions/workflows/validate.yml/badge.svg)](https://github.com/alisarmusa/World-Cup-2026-Simulation/actions/workflows/validate.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![No build step](https://img.shields.io/badge/build-none-brightgreen)
-![Single file](https://img.shields.io/badge/architecture-single--file-orange)
+A single-file, self-contained web app tracking the **2026 FIFA World Cup** (USA · Canada · Mexico, June 11 – July 19) in near real time. All 48 teams across 12 groups: real results, standings, a live knockout bracket, player leaderboards, editorial analysis, a Monte-Carlo simulation engine, a playable canvas mini-game, and a Fantasy World Cup team builder — all in one HTML file, no build step, no backend.
 
-A single-file, data-driven fan site tracking the **2026 World Cup** — 48 teams, 12 groups, hosted across the United States, Canada, and Mexico — in near real time.
+**Live:** https://world-cup-2026-simulation-malisar.vercel.app/
 
-> The entire site is one self-contained HTML file. No build step, no dependencies, no backend, and **no third-party requests** — fonts are embedded, so nothing loads from an external server. Open it in a browser and it works.
+---
 
-## Contents
+## What's inside
 
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Running locally](#running-locally)
-- [Project structure](#project-structure)
-- [Data integrity](#data-integrity)
-- [Deploying](#deploying)
-- [Contributing](#contributing)
-- [License](#license)
+- **Knockout Bracket** — the real bracket, updated as results come in (Groups → R32 → R16 → QF → SF → Final, plus a Third-Place play-off), with connector lines and a progress rail. Undecided ties (final/third place) show matchup placeholders like "FRA/ESP" that resolve automatically as rounds are played.
+- **Today's Matches** — a day-by-day fixture modal covering every round through the Final and Third-Place match; all kickoff times shown in Türkiye Standard Time (TRT), with live / FT / upcoming states.
+- **Leaderboards** — Goals, Assists, Clean Sheets, Red/Yellow Cards, and Average Ratings, each with proportional value bars.
+- **Simulation** — a Poisson goal model + power ratings run through a Monte-Carlo simulation; projects every unplayed match, group tables, the bracket, and a champion. Real results are never overwritten. "Before the Tournament" mode re-runs from pre-tournament ratings.
+- **Editorial** — Power Rankings (all 48), Predictions, Favorites, Dark Horses, Tier Breakdown, Questions, and a methodology Analysis. Eliminated teams are visually dimmed so live sides stand out.
+- **The Best XI** — a Team of the Week laid out on a football pitch, rebuilt each completed round.
+- **Fantasy World Cup** — build a 4-3-3 within a credit budget, guided position-by-position, scored on projected points; each player shows their specific position (LB/CB/CDM/CAM/RW/ST …).
+- **The Game** — a canvas arcade match: pick a nation, choose difficulty, beat the CPU. Mobile-first with touch controls and fullscreen.
+- **Breaking ticker** — a scrolling headline feed plus a full Breaking News list, newest first.
 
-## Features
+## Tech
 
-- **Live match data & standings** for all 12 groups, plus a **Knockout Bracket** from the Round of 32 through the Final, with penalty-shootout support.
-- **Today's Matches** — a day-by-day schedule; all times shown in **Türkiye Standard Time (TRT, UTC+3)**.
-- **Leaderboards** — Goals, Assists, Clean Sheets, Yellow Cards, Red Cards, and Average Ratings.
-- **Breaking ticker** — a rolling strip of the latest results and fixtures.
-- **Editorial** — Power Rankings (#1–48), Predictions, Favorites, Dark Horses, Tier Breakdown, Questions, Analysis, and an Executive Summary. Each carries flags, stat chips, and compact progress/meter visuals for fast scanning.
-- **Current vs Before the Tournament** — Power Rankings, Simulation, Favorites, Predictions, Tier Breakdown, and Questions each have a two-way toggle: **Current** reflects the tournament as it stands, while **Before the Tournament** shows the same view driven by pre-tournament strength ratings.
-- **Simulation** — a Poisson goal model plus a Monte Carlo run projecting the rest of the tournament, with real played results locked so they are never re-decided. A **Before the Tournament** mode re-simulates the whole event from scratch on pre-tournament ratings alone.
-- **Team of the Week** — a rotating best XI.
-- **Fantasy World Cup** — build an XI under a credit budget.
-- **FC Game** — a self-contained HTML canvas arcade football mini-game (you vs. CPU) on desktop and mobile. Every nation carries a **5-star power rating**, and an **adaptive difficulty system** blends three factors: your chosen level (Easy / Medium / Hard), the opponent's strength, **and the strength of the team you pick** — choose a strong side and the match eases, choose a weak side and it gets harder. Each pairing resolves to a **1–10 Match Difficulty** score (Stroll → Relaxed → Balanced → Tough → Brutal) on the match preview, while a full **Difficulty by Nation** list rates all 48 teams **out of 100**, anchored to their star level (5★≈100, 4★≈80, …, 1★≈20) and personalised to the team you've selected. Each mode stays in its lane: Easy is always comfortable, Hard always punishing.
+- **One file.** `index.html` (deployed) and `WC2026.html` are byte-identical copies; everything — HTML, CSS, JS, fonts — is inline. Fonts (Inter, Bebas Neue) are embedded as base64 woff2 (OFL 1.1).
+- **No framework, no build.** Vanilla JS modules in closures (Tournament, Simulation, Today's Matches, Leaderboard, Bracket, Fantasy, Game).
+- **Data integrity first.** Only web-verified, multi-source-confirmed final scores are entered; the simulation is the only thing that projects unplayed matches.
 
-## Screenshots
-
-_Add a screenshot or GIF here once the site is deployed — e.g. `docs/preview.png`._
-
-## Running locally
-
-No tooling required:
-
-```bash
-# open directly
-open index.html          # macOS
-xdg-open index.html      # Linux
-
-# …or serve it (recommended)
-python3 -m http.server 8000   # then visit http://localhost:8000
-```
-
-## Project structure
+## Repo layout
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The site — this is what a host serves. |
-| `WC2026.html` | Byte-identical working copy of the site. |
-| `vercel.json` / `.vercelignore` | Vercel deploy config (static, no build). |
-| `.github/workflows/validate.yml` | CI: parity, JS parse, CSS balance, ticker, data checks. |
+| `index.html` | Deployed app (served by Vercel) |
+| `WC2026.html` | Byte-identical twin of `index.html` |
+| `vercel.json` | Deploy config |
+| `README.md` | This file |
 
-`index.html` and `WC2026.html` are kept **byte-identical** — edit one, mirror to the other. CI enforces this on every push.
+## Development
 
-The JavaScript is organised into self-contained IIFE modules (tournament data, simulation, leaderboards, knockout bracket, today's matches, fantasy, and the canvas game). No frameworks.
+The app is a single static file — open `index.html` in any modern browser to run it. No install, no server, no dependencies.
 
-## Data integrity
+Deployment is handled via the Vercel CLI. Vercel is the only deployment domain.
 
-Only **real, web-verified final scores** are entered, cross-checked against multiple reliable sources. Match referees stay `TBD` unless source-confirmed. Unplayed matches are only ever *projected* by the Simulation module — never hard-coded as results.
+## Credits
 
-## Privacy & security
-
-Built to be safe to publish as-is:
-
-- **No tracking.** No analytics, no third-party scripts, no cookies, no `localStorage`/`sessionStorage`, no beacons — the site collects and transmits nothing about visitors.
-- **No external requests.** Fonts (Inter and Bebas Neue, both under the SIL Open Font License) are embedded directly in the file, so the page makes zero calls to any outside server.
-- **Content-Security-Policy.** A restrictive CSP is set via meta tag: only same-origin and inline resources are allowed; `object-src`, `frame-src`, and `form-action` are disabled.
-- **No injection surface.** There are no text inputs or URL-parameter reads, so there is no user-supplied content that could reach the DOM.
-- **Independent fan project.** A visible footer disclaims any affiliation with FIFA; all trademarks belong to their respective owners.
-
-## Deploying
-
-The site is a static single file, so any static host works.
-
-**Vercel** — import the repo at [vercel.com/new](https://vercel.com/new). Framework preset **Other**; build command empty; output directory empty (root). Or run `vercel --prod` from the CLI.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). The most valuable contribution is often a **data correction** with a source link — no coding required.
-
-## License
-
-[MIT](LICENSE) © Malisar
+Fonts: Inter and Bebas Neue (SIL Open Font License 1.1). Match data compiled from public reporting. This is an independent fan project and is not affiliated with FIFA.
