@@ -10,7 +10,7 @@ A single-file, self-contained web app tracking the **2026 FIFA World Cup** (USA 
 
 - **Knockout Bracket** — the real bracket, updated as results come in (Groups → R32 → R16 → QF → SF → Final, plus a Third-Place play-off), with connector lines and a progress rail. Undecided ties (final/third place) show matchup placeholders like "FRA/ESP" that resolve automatically as rounds are played.
 - **Today's Matches** — a day-by-day fixture modal covering every round through the Final and Third-Place match; all kickoff times shown in Türkiye Standard Time (TRT), with live / FT / upcoming states.
-- **Leaderboards** — Goals, Assists, Clean Sheets, Red/Yellow Cards, and Average Ratings, each with proportional value bars.
+- **Leaderboards** — Goals, Assists, Clean Sheets, Red/Yellow Cards, and Average Ratings, each with proportional value bars, and a **Current / Pre-Tournament** toggle (real numbers so far vs. the model's pre-tournament predictions for the whole tournament).
 - **Simulation** — a Poisson goal model + power ratings run through a Monte-Carlo simulation; projects every unplayed match, group tables, the bracket, and a champion. Real results are never overwritten. "Before the Tournament" mode re-runs from pre-tournament ratings.
 - **Editorial** — Power Rankings (all 48), Predictions, Favorites, Dark Horses, Tier Breakdown, Questions, and a methodology Analysis. Eliminated teams are visually dimmed so live sides stand out.
 - **The Best XI** — a Team of the Week laid out on a football pitch, rebuilt each completed round.

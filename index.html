@@ -1814,7 +1814,11 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="section-tag">Section 02</div>
     <div class="section-eyebrow">Player Stats</div>
     <h2 class="section-h2">Leaderboard</h2>
-    <p class="section-lead">Standout individuals &#8212; scorers, creators, meanest defences, cards. Updated as results come in.</p>
+    <p class="section-lead">Standout individuals &#8212; scorers, creators, meanest defences, cards. <b>Current</b> shows the real numbers so far; <b>Pre-Tournament</b> shows the model&#8217;s pre-tournament predictions for the full tournament.</p>
+    <div class="fav-subnav">
+      <button class="subnav-btn active" onclick="switchLbMode('current',this)">Current</button>
+      <button class="subnav-btn" onclick="switchLbMode('pre',this)">Pre-Tournament</button>
+    </div>
     <div class="lb-tabs reveal" id="lbTabs"></div>
     <div id="lbContent" class="reveal"></div>
   </div>
@@ -2627,6 +2631,11 @@ function switchRankMode(mode, btn) {
   const list = activeRankList();
   list.querySelectorAll('.rank-item, .tier-divider-row').forEach(el => { el.style.display = ''; });
 }
+function switchLbMode(mode, btn) {
+  btn.closest('.fav-subnav').querySelectorAll('.subnav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  LB.setMode(mode);
+}
 function switchFavMode(mode, btn) {
   btn.closest('.fav-subnav').querySelectorAll('.subnav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -3012,6 +3021,76 @@ const LB = (function(){
     {n:'Johan Manzambi',     t:'SUI', v:7.62, ap:6}
   ];
 
+  const GOALS_PRE = [
+    {n:'Kylian Mbappé', t:'FRA', v:8},
+    {n:'Erling Haaland', t:'NOR', v:7},
+    {n:'Harry Kane', t:'ENG', v:7},
+    {n:'Vinícius Júnior', t:'BRA', v:6},
+    {n:'Lionel Messi', t:'ARG', v:6},
+    {n:'Julián Álvarez', t:'ARG', v:5},
+    {n:'Antoine Griezmann', t:'FRA', v:5},
+    {n:'Cody Gakpo', t:'NED', v:5},
+    {n:'Lamine Yamal', t:'ESP', v:4},
+    {n:'Florian Wirtz', t:'GER', v:4},
+    {n:'Cristiano Ronaldo', t:'POR', v:4},
+    {n:'Romelu Lukaku', t:'BEL', v:4}
+  ];
+  const ASSISTS_PRE = [
+    {n:'Kevin De Bruyne', t:'BEL', v:6},
+    {n:'Lionel Messi', t:'ARG', v:5},
+    {n:'Bruno Fernandes', t:'POR', v:5},
+    {n:'Jude Bellingham', t:'ENG', v:4},
+    {n:'Florian Wirtz', t:'GER', v:4},
+    {n:'Pedri', t:'ESP', v:4},
+    {n:'Bukayo Saka', t:'ENG', v:3},
+    {n:'Rodrygo', t:'BRA', v:3},
+    {n:'Antoine Griezmann', t:'FRA', v:3},
+    {n:'Lamine Yamal', t:'ESP', v:3}
+  ];
+  const CLEAN_PRE = [
+    {n:'Mike Maignan', t:'FRA', v:5},
+    {n:'Unai Simón', t:'ESP', v:5},
+    {n:'Emiliano Martínez', t:'ARG', v:5},
+    {n:'Alisson', t:'BRA', v:4},
+    {n:'Jordan Pickford', t:'ENG', v:4},
+    {n:'Marc-André ter Stegen', t:'GER', v:4},
+    {n:'Thibaut Courtois', t:'BEL', v:4},
+    {n:'Diogo Costa', t:'POR', v:3},
+    {n:'Bart Verbruggen', t:'NED', v:3},
+    {n:'Gregor Kobel', t:'SUI', v:3}
+  ];
+  const REDS_PRE = [
+    {n:'Casemiro', t:'BRA', v:1},
+    {n:'Nicolás Otamendi', t:'ARG', v:1},
+    {n:'Dayot Upamecano', t:'FRA', v:1},
+    {n:'Granit Xhaka', t:'SUI', v:1},
+    {n:'João Palhinha', t:'POR', v:1},
+    {n:'Frenkie de Jong', t:'NED', v:1}
+  ];
+  const YELLOWS_PRE = [
+    {n:'Casemiro', t:'BRA', v:3},
+    {n:'Rodri', t:'ESP', v:3},
+    {n:'Granit Xhaka', t:'SUI', v:3},
+    {n:'Declan Rice', t:'ENG', v:2},
+    {n:'Nicolás Otamendi', t:'ARG', v:2},
+    {n:'Aurélien Tchouaméni', t:'FRA', v:2},
+    {n:'Joshua Kimmich', t:'GER', v:2},
+    {n:'Frenkie de Jong', t:'NED', v:2},
+    {n:'Bruno Guimarães', t:'BRA', v:2},
+    {n:'João Palhinha', t:'POR', v:2}
+  ];
+  const RATINGS_PRE = [
+    {n:'Kylian Mbappé',   t:'FRA', v:8.60, ap:7},
+    {n:'Lionel Messi',    t:'ARG', v:8.40, ap:7},
+    {n:'Jude Bellingham', t:'ENG', v:8.30, ap:7},
+    {n:'Erling Haaland',  t:'NOR', v:8.30, ap:6},
+    {n:'Vinícius Júnior', t:'BRA', v:8.20, ap:6},
+    {n:'Kevin De Bruyne', t:'BEL', v:8.10, ap:6},
+    {n:'Harry Kane',      t:'ENG', v:8.10, ap:7},
+    {n:'Rodri',           t:'ESP', v:8.05, ap:7},
+    {n:'Florian Wirtz',   t:'GER', v:8.00, ap:6},
+    {n:'Lamine Yamal',    t:'ESP', v:8.00, ap:7}
+  ];
   const CATS = [
     {id:'goals',   label:'Goals',        ico:'⚽', unit:'Goals',        who:'Players', data:GOALS},
     {id:'assists', label:'Assists',      ico:'🅰️', unit:'Assists',      who:'Players', data:ASSISTS},
@@ -3020,23 +3099,35 @@ const LB = (function(){
     {id:'yellows', label:'Yellow Cards', ico:'🟨', unit:'Yellow cards', who:'Players', data:YELLOWS},
     {id:'ratings', label:'Average Ratings', ico:'⭐', unit:'Average rating', who:'Players', data:RATINGS}
   ];
+  const CATS_PRE = [
+    {id:'goals',   label:'Goals',        ico:'⚽', unit:'Goals',        who:'Players', data:GOALS_PRE},
+    {id:'assists', label:'Assists',      ico:'🅰️', unit:'Assists',      who:'Players', data:ASSISTS_PRE},
+    {id:'clean',   label:'Clean Sheets', ico:'🧤', unit:'Clean sheets', who:'Goalkeepers', data:CLEAN_PRE.filter(x=>x.v>0)},
+    {id:'reds',    label:'Red Cards',    ico:'🟥', unit:'Red cards',    who:'Players', data:REDS_PRE},
+    {id:'yellows', label:'Yellow Cards', ico:'🟨', unit:'Yellow cards', who:'Players', data:YELLOWS_PRE},
+    {id:'ratings', label:'Average Ratings', ico:'⭐', unit:'Average rating', who:'Players', data:RATINGS_PRE}
+  ];
 
-  let active='goals', built=false;
+  let active='goals', built=false, mode='current';
+  const catsFor = () => mode==='pre' ? CATS_PRE : CATS;
   const C = id => document.getElementById(id);
 
   function renderTabs(){
-    C('lbTabs').innerHTML = CATS.map(c=>
+    C('lbTabs').innerHTML = catsFor().map(c=>
       `<button class="lb-tab${c.id===active?' active':''}" data-cat="${c.id}"><span class="lb-tab-ico">${c.ico}</span>${c.label}</button>`
     ).join('');
   }
   function renderList(){
-    const cat = CATS.find(c=>c.id===active);
+    const cat = catsFor().find(c=>c.id===active);
     const rows = cat.data.slice(0,10);
     const isRatings = cat.id==='ratings';
     let html = `<div class="lb-head"><h3>${cat.label}</h3><span class="lb-unit">Top ${Math.min(rows.length,10)} · ${cat.who}</span></div>`;
+    const pre = mode==='pre';
     const subTxt = isRatings
-      ? 'Players ranked by average match rating — a composite performance score across their appearances so far.'
-      : (cat.who==='Goalkeepers'?'Goalkeepers ranked by matches without conceding.':'Players ranked by '+cat.unit.toLowerCase()+' so far this tournament.');
+      ? (pre?'Players ranked by predicted average match rating over the tournament — pre-tournament model projection.':'Players ranked by average match rating — a composite performance score across their appearances so far.')
+      : (cat.who==='Goalkeepers'
+          ? (pre?'Goalkeepers ranked by predicted clean sheets — pre-tournament model projection.':'Goalkeepers ranked by matches without conceding.')
+          : (pre?'Players ranked by predicted '+cat.unit.toLowerCase()+' over the tournament — pre-tournament model projection.':'Players ranked by '+cat.unit.toLowerCase()+' so far this tournament.'));
     html += `<div class="lb-sub">${subTxt}</div>`;
     if(!rows.length){ html += `<div class="lb-empty">No entries yet.</div>`; C('lbContent').innerHTML = html; return; }
     if(isRatings){
@@ -3072,7 +3163,8 @@ const LB = (function(){
       active=b.dataset.cat; render();
     });
   }
-  return { init };
+  function setMode(m){ mode=m; render(); }
+  return { init, setMode };
 })();
 
 
