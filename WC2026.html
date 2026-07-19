@@ -1295,7 +1295,7 @@ body.fc-immersive-lock{overflow:hidden}
 
 /* team grid */
 .fc-teamgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px;width:100%;max-width:560px;max-height:46%;overflow-y:auto;padding:4px;margin-bottom:18px;scrollbar-width:thin}
-.fc-team{display:flex;flex-direction:column;align-items:center;gap:5px;background:var(--glass-light);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;cursor:pointer;transition:all var(--transition)}
+.fc-team{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;background:var(--glass-light);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 6px;cursor:pointer;transition:all var(--transition)}
 .fc-team:hover{border-color:rgba(212,175,55,.5);background:rgba(255,255,255,.1);transform:translateY(-2px)}
 .fc-team.sel{border-color:var(--gold-500);background:rgba(212,175,55,.16);box-shadow:var(--glow-gold)}
 .fc-team .fl{font-size:26px;line-height:1}
@@ -1306,6 +1306,22 @@ body.fc-immersive-lock{overflow:hidden}
 .fc-legend{display:flex;align-items:center;justify-content:center;gap:6px;font-size:10.5px;font-weight:600;letter-spacing:.02em;color:var(--text-muted);margin:-6px 0 16px}
 .fc-legend .fc-star{font-size:11px;color:var(--gold-400)}
 .fc-legend-sep{color:var(--text-faint)}
+/* Team-order segmented control (Power Rankings / A–Z) on both select screens */
+.fc-sortbar{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:560px;margin:0 0 10px;flex-wrap:wrap}
+.fc-sortbar-lbl{font-size:9.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint)}
+.fc-sortseg{display:inline-flex;align-items:center;gap:2px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:999px;padding:3px}
+.fc-sortseg button{display:inline-flex;align-items:center;gap:5px;border:0;background:none;cursor:pointer;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.03em;color:var(--text-muted);padding:6px 13px;border-radius:999px;transition:color var(--transition),background var(--transition),box-shadow var(--transition)}
+.fc-sortseg button:hover:not(.active){color:var(--text-secondary);background:rgba(255,255,255,.07)}
+.fc-sortseg button.active{color:#12100a;background:linear-gradient(135deg,var(--gold-400),var(--gold-300));box-shadow:0 2px 10px rgba(212,175,55,.32)}
+.fc-sortseg button:focus-visible{outline:2px solid var(--gold-400);outline-offset:2px}
+.fc-sortseg .fc-seg-ico{font-size:10px;line-height:1;opacity:.9}
+.fc-team-rank{position:absolute;top:4px;left:5px;min-width:15px;height:15px;display:flex;align-items:center;justify-content:center;padding:0 3px;border-radius:5px;background:rgba(212,175,55,.16);border:1px solid rgba(212,175,55,.3);color:var(--gold-300);font-size:8.5px;font-weight:800;letter-spacing:0;line-height:1}
+.fc-team.sel .fc-team-rank{background:rgba(212,175,55,.3);border-color:var(--gold-500);color:var(--gold-200)}
+@media (max-width:440px){
+  .fc-sortbar{gap:7px}
+  .fc-sortbar-lbl{display:none}
+  .fc-sortseg button{font-size:10px;padding:6px 10px}
+}
 
 /* difficulty + controls row */
 .fc-diff-label{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-300);margin-bottom:11px}
@@ -1350,6 +1366,11 @@ body.fc-immersive-lock{overflow:hidden}
 .fc-dl-rank{font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--text-faint);text-align:center}
 .fc-dl-flag{font-size:17px;line-height:1}
 .fc-dl-name{color:var(--text-secondary);font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc-dl-row.is-you{border-color:rgba(212,175,55,.45);background:rgba(212,175,55,.09)}
+.fc-dl-row.is-you .fc-dl-name{color:var(--gold-200)}
+.fc-dl-row.is-you .fc-dl-rank{color:var(--gold-400)}
+.fc-dl-you{display:inline-block;margin-left:7px;padding:2px 7px;border-radius:10px;background:rgba(212,175,55,.2);border:1px solid rgba(212,175,55,.45);color:var(--gold-300);font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;vertical-align:middle}
+@media (max-width:440px){ .fc-dl-you{display:none} }
 .fc-dl-stars{font-size:10px;letter-spacing:-1px;color:var(--gold-400);white-space:nowrap}
 .fc-dl-stars .off{color:var(--border)}
 .fc-dl-badge{font-size:10.5px;font-weight:800;letter-spacing:.03em;padding:3px 9px;border-radius:14px;white-space:nowrap;min-width:104px;text-align:center}
@@ -1498,7 +1519,7 @@ body.fc-immersive-lock{overflow:hidden}
   <button class="ticker-tag" id="breakingBtn" type="button" data-view="breaking" title="Open the Breaking News section">Breaking<span class="ticker-tag-caret" aria-hidden="true">&#9656;</span></button>
   <div style="overflow:hidden;flex:1">
     <div class="ticker-track">
-      <span class="ticker-item">&#127462;&#127479; Argentina 2&#8211;1 England &#8212; &#127919; Lautaro Mart&iacute;nez&#8217;s stoppage-time header, after Enzo Fern&aacute;ndez had levelled, stuns England and sends La Albiceleste to the final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Final set at MetLife &#8212; &#127466;&#127480; Spain v &#127462;&#127479; Argentina in New Jersey on July 19, a heavyweight title decider</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127919; Lautaro the executioner &#8212; the striker rose in the 90+2 to head Argentina into the final and break English hearts in Atlanta</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi the maestro &#8212; two assists in Atlanta as the captain dragged Argentina to another World Cup final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England&#8217;s wait goes on &#8212; Anthony Gordon&#8217;s 55th-minute opener wasn&#8217;t enough; the Three Lions fall in the semis again</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; Third place &#8212; France v &#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England meet in Miami on July 18, two fallen semi-finalists playing for bronze</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;0 France &#8212; Oyarzabal&#8217;s penalty and Porro&#8217;s strike had already booked La Roja&#8217;s place; now they know their opponent</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; &#127467;&#127479; Mbapp&eacute; frozen on 8 as France exit; &#127462;&#127479; Messi (8) marches on with the assists lead and is now favoured</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France fall in the last four &#8212; the pre-tournament favourites undone by Spain and left to play for third</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina 3&#8211;1 Switzerland (aet) &#8212; Mac Allister headed the holders ahead before Juli&aacute;n &Aacute;lvarez and Lautaro pounced in extra time</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England 2&#8211;1 Norway (aet) &#8212; &#9917; Jude Bellingham struck twice to reach the semis, but the run ends one step short</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; France, England, Norway and Switzerland join Belgium, Morocco, Portugal, Brazil and the rest on the road home</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;1 Belgium &#8212; &#127919; Mikel Merino&#8217;s 88th-minute strike sent La Roja through in the quarters</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France 2&#8211;0 Morocco &#8212; Mbapp&eacute; and Demb&eacute;l&eacute; eased Les Bleus into the semis before Spain ended their run</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; The prize &#8212; it all comes down to MetLife Stadium, New Jersey on July 19: Spain or Argentina lifts the trophy</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina 2&#8211;1 England &#8212; &#127919; Lautaro Mart&iacute;nez&#8217;s stoppage-time header, after Enzo Fern&aacute;ndez had levelled, stuns England and sends La Albiceleste to the final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Final set at MetLife &#8212; &#127466;&#127480; Spain v &#127462;&#127479; Argentina in New Jersey on July 19, a heavyweight title decider</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127919; Lautaro the executioner &#8212; the striker rose in the 90+2 to head Argentina into the final and break English hearts in Atlanta</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi the maestro &#8212; two assists in Atlanta as the captain dragged Argentina to another World Cup final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England&#8217;s wait goes on &#8212; Anthony Gordon&#8217;s 55th-minute opener wasn&#8217;t enough; the Three Lions fall in the semis again</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; Third place &#8212; France v &#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England meet in Miami on July 18, two fallen semi-finalists playing for bronze</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;0 France &#8212; Oyarzabal&#8217;s penalty and Porro&#8217;s strike had already booked La Roja&#8217;s place; now they know their opponent</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot &#8212; &#127467;&#127479; Mbapp&eacute; frozen on 8 as France exit; &#127462;&#127479; Messi (8) marches on with the assists lead and is now favoured</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France fall in the last four &#8212; the pre-tournament favourites undone by Spain and left to play for third</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina 3&#8211;1 Switzerland (aet) &#8212; Mac Allister headed the holders ahead before Juli&aacute;n &Aacute;lvarez and Lautaro pounced in extra time</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England 2&#8211;1 Norway (aet) &#8212; &#9917; Jude Bellingham struck twice to reach the semis, but the run ends one step short</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; France, England, Norway and Switzerland join Belgium, Morocco, Portugal, Brazil and the rest on the road home</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;1 Belgium &#8212; &#127919; Mikel Merino&#8217;s 88th-minute strike sent La Roja through in the quarters</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; France 2&#8211;0 Morocco &#8212; Mbapp&eacute; and Demb&eacute;l&eacute; eased Les Bleus into the semis before Spain ended their run</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; The prize &#8212; it all comes down to MetLife Stadium, New Jersey on July 19: Spain or Argentina lifts the trophy</span>
+      <span class="ticker-item">&#127942; Final day &#8212; &#127466;&#127480; Spain v &#127462;&#127479; Argentina at MetLife, New Jersey today (July 19) &#8212; La Roja&#8217;s first crown or Argentina&#8217;s back-to-back?</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England 6&#8211;4 France &#8212; a ten-goal Miami classic hands the Three Lions bronze, their best World Cup finish since 1966</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Saka hat-trick &#8212; &#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England&#8217;s winger tore France apart as they raced 4&#8211;0 clear by half-time in the play-off</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; Mbapp&eacute; makes history &#8212; his Miami brace took him to a record 22nd World Cup goal and 10 for the tournament</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot swing &#8212; &#127467;&#127479; Mbapp&eacute; (10) leaps clear; &#127462;&#127479; Messi (8) needs a big final to reclaim it</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#129353; Bellingham seals it &#8212; &#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; his stoppage-time solo goal made the podium safe against a France fightback</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; Deschamps signs off &#8212; France&#8217;s 14-year era ends in fourth place after the bronze defeat</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina 2&#8211;1 England &#8212; &#127919; Lautaro Mart&iacute;nez&#8217;s stoppage-time header, after Enzo Fern&aacute;ndez levelled, sent La Albiceleste to the final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;0 France &#8212; Oyarzabal&#8217;s penalty and Porro&#8217;s strike carried La Roja to the final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi the maestro &#8212; two assists in Atlanta dragged Argentina to another World Cup final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina 3&#8211;1 Switzerland (aet) &#8212; Mac Allister, &Aacute;lvarez and Lautaro saw off a stubborn Swiss side in the quarters</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England 2&#8211;1 Norway (aet) &#8212; &#9917; Jude Bellingham struck twice to reach the semis</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;1 Belgium &#8212; &#127919; Mikel Merino&#8217;s 88th-minute strike settled the quarter-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; France, England, Norway, Switzerland and the rest have gone home; two remain</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; The prize &#8212; it all comes down to MetLife Stadium today: &#127466;&#127480; Spain or &#127462;&#127479; Argentina lifts the trophy</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; Final day &#8212; &#127466;&#127480; Spain v &#127462;&#127479; Argentina at MetLife, New Jersey today (July 19) &#8212; La Roja&#8217;s first crown or Argentina&#8217;s back-to-back?</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England 6&#8211;4 France &#8212; a ten-goal Miami classic hands the Three Lions bronze, their best World Cup finish since 1966</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Saka hat-trick &#8212; &#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England&#8217;s winger tore France apart as they raced 4&#8211;0 clear by half-time in the play-off</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; Mbapp&eacute; makes history &#8212; his Miami brace took him to a record 22nd World Cup goal and 10 for the tournament</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#9917; Golden Boot swing &#8212; &#127467;&#127479; Mbapp&eacute; (10) leaps clear; &#127462;&#127479; Messi (8) needs a big final to reclaim it</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#129353; Bellingham seals it &#8212; &#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; his stoppage-time solo goal made the podium safe against a France fightback</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127467;&#127479; Deschamps signs off &#8212; France&#8217;s 14-year era ends in fourth place after the bronze defeat</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina 2&#8211;1 England &#8212; &#127919; Lautaro Mart&iacute;nez&#8217;s stoppage-time header, after Enzo Fern&aacute;ndez levelled, sent La Albiceleste to the final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;0 France &#8212; Oyarzabal&#8217;s penalty and Porro&#8217;s strike carried La Roja to the final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Messi the maestro &#8212; two assists in Atlanta dragged Argentina to another World Cup final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127462;&#127479; Argentina 3&#8211;1 Switzerland (aet) &#8212; Mac Allister, &Aacute;lvarez and Lautaro saw off a stubborn Swiss side in the quarters</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631; England 2&#8211;1 Norway (aet) &#8212; &#9917; Jude Bellingham struck twice to reach the semis</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127466;&#127480; Spain 2&#8211;1 Belgium &#8212; &#127919; Mikel Merino&#8217;s 88th-minute strike settled the quarter-final</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#128075; The fallen &#8212; France, England, Norway, Switzerland and the rest have gone home; two remain</span><span class="ticker-sep">&#9670;</span><span class="ticker-item">&#127942; The prize &#8212; it all comes down to MetLife Stadium today: &#127466;&#127480; Spain or &#127462;&#127479; Argentina lifts the trophy</span>
     </div>
   </div>
 </div>
@@ -1538,7 +1559,7 @@ body.fc-immersive-lock{overflow:hidden}
       <div class="hero-card"><div class="hero-card-label">🥇 #1 Ranked</div><div class="hero-card-value">🇪🇸 Spain</div></div>
       <div class="hero-card"><div class="hero-card-label">🏆 Predicted Champion</div><div class="hero-card-value">🇪🇸 Spain</div></div>
       <div class="hero-card"><div class="hero-card-label">🐴 Dark Horse Pick</div><div class="hero-card-value">🇳🇴 Norway</div></div>
-      <div class="hero-card"><div class="hero-card-label">⚽ Golden Boot Pick</div><div class="hero-card-value">🇦🇷 Messi</div></div>
+      <div class="hero-card"><div class="hero-card-label">⚽ Golden Boot Pick</div><div class="hero-card-value">🇫🇷 Mbappé</div></div>
     </div>
   </div>
 </header>
@@ -1563,7 +1584,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="totw-head-l">
           <span class="totw-matchday">Semi-finals &middot; Team of the Week</span>
           <h2 class="totw-title">The <span>Best XI</span></h2>
-          <p class="totw-sub">Standout XI from both semi-finals &#8212; Spain 2&#8211;0 France and Argentina 2&#8211;1 England &#8212; in a 4&#8211;3&#8211;3. Tap any player for their squad.</p>
+          <p class="totw-sub">Standout XI from both semi-finals &#8212; Spain 2&#8211;0 France and Argentina 2&#8211;1 England &#8212; in a 4&#8211;3&#8211;3. Tap any player for their squad. The XI is rebuilt only when a full round completes, so it stands until the final.</p>
         </div>
         <div class="totw-formation">
           <div class="totw-formation-tag">4&#8211;3&#8211;3</div>
@@ -1671,6 +1692,7 @@ body.fc-immersive-lock{overflow:hidden}
             <div class="totw-note-h">Selector&#8217;s Notes</div>
             <p>Front three from the two semi-finals: <strong>Oyarzabal</strong> (the penalty that broke France), <strong>Lautaro Martínez</strong> (the stoppage-time header that sank England) and <strong>Gordon</strong>, who had given England the lead. Player of the Round <strong>Messi</strong> captains a midfield with <strong>Enzo Fernández</strong> (Argentina's equaliser) and <strong>Pedri</strong>, again metronomic for Spain.</p>
             <p>Spain's clean sheet earns the spine &#8212; <strong>Porro</strong> (scorer and outlet at right-back), <strong>Le Normand</strong> and <strong>Cucurella</strong> in front of <strong>Unai Simón</strong> &#8212; with <strong>Romero</strong> the lone Argentine at the back. <strong>Dani Olmo</strong>, <strong>Julián Álvarez</strong> and <strong>Bellingham</strong> are unlucky to start from the bench.</p>
+            <p><em>Since the semis:</em> the bronze final (England 6&#8211;4 France) produced two performances that would walk into any XI &#8212; <strong>Bukayo Saka</strong>'s hat-trick, only the second by an England player in a World Cup knockout tie after Geoff Hurst in 1966, and <strong>Kylian Mbapp&#233;</strong>'s brace for a record 22nd World Cup goal. Neither is eligible here: a single play-off isn't a round, so both go into the reckoning for the tournament XI once the final is played.</p>
             <div class="totw-bench">
               <span class="totw-bench-tag">On the bench</span>
               <span class="totw-bench-chip tm-team" data-team="ESP" role="button" tabindex="0" aria-label="Dani Olmo, Spain — open squad"><span class="fl">&#127466;&#127480;</span> D. Olmo</span>
@@ -1692,20 +1714,21 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="es-fact es-fact-link" data-view="top10" role="button" tabindex="0" aria-label="48 teams — see the Favorites"><div class="es-fact-num">48</div><div class="es-fact-lbl">Teams · 3 hosts</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
         <div class="es-fact es-fact-link" data-view="predictor" role="button" tabindex="0" aria-label="Spain lead the model — open the Simulation"><div class="es-fact-num es-fact-flag">🇪🇸</div><div class="es-fact-lbl">Model leader</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
         <div class="es-fact es-fact-link" data-view="groups" role="button" tabindex="0" aria-label="2 teams left — open the Knockout Bracket"><div class="es-fact-num">2</div><div class="es-fact-lbl">Left · the final</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
-        <div class="es-fact es-fact-link" data-view="predictions" role="button" tabindex="0" aria-label="1 final to come — see the Predictions"><div class="es-fact-num">1</div><div class="es-fact-lbl">Final · Jul 19</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
+        <div class="es-fact es-fact-link" data-view="predictions" role="button" tabindex="0" aria-label="1 final to come — see the Predictions"><div class="es-fact-num">1</div><div class="es-fact-lbl">Final · Today</div><span class="es-fact-go" aria-hidden="true">&#8250;</span></div>
       </div>
-      <div class="es-glance" data-view="groups" role="button" tabindex="0" aria-label="Final and third-place play-off at a glance — open the Knockout Bracket">
-        <span class="es-glance-tag">Final</span>
+      <div class="es-glance" data-view="groups" role="button" tabindex="0" aria-label="Final today and the third-place result at a glance — open the Knockout Bracket">
+        <span class="es-glance-tag">Final today</span>
         <span class="es-glance-tie"><span class="fl">&#127466;&#127480;</span> Spain <span class="es-glance-v">v</span> Argentina <span class="fl">&#127462;&#127479;</span></span>
         <span class="es-glance-sep">&#183;</span>
-        <span class="es-glance-tie"><span class="es-glance-v">3rd</span> <span class="fl">&#127467;&#127479;</span> France <span class="es-glance-v">v</span> England <span class="fl">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631;</span></span>
+        <span class="es-glance-tie"><span class="es-glance-v">3rd</span> <span class="fl">&#127988;&#917607;&#917602;&#917605;&#917614;&#917607;&#917631;</span> England 6&#8211;4 France <span class="fl">&#127467;&#127479;</span></span>
       </div>
       <p>First-ever 48-team World Cup, across USA, Canada and Mexico. The new Round of 32 shields the big sides but opens a knockout path for outsiders.</p>
-      <p><b>The final is set: Spain v Argentina.</b> Spain beat France 2&#8211;0 in Dallas &#8212; Oyarzabal's penalty and Pedro Porro's strike &#8212; to reach their first World Cup final since 2010. Argentina then came from behind to beat England 2&#8211;1 in Atlanta, Enzo Fernández levelling and Lautaro Martínez heading a stoppage-time winner, both from Messi passes; France and England meet in the third-place play-off. The knockouts bit early &#8212; Germany and Netherlands fell on penalties in the R32, and Ronaldo's Portugal went out 1&#8211;0 to Spain in the last 16.</p>
+      <p><b>The final is set: Spain v Argentina.</b> Spain beat France 2&#8211;0 in Dallas &#8212; Oyarzabal's penalty and Pedro Porro's strike &#8212; to reach their first World Cup final since 2010. Argentina then came from behind to beat England 2&#8211;1 in Atlanta, Enzo Fernández levelling and Lautaro Martínez heading a stoppage-time winner, both from Messi passes. The knockouts bit early &#8212; Germany and Netherlands fell on penalties in the R32, and Ronaldo's Portugal went out 1&#8211;0 to Spain in the last 16.</p>
       <p><b>Disruptors ran out of road.</b> Haaland's Norway stunned five-time winners Brazil to reach a first-ever quarter-final before England edged them 2&#8211;1 in extra time. Belgium beat USA but lost to Spain; Morocco reached back-to-back quarter-finals before France ended their run; and Switzerland's first quarter-final since 1954 finished 3&#8211;1 to Argentina. Brazil's exit was their earliest since 1990.</p>
       <p><b>France and Spain into the semis.</b> The quarter-finals opened with Les Bleus dispatching Morocco 2&#8211;0 in Boston &#8212; Mbapp&#233; curling in the opener before setting up Demb&#233;l&#233; &#8212; to reach a third straight semi-final. Mbapp&#233;&#8217;s eighth goal moved him level with Messi on eight at that stage. Spain then edged Belgium 2&#8211;1 in Los Angeles &#8212; Fabi&#225;n Ruiz opened, De Ketelaere levelled, and Mikel Merino struck late &#8212; setting up a France&#8211;Spain semi-final.</p>
       <p><b>Argentina lean on Messi.</b> After surviving Egypt from 2&#8211;0 down, the holders beat ten-man Switzerland 3&#8211;1 after extra time &#8212; Mac Allister's header from a Messi corner, then Álvarez and Lautaro Martínez in the extra period &#8212; to set up a semi-final with England. Durability over a seven-game run is still the question.</p>
-      <p><b>The last four settled it.</b> England came through Norway 2&#8211;1 after extra time, Jude Bellingham scoring twice; but in the semis Spain saw off France and Argentina overturned England late. It leaves a heavyweight decider &#8212; Spain against holders Argentina at MetLife Stadium, New Jersey on July 19, with France and England contesting third place in Miami on July 18.</p>
+      <p><b>The last four settled it.</b> England came through Norway 2&#8211;1 after extra time, Jude Bellingham scoring twice; but in the semis Spain saw off France and Argentina overturned England late. It leaves a heavyweight decider &#8212; Spain against holders Argentina at MetLife Stadium, New Jersey on July 19.</p>
+      <p><b>England take the bronze.</b> The third-place play-off in Miami turned into the highest-scoring in the fixture's history: England raced 4&#8211;0 clear by half-time through Declan Rice, Ezri Konsa and two from Bukayo Saka, survived a France storm either side of the hour &#8212; Kylian Mbapp&#233; twice and Bradley Barcola &#8212; then closed it out 6&#8211;4 with Saka's penalty and a Jude Bellingham solo goal in stoppage time. It is England's best World Cup finish since 1966, and the last act of Didier Deschamps's 14-year France reign. Mbapp&#233;'s brace took him to a record 22nd World Cup goal and 10 for the tournament, leaving Messi needing a hat-trick in the final to reclaim the Golden Boot.</p>
     </div>
   </div>
 </section>
@@ -1715,7 +1738,7 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="section-tag">Section 07</div>
     <div class="section-eyebrow">Championship Favorites</div>
     <h2 class="section-h2">Favorites</h2>
-    <p class="section-lead">The teams with the greatest probability of lifting the trophy on July 19 at MetLife Stadium, New Jersey. <b>Current</b> reflects Power Scores now the final is set — Spain and Argentina contest the title, with knocked-out sides shown for context; <b>Pre-Tournament</b> ranks them by the strengths projected before a ball was kicked.</p>
+    <p class="section-lead">The teams with the greatest probability of lifting the trophy today at MetLife Stadium, New Jersey. <b>Current</b> reflects Power Scores with only the final left — Spain and Argentina contest the title, England having taken bronze 6&#8211;4 over France; eliminated sides are shown for context. <b>Pre-Tournament</b> ranks them by the strengths projected before a ball was kicked.</p>
     <div class="fav-subnav">
       <button class="subnav-btn active" onclick="switchFavMode('current',this)">Current</button>
       <button class="subnav-btn" onclick="switchFavMode('pre',this)">Pre-Tournament</button>
@@ -1726,8 +1749,8 @@ body.fc-immersive-lock{overflow:hidden}
         <tbody>
           <tr class="row-top3"><td class="tbl-rank gold">1</td><td class="tbl-name">Spain</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:92%"></div></div><span class="score-val">92</span></div></td><td class="tbl-prob">55.0%</td><td class="tbl-odds hot">Into final</td></tr>
           <tr class="row-top3"><td class="tbl-rank gold">2</td><td class="tbl-name">Argentina</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">90</span></div></td><td class="tbl-prob">45.0%</td><td class="tbl-odds hot">Into final</td></tr>
-          <tr><td class="tbl-rank">3</td><td class="tbl-name">France</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:95%"></div></div><span class="score-val">95</span></div></td><td class="tbl-prob">—</td><td class="tbl-odds">Out · SF</td></tr>
-          <tr><td class="tbl-rank">4</td><td class="tbl-name">England</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:89%"></div></div><span class="score-val">89</span></div></td><td class="tbl-prob">—</td><td class="tbl-odds">Out · SF</td></tr>
+          <tr><td class="tbl-rank">3</td><td class="tbl-name">England</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:89%"></div></div><span class="score-val">89</span></div></td><td class="tbl-prob">—</td><td class="tbl-odds">3rd · bronze</td></tr>
+          <tr><td class="tbl-rank">4</td><td class="tbl-name">France</td><td><span class="tier-badge tier-1">Title Favorite</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:95%"></div></div><span class="score-val">95</span></div></td><td class="tbl-prob">—</td><td class="tbl-odds">4th</td></tr>
           <tr><td class="tbl-rank">5</td><td class="tbl-name">Belgium</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:76%"></div></div><span class="score-val">76</span></div></td><td class="tbl-prob">—</td><td class="tbl-odds">Out · QF</td></tr>
           <tr><td class="tbl-rank">6</td><td class="tbl-name">Norway</td><td><span class="tier-badge tier-2">Contender</span></td><td><div class="score-bar-wrap"><div class="score-bar"><div class="score-bar-fill" style="width:77%"></div></div><span class="score-val">77</span></div></td><td class="tbl-prob">—</td><td class="tbl-odds">Out · QF</td></tr>
           
@@ -1762,7 +1785,7 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="section-tag">Section 01</div>
     <div class="section-eyebrow">Group Stage</div>
     <h2 class="section-h2">Knockout Bracket</h2>
-    <p class="section-lead">Road to the final. The semi-finals are done &#8212; Spain beat France 2&#8211;0, and Argentina came from behind to beat England 2&#8211;1 with two late goals in Atlanta. The title decider is set: Spain v Argentina at MetLife Stadium on July 19, with France and England meeting in the third-place play-off. The bracket sits above full group tables, live standings and fixtures. Tap any fixture for venue, kickoff and officials.</p>
+    <p class="section-lead">Road to the final. Only the trophy is left to decide &#8212; Spain v Argentina at MetLife Stadium on July 19. England took the bronze first, edging France 6&#8211;4 in a wild Miami play-off (Saka hat-trick; Mbapp&eacute; a record 22nd World Cup goal). The bracket sits above full group tables, live standings and fixtures. Tap any fixture for venue, kickoff and officials.</p>
     <div class="kb-progress">
       <span class="kb-prog done">Groups ✓</span><span class="kb-prog-arrow">→</span>
       <span class="kb-prog done">R32 ✓</span><span class="kb-prog-arrow">→</span>
@@ -1831,7 +1854,7 @@ body.fc-immersive-lock{overflow:hidden}
     <p class="section-lead">Model projects the whole tournament forward &#8212; every unplayed match, group tables, bracket, champion. <b>Current</b> keeps played results, sims the rest; <b>Pre-Tournament</b> re-sims everything from pre-tournament ratings.</p>
     <div class="pp-banner reveal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <div class="pp-banner-txt"><b>Model predictions, not official results.</b> Poisson goal model + power ratings, form and home edge; probabilities from a Monte Carlo run. Real results (through <span id="ppCutoffDate">July&nbsp;15</span>) never overwritten. Hit Regenerate any time.</div>
+      <div class="pp-banner-txt"><b>Model predictions, not official results.</b> Poisson goal model + power ratings, form and home edge; probabilities from a Monte Carlo run. Real results (through <span id="ppCutoffDate">July&nbsp;18</span>) never overwritten. Hit Regenerate any time.</div>
     </div>
     <div class="pp-method reveal">
       <span class="pp-method-chip">⚽ Poisson goals</span>
@@ -1915,6 +1938,13 @@ body.fc-immersive-lock{overflow:hidden}
       <div class="fc-screen" id="fcScreenSelect">
         <div class="fc-screen-title">Choose Your Nation</div>
         <div class="fc-screen-sub">Tap a flag to select your team, then choose your opponent.</div>
+        <div class="fc-sortbar">
+          <span class="fc-sortbar-lbl">Order</span>
+          <div class="fc-sortseg" id="fcSortTeam" role="group" aria-label="Order the nations">
+            <button type="button" data-sort="power" class="active" aria-pressed="true"><span class="fc-seg-ico" aria-hidden="true">★</span>Power Rankings</button>
+            <button type="button" data-sort="alpha" aria-pressed="false"><span class="fc-seg-ico" aria-hidden="true">A&#8202;Z</span>Alphabetical</button>
+          </div>
+        </div>
         <div class="fc-teamgrid" id="fcTeamGrid"></div>
         <div class="fc-legend"><span class="fc-star">★</span> = team strength <span class="fc-legend-sep">·</span> more stars, tougher side</div>
         <span class="fc-diff-label">Difficulty</span>
@@ -1932,6 +1962,13 @@ body.fc-immersive-lock{overflow:hidden}
       <div class="fc-screen hidden" id="fcScreenOpp">
         <div class="fc-screen-title">Choose Your Opponent</div>
         <div class="fc-screen-sub">Pick the nation you want to play against.</div>
+        <div class="fc-sortbar">
+          <span class="fc-sortbar-lbl">Order</span>
+          <div class="fc-sortseg" id="fcSortOpp" role="group" aria-label="Order the nations">
+            <button type="button" data-sort="power" class="active" aria-pressed="true"><span class="fc-seg-ico" aria-hidden="true">★</span>Power Rankings</button>
+            <button type="button" data-sort="alpha" aria-pressed="false"><span class="fc-seg-ico" aria-hidden="true">A&#8202;Z</span>Alphabetical</button>
+          </div>
+        </div>
         <div class="fc-teamgrid" id="fcOppGrid"></div>
         <div class="fc-legend"><span class="fc-star">★</span> = team strength <span class="fc-legend-sep">·</span> more stars, tougher side</div>
         <div class="fc-btn-row">
@@ -2059,10 +2096,10 @@ body.fc-immersive-lock{overflow:hidden}
       </div>
       <div id="rankList">
         <div class="tier-divider-row" data-tier="t1"><div class="tdiv-dot tdiv-1"></div><span class="tdiv-name">Tier 1 — Title Favorites</span><span class="tdiv-count">6 teams</span></div>
-        <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">1</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇫🇷 France</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP I</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Beaten 2–0 by Spain in the semi-final — Oyarzabal's penalty and Pedro Porro's strike ended a flawless run at the last four. Six wins, then a blank night in Dallas.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:95%"></i></div><div class="score-big">95</div><div class="score-prob">OUT</div></div></div>
+        <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">1</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇫🇷 France</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP I</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Fourth. Beaten 2–0 by Spain in the semi-final, then 6–4 by England in the Miami bronze final after trailing 4–0 at the break. Mbappé signed off with a brace — a record 22nd World Cup goal and 10 for the tournament — but it closes Didier Deschamps's 14-year reign on a defeat.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:95%"></i></div><div class="score-big">95</div><div class="score-prob">OUT</div></div></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">2</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇪🇸 Spain</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP H</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Into the final — Oyarzabal's penalty and Pedro Porro's strike beat France 2–0 in Dallas, La Roja's first World Cup final since 2010. Still miserly at the back.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:92%"></i></div><div class="score-big">92</div><div class="score-prob">55.0%</div></div></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col gold-num">3</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇦🇷 Argentina</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP J</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Into the final — beat ten-man Switzerland 3–1 after extra time, then came from behind to beat England 2–1 in Atlanta, Enzo Fernández levelling and Lautaro Martínez heading a stoppage-time winner. Holders one win from back-to-back titles.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:90%"></i></div><div class="score-big">90</div><div class="score-prob">45.0%</div></div></div>
-        <div class="rank-item" data-tier="t1"><div class="rank-num-col">4</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP L</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Group L winners who beat Mexico 3–2 and edged Norway 2–1 after extra time to reach the semis, but Argentina beat them 2–1 in Atlanta — Enzo Fernández and a Lautaro Martínez stoppage-time winner. Out at the last four.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:89%"></i></div><div class="score-big">89</div><div class="score-prob">OUT</div></div></div>
+        <div class="rank-item" data-tier="t1"><div class="rank-num-col">4</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP L</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Third — their best World Cup since 1966. Group L winners who beat Mexico 3–2 and edged Norway 2–1 after extra time before Argentina took the semi 2–1 in Atlanta. Answered with a 6–4 bronze-final win over France: Saka's hat-trick, Rice and Konsa early, Bellingham off the bench to settle it.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:89%"></i></div><div class="score-big">89</div><div class="score-prob">OUT</div></div></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col">5</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇵🇹 Portugal</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP K</span><span class="rank-move same" title="Unchanged">&#8211;</span></div><div class="rank-analysis">Out in the last 16 — Merino's stoppage-time strike won it 1–0 for Spain in Dallas, ending Ronaldo's final World Cup.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:84%"></i></div><div class="score-big">84</div><div class="score-prob">OUT</div></div></div>
         <div class="rank-item" data-tier="t1"><div class="rank-num-col">6</div><div class="rank-body"><div class="rank-team-row"><span class="rank-team-name">🇧🇷 Brazil</span><span class="tier-badge tier-1">Title Favorite</span><span class="group-badge">GRP C</span><span class="rank-move up" title="Up 1 from #7">&#9650;&nbsp;1</span></div><div class="rank-analysis">Out in the last 16, stunned 2–1 by Norway as Haaland struck twice late — their earliest World Cup exit since 1990.</div></div><div class="rank-score-col"><div class="score-bar-mini"><i style="height:81%"></i></div><div class="score-big">81</div><div class="score-prob">OUT</div></div></div>
         <div class="tier-divider-row" data-tier="t2"><div class="tdiv-dot tdiv-2"></div><span class="tdiv-name">Tier 2 — Contenders</span><span class="tdiv-count">7 teams</span></div>
@@ -2185,8 +2222,8 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="tier-block-head"><div class="tbdot tbd-1"></div><div class="tier-block-title">Tier 1 &#8212; Title Favorites</div><div class="tier-count">6<span>teams</span></div></div>
         <div class="tier-block-body">
           <div class="tier-pills"><span class="tier-pill">🇫🇷 France</span><span class="tier-pill">🇪🇸 Spain</span><span class="tier-pill">🇦🇷 Argentina</span><span class="tier-pill">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="tier-pill">🇵🇹 Portugal</span><span class="tier-pill">🇧🇷 Brazil</span></div>
-          <div class="tier-stats"><span class="tier-stat alive">Spain &amp; Argentina in the final</span><span class="tier-stat out">France &amp; England out in the SF</span></div>
-          <div class="tier-desc">Real path to the trophy &#8212; depth, pedigree, seven-game staying power. Spain beat France 2–0 and Argentina beat England 2–1 to set up the final; France and England drop to the third-place play-off. Brazil fell to Norway and Portugal to Spain, ending Ronaldo's final World Cup.</div>
+          <div class="tier-stats"><span class="tier-stat alive">Spain &amp; Argentina contest the final</span><span class="tier-stat out">England 3rd &#183; France 4th</span></div>
+          <div class="tier-desc">Real path to the trophy &#8212; depth, pedigree, seven-game staying power. The tier has taken all four semi-final places and now the top four outright: Spain beat France 2–0 and Argentina beat England 2–1 to set up the final, then England claimed bronze 6–4 over France in Miami. Brazil fell to Norway and Portugal to Spain, ending Ronaldo's final World Cup.</div>
         </div>
       </div>
       <div class="tier-block reveal">
@@ -2275,7 +2312,7 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="section-tag">Section 08</div>
     <div class="section-eyebrow">Value Intelligence</div>
     <h2 class="section-h2">Dark Horse Report</h2>
-    <p class="section-lead">Five teams most likely to outperform their odds &#8212; evidence over narrative.</p>
+    <p class="section-lead">The five teams backed to outperform their odds &#8212; evidence over narrative. All five are now out, so <b>Current</b> reads as a settled report card: Norway and Switzerland reached the quarter-finals, Morocco went back-to-back, and none of the five made the last four. <b>Pre-Tournament</b> keeps the original calls.</p>
     <div class="fav-subnav">
       <button class="subnav-btn active" onclick="switchDhMode('current',this)">Current</button>
       <button class="subnav-btn" onclick="switchDhMode('pre',this)">Pre-Tournament</button>
@@ -2389,8 +2426,8 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="bq-list">
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#1</div><div class="bq-team-name">🇪🇸 Spain</div><div class="bq-score-label">Power Score 92</div></div><div class="bq-right"><div class="bq-question">Can they win a first title since 2010?</div><div class="bq-risk md">● One game away</div><div class="bq-detail">Into the final — Oyarzabal's penalty and Pedro Porro's strike beat France 2–0 in Dallas. Miserly at the back all tournament; Argentina await in the final.</div><div class="bq-watch">⚠️ Lamine Yamal</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#2</div><div class="bq-team-name">🇦🇷 Argentina</div><div class="bq-score-label">Power Score 90</div></div><div class="bq-right"><div class="bq-question">Can 39-yr Messi last 7 games?</div><div class="bq-risk hi">● Messi legs</div><div class="bq-detail">Holders into the final after coming from behind to beat England 2–1 in Atlanta, Messi setting up both goals; fatigue over a seven-game run is the risk. Spain await in the final.</div><div class="bq-watch">⚠️ Lionel Messi</div></div></div>
-      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#3</div><div class="bq-team-name">🇫🇷 France</div><div class="bq-score-label">Power Score 95</div></div><div class="bq-right"><div class="bq-question">Did the semis stop them again?</div><div class="bq-risk md">● Out · SF</div><div class="bq-detail">Model favourite and perfect through six, but blanked by Spain 2–0 in Dallas — Oyarzabal's penalty and Porro's strike ended the run at the last four.</div><div class="bq-watch">⚠️ Eliminated by Spain</div></div></div>
-      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#4</div><div class="bq-team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div><div class="bq-score-label">Power Score 89</div></div><div class="bq-right"><div class="bq-question">Will the pressure culture repeat?</div><div class="bq-risk md">● Out · SF</div><div class="bq-detail">Edged Norway 2–1 after extra time to reach the semis, but Argentina beat them 2–1 in Atlanta — Enzo Fernández's equaliser and Lautaro Martínez's stoppage-time winner. The 60-year wait goes on.</div><div class="bq-watch">⚠️ Eliminated by Argentina</div></div></div>
+      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#3</div><div class="bq-team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div><div class="bq-score-label">Power Score 89</div></div><div class="bq-right"><div class="bq-question">Does bronze answer the pressure question?</div><div class="bq-risk md">● Out · 3rd</div><div class="bq-detail">Argentina beat them 2–1 in the Atlanta semi, but the response was emphatic: 6–4 past France in Miami, four up by half-time, Saka with a hat-trick and Bellingham off the bench. Third is England's best World Cup since 1966 — the 60-year wait for a trophy still goes on.</div><div class="bq-watch">⚠️ Bronze · beat France 6–4</div></div></div>
+      <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#4</div><div class="bq-team-name">🇫🇷 France</div><div class="bq-score-label">Power Score 95</div></div><div class="bq-right"><div class="bq-question">Did the semis stop them again?</div><div class="bq-risk md">● Out · 4th</div><div class="bq-detail">Model favourite and perfect through six, then blanked 2–0 by Spain in Dallas and beaten 6–4 by England in the bronze final after trailing 4–0 at the break. Fourth place, and the end of Deschamps's 14-year reign — though Mbappé left with a record 22nd World Cup goal.</div><div class="bq-watch">⚠️ Eliminated by Spain</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#5</div><div class="bq-team-name">🇧🇪 Belgium</div><div class="bq-score-label">Power Score 76</div></div><div class="bq-right"><div class="bq-question">Did the defence cost them in the end?</div><div class="bq-risk md">● Out · QF</div><div class="bq-detail">Unbeaten in 18 and clinical past the USA, but a De Ketelaere equaliser wasn't enough against Spain — beaten 2–1 in Los Angeles, Merino settling it late. A bright generation falls at the last eight.</div><div class="bq-watch">⚠️ Eliminated by Spain</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#6</div><div class="bq-team-name">🇲🇦 Morocco</div><div class="bq-score-label">Power Score 68</div></div><div class="bq-right"><div class="bq-question">Did the cutting edge cost them again?</div><div class="bq-risk md">● Out · QF</div><div class="bq-detail">Beat the Dutch and Canada to reach back-to-back quarter-finals, but Bounou's heroics only delayed France. Beaten 2–0, second best on the night — a repeat of the 2022 semi-final loss.</div><div class="bq-watch">⚠️ Eliminated by France</div></div></div>
       <div class="bq-item reveal"><div class="bq-left"><div class="bq-rank-big">#7</div><div class="bq-team-name">🇳🇴 Norway</div><div class="bq-score-label">Power Score 77</div></div><div class="bq-right"><div class="bq-question">Can they handle a second heavyweight?</div><div class="bq-risk md">● Out · QF</div><div class="bq-detail">Haaland's late double stunned Brazil to reach a first-ever quarter-final, but England edged them 2–1 after extra time in Miami. Out in the last eight, ceiling proven.</div><div class="bq-watch">⚠️ Eliminated by England</div></div></div>
@@ -2432,7 +2469,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="pred-card-label">Most Likely Semifinalists</div>
         <div class="pred-flags">🇫🇷 🇪🇸 🇦🇷 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
         <div class="pred-card-value">France · Spain · Argentina · England</div>
-        <div class="pred-card-reason">All four confirmed: Spain beat France 2&#8211;0 and Argentina came from behind to beat England 2&#8211;1, setting up a Spain v Argentina final on July 19. France and England contest third place.</div>
+        <div class="pred-card-reason">All four confirmed: Spain beat France 2&#8211;0 and Argentina came from behind to beat England 2&#8211;1, setting up a Spain v Argentina final on July 19. England took third place, beating France 6&#8211;4 in Miami.</div>
         <div class="pred-meter"><span class="pred-meter-lbl">Confidence</span><span class="pred-bar"><i style="width:100%"></i></span><span class="pred-meter-val">Confirmed</span></div>
         <div class="pred-alt">Final: Spain v Argentina</div>
       </div>
@@ -2441,7 +2478,7 @@ body.fc-immersive-lock{overflow:hidden}
         <div class="pred-vs"><span class="pred-vs-side">🇪🇸 ESP</span><span class="pred-vs-badge">VS</span><span class="pred-vs-side">ARG 🇦🇷</span></div>
         <div class="pred-card-reason">Set &#8212; Spain beat France 2&#8211;0 and Argentina overturned England 2&#8211;1. The July 19 final at MetLife pits Spain against the holders.</div>
         <div class="pred-meter"><span class="pred-meter-lbl">Confidence</span><span class="pred-bar"><i style="width:100%"></i></span><span class="pred-meter-val">Confirmed</span></div>
-        <div class="pred-alt">Third place: France vs England</div>
+        <div class="pred-alt">Third place: England 6&#8211;4 France</div>
       </div>
       <div class="pred-card featured reveal">
         <div class="pred-trophy">🏆</div>
@@ -2459,15 +2496,15 @@ body.fc-immersive-lock{overflow:hidden}
       </div>
       <div class="pred-card reveal">
         <div class="pred-card-label">Predicted Golden Boot</div>
-        <div class="pred-player"><span class="pred-player-flag">🇦🇷</span><div><span class="pred-player-nm">Lionel Messi</span><span class="pred-player-meta">Argentina · 8 goals</span></div></div>
+        <div class="pred-player"><span class="pred-player-flag">🇫🇷</span><div><span class="pred-player-nm">Kylian Mbappé</span><span class="pred-player-meta">France · 10 goals</span></div></div>
         <div class="pred-scorers">
-          <div class="pred-scorer lead"><span class="ps-flag">🇦🇷</span><span class="ps-nm">Messi</span><span class="ps-bar"><i style="width:100%"></i></span><span class="ps-n">8</span><span class="ps-a">+5a</span></div>
-          <div class="pred-scorer"><span class="ps-flag">🇫🇷</span><span class="ps-nm">Mbappé</span><span class="ps-bar"><i style="width:100%"></i></span><span class="ps-n">8</span><span class="ps-a">+3a</span></div>
-          <div class="pred-scorer"><span class="ps-flag">🇳🇴</span><span class="ps-nm">Haaland</span><span class="ps-bar"><i style="width:88%"></i></span><span class="ps-n">7</span><span class="ps-a">+0a</span></div>
-          <div class="pred-scorer"><span class="ps-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="ps-nm">Kane</span><span class="ps-bar"><i style="width:75%"></i></span><span class="ps-n">6</span><span class="ps-a">+1a</span></div>
+          <div class="pred-scorer lead"><span class="ps-flag">🇫🇷</span><span class="ps-nm">Mbappé</span><span class="ps-bar"><i style="width:100%"></i></span><span class="ps-n">10</span><span class="ps-a">+4a</span></div>
+          <div class="pred-scorer"><span class="ps-flag">🇦🇷</span><span class="ps-nm">Messi</span><span class="ps-bar"><i style="width:80%"></i></span><span class="ps-n">8</span><span class="ps-a">+5a</span></div>
+          <div class="pred-scorer"><span class="ps-flag">🇳🇴</span><span class="ps-nm">Haaland</span><span class="ps-bar"><i style="width:70%"></i></span><span class="ps-n">7</span><span class="ps-a">+0a</span></div>
+          <div class="pred-scorer"><span class="ps-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="ps-nm">Kane</span><span class="ps-bar"><i style="width:60%"></i></span><span class="ps-n">6</span><span class="ps-a">+1a</span></div>
         </div>
-        <div class="ps-tiebreak">Level on 8 goals — <b>Messi now leads on assists (5 to 3) and is into the final</b>.</div>
-        <div class="pred-card-reason">Mbappé finishes on eight but France are out, so his tally is frozen. Messi, level on eight and into the final, now leads the Golden Boot tiebreak on assists (five to three) and is favoured to pull clear against Spain; Kane (six) and Haaland (seven) are done.</div>
+        <div class="ps-tiebreak">Mbappé is clear on 10 — <b>Messi needs a hat-trick in the final to catch him</b>.</div>
+        <div class="pred-card-reason">The bronze final flipped this. Mbappé's brace against England took him to 10 for the tournament — the first player to reach double figures at a single edition since Gerd Müller in 1970 — and a record 22nd World Cup goal overall. France are finished, so his tally is locked; Messi, on eight, would need three in the final against Spain to overhaul him. Haaland (seven) and Kane (six) are done.</div>
       </div>
       <div class="pred-card upset reveal">
         <div class="pred-card-label">Biggest Upset</div>
@@ -2561,7 +2598,7 @@ body.fc-immersive-lock{overflow:hidden}
     <div class="section-tag">Section 11</div>
     <div class="section-eyebrow">Analytical Framework</div>
     <h2 class="section-h2">Evaluation Analysis</h2>
-    <p class="section-lead">Nine weighted factors make each team&#8217;s Power Score (0&#8211;100) and Win Probability. Weights come from 2010&#8211;2022 WC outcome data. Form now outweighs pre-tournament billing &#8212; every team carries a movement chip and eliminated sides show OUT. With the field down to finalists Spain and Argentina, the model now separates the two survivors on title odds.</p>
+    <p class="section-lead">Nine weighted factors make each team&#8217;s Power Score (0&#8211;100) and Win Probability. Weights come from 2010&#8211;2022 WC outcome data. Form now outweighs pre-tournament billing &#8212; every team carries a movement chip and eliminated sides show OUT. With the podium places settled &#8212; England third, France fourth &#8212; only the final is unresolved, so the model is reduced to separating Spain and Argentina on title odds. Frozen scores are deliberate: an eliminated side keeps the rating it earned, which is why France stay top of the table on 95 having finished fourth.</p>
     <div class="lb-cats">
       <span class="lb-cat">🎯 9 factors</span><span class="lb-cat">🧮 Totals 100%</span><span class="lb-cat">📈 Power Score 0–100</span><span class="lb-cat">🔀 Form re-ranked</span>
     </div>
@@ -2574,7 +2611,7 @@ body.fc-immersive-lock{overflow:hidden}
       <div class="method-card mc-mid reveal"><div class="method-card-top"><span class="method-name">Tournament Experience</span><span class="method-weight">8%</span></div><div class="method-bar"><div class="method-fill" style="width:32%"></div></div></div>
       <div class="method-card mc-minor reveal"><div class="method-card-top"><span class="method-name">Injury Concerns</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
       <div class="method-card mc-minor reveal"><div class="method-card-top"><span class="method-name">Group-Stage Performance</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
-      <div class="method-card mc-minor reveal"><div class="method-card-top"><span class="method-name">Knockout Path (final set)</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
+      <div class="method-card mc-minor reveal"><div class="method-card-top"><span class="method-name">Knockout Path (final only)</span><span class="method-weight">5%</span></div><div class="method-bar"><div class="method-fill" style="width:20%"></div></div></div>
     </div>
   </div>
 </section>
@@ -2789,18 +2826,19 @@ const LB = (function(){
   // finale scorers: L. Martínez (ARG), Arias (COL), Duarte & Cabral (CPV).
   // Perišić, Ramos, Porro and Ndoye all opened their tournament accounts.
   const GOALS = [
+    {n:'Kylian Mbappé', t:'FRA', v:10},
     {n:'Lionel Messi', t:'ARG', v:8},
-    {n:'Kylian Mbappé', t:'FRA', v:8},
     {n:'Erling Haaland', t:'NOR', v:7},
     {n:'Harry Kane', t:'ENG', v:6},
+    {n:'Ousmane Dembélé', t:'FRA', v:6},
     {n:'Ismaïla Sarr', t:'SEN', v:5},
-    {n:'Ousmane Dembélé', t:'FRA', v:5},
     {n:'Mikel Oyarzabal', t:'ESP', v:5},
-    {n:'Jude Bellingham', t:'ENG', v:4},
+    {n:'Jude Bellingham', t:'ENG', v:5},
     {n:'Vinícius Júnior', t:'BRA', v:4},
     {n:'Cody Gakpo', t:'NED', v:4},
     {n:'Julián Quiñones', t:'MEX', v:4},
     {n:'Romelu Lukaku', t:'BEL', v:4},
+    {n:'Bukayo Saka', t:'ENG', v:3},
     {n:'Brian Brobbey', t:'NED', v:3},
     {n:'Jonathan David', t:'CAN', v:3},
     {n:'Johan Manzambi', t:'SUI', v:3},
@@ -2808,6 +2846,7 @@ const LB = (function(){
     {n:'Folarin Balogun', t:'USA', v:3},
     {n:'Cristiano Ronaldo', t:'POR', v:3},
     {n:'Charles De Ketelaere', t:'BEL', v:3},
+    {n:'Bradley Barcola', t:'FRA', v:2},
     {n:'Lautaro Martínez', t:'ARG', v:2},
     {n:'Enzo Fernández', t:'ARG', v:2},
     {n:'Dan Ndoye', t:'SUI', v:2},
@@ -2837,7 +2876,8 @@ const LB = (function(){
     {n:'Fabián Ruiz', t:'ESP', v:1},
     {n:'Neymar', t:'BRA', v:1},
     {n:'Gabriel Martinelli', t:'BRA', v:1},
-    {n:'Bradley Barcola', t:'FRA', v:1},
+    {n:'Declan Rice', t:'ENG', v:1},
+    {n:'Ezri Konsa', t:'ENG', v:1},
     {n:'Antonio Nusa', t:'NOR', v:1},
     {n:'Andreas Schjelderup', t:'NOR', v:1},
     {n:'Amad Diallo', t:'CIV', v:1},
@@ -2858,23 +2898,26 @@ const LB = (function(){
     {n:'Emam Ashour', t:'EGY', v:1}
   ];
   // Assists — no official ranked assist table has been published yet; only
-  // assists confirmed in match reports are listed. Messi (ARG) draws level with
-  // Olise (FRA) on five after two assists in the semi-final v England.
-  // Jul 9 (QF): Mbappé teed up Dembélé for France's second v Morocco, taking
-  // him to three. Jul 10 (QF): Castagne crossed for De Ketelaere's equaliser
-  // v Spain; Spain's two goals came off goalkeeper rebounds, so no assist.
+  // assists confirmed in match reports are listed. Jul 18 (third place): Olise
+  // (FRA) laid on both Mbappé goals to move clear on seven; Mbappé teed up
+  // Barcola (four); Rice crossed for Konsa, Rashford and Eze each set up a Saka
+  // goal, and Upamecano assisted Dembélé's stoppage-time strike.
   const ASSISTS = [
+    {n:'Michael Olise', t:'FRA', v:7},
     {n:'Lionel Messi', t:'ARG', v:5},
-    {n:'Michael Olise', t:'FRA', v:5},
     {n:'Bruno Guimarães', t:'BRA', v:4},
+    {n:'Kylian Mbappé', t:'FRA', v:4},
     {n:'Bukayo Saka', t:'ENG', v:3},
-    {n:'Kylian Mbappé', t:'FRA', v:3},
     {n:'Denzel Dumfries', t:'NED', v:2},
     {n:'Brahim Díaz', t:'MAR', v:2},
     {n:'Marc Cucurella', t:'ESP', v:2},
     {n:'Johan Manzambi', t:'SUI', v:2},
     {n:'Josip Stanišić', t:'CRO', v:2},
     {n:'Anthony Gordon', t:'ENG', v:2},
+    {n:'Declan Rice', t:'ENG', v:1},
+    {n:'Marcus Rashford', t:'ENG', v:1},
+    {n:'Eberechi Eze', t:'ENG', v:1},
+    {n:'Dayot Upamecano', t:'FRA', v:1},
     {n:'Harry Kane', t:'ENG', v:1},
     {n:'Andreas Schjelderup', t:'NOR', v:1},
     {n:'Erling Haaland', t:'NOR', v:1},
@@ -2911,9 +2954,10 @@ const LB = (function(){
     {n:'Dani Olmo', t:'ESP', v:1}
   ];
   // Clean sheets — goalkeepers confirmed to have kept a shutout. Simón (ESP)
-  // leads on six, Maignan (FRA) next on five. The semi-finals produced no
-  // shutout — France and England (both beaten) and Argentina all conceded — so
-  // the table is unchanged from the quarter-finals.
+  // leads on six, Maignan (FRA) next on five. Neither the semi-finals nor the
+  // third-place play-off produced a shutout — that 6–4 in Miami saw Maignan
+  // concede six and Dean Henderson four — so the table is unchanged from the
+  // quarter-finals. Only the final can still move it.
   const CLEAN = [
     {n:'Unai Simón', t:'ESP', v:6},
     {n:'Mike Maignan', t:'FRA', v:5},
@@ -2942,7 +2986,8 @@ const LB = (function(){
   // Belgium R16 tie), Jarell Quansah (ENG) was shown a straight red on 54' v
   // Mexico after a VAR review, and Breel Embolo (SUI) was dismissed on 72' v
   // Argentina for a second yellow (simulation, after a VAR review), leaving the
-  // Swiss a man down for the rest of a 3–1 extra-time defeat.
+  // Swiss a man down for the rest of a 3–1 extra-time defeat. The third-place
+  // play-off (FRA 4–6 ENG, Jul 18) produced no dismissal, so the table stands.
   const REDS = [
     {n:'Breel Embolo', t:'SUI', v:1},
     {n:'Folarin Balogun', t:'USA', v:1},
@@ -2958,9 +3003,10 @@ const LB = (function(){
     {n:'Rebin Sulaka', t:'IRQ', v:1}
   ];
   // Yellow cards — no official ranked booking table has been published; only
-  // bookings confirmed in match reports are listed (all on 1). The Jul 11
-  // quarter-finals added no new single-yellow names to verify — the decisive
-  // card was Breel Embolo's second yellow v Argentina, recorded as a red.
+  // bookings confirmed in match reports are listed (all on 1). Neither the
+  // semi-finals nor the Jul 18 third-place play-off added a booking that could
+  // be source-verified: the published match feed for FRA 4–6 ENG lists goals
+  // and substitutions only, so nothing has been entered for it here.
   const YELLOWS = [
     {n:'Bryan Gutiérrez', t:'RSA', v:1},
     {n:'Teboho Mokoena', t:'RSA', v:1},
@@ -3000,25 +3046,29 @@ const LB = (function(){
   // assists, key actions and overall influence across the player's appearances.
   // No single official ratings table is published mid-tournament, so this is a
   // model-based aggregate consistent with the results recorded across the site
-  // (not an official FIFA stat). `ap` = appearances; both semi-finals are now
-  // complete, so the two finalists and two beaten semi-finalists have played
-  // seven, while earlier-eliminated players show fewer.
+  // (not an official FIFA stat). `ap` = appearances. The third-place play-off
+  // (FRA 4–6 ENG, Jul 18) added an eighth appearance for the France and England
+  // players who featured: Mbappé's two-goal record night (match 9.9) lifts him
+  // clear at the top, Saka's hat-trick (9.3) and Dembélé's goal off the bench
+  // (8.5) pull them up, while Olise (7.0) eases despite two assists. Kane was an
+  // unused substitute, so his line is unchanged. Spain and Argentina players
+  // stay on seven until the final.
   const RATINGS = [
+    {n:'Kylian Mbappé',      t:'FRA', v:8.68, ap:8},
     {n:'Lionel Messi',       t:'ARG', v:8.62, ap:7},
     {n:'Mikel Oyarzabal',    t:'ESP', v:8.52, ap:7},
-    {n:'Kylian Mbappé',      t:'FRA', v:8.50, ap:7},
-    {n:'Jude Bellingham',    t:'ENG', v:8.35, ap:7},
     {n:'Erling Haaland',     t:'NOR', v:8.28, ap:6},
+    {n:'Jude Bellingham',    t:'ENG', v:8.22, ap:8},
+    {n:'Ousmane Dembélé',    t:'FRA', v:8.17, ap:8},
     {n:'Harry Kane',         t:'ENG', v:8.13, ap:7},
-    {n:'Ousmane Dembélé',    t:'FRA', v:8.12, ap:7},
     {n:'Lamine Yamal',       t:'ESP', v:8.08, ap:7},
     {n:'Pedri',              t:'ESP', v:8.06, ap:6},
-    {n:'Michael Olise',      t:'FRA', v:8.04, ap:7},
     {n:'Vinícius Júnior',    t:'BRA', v:7.98, ap:5},
     {n:'Charles De Ketelaere',t:'BEL', v:7.96, ap:6},
+    {n:'Bukayo Saka',        t:'ENG', v:7.95, ap:8},
+    {n:'Michael Olise',      t:'FRA', v:7.91, ap:8},
     {n:'Youri Tielemans',    t:'BEL', v:7.88, ap:6},
     {n:'Ismaïla Sarr',       t:'SEN', v:7.84, ap:4},
-    {n:'Bukayo Saka',        t:'ENG', v:7.76, ap:7},
     {n:'Johan Manzambi',     t:'SUI', v:7.62, ap:6}
   ];
 
@@ -3757,7 +3807,7 @@ const KB = (function(){
     { id:'m102', a:W('m99'), b:W('m100'), as:1, bs:2, meta:'Jul 15 \u00b7 Atlanta \u00b7 Argentina win 2\u20131' }
   ];
   const FNL = { id:'m104', a:W('m101'), b:W('m102'), meta:'Sun Jul 19 \u00b7 New Jersey \u00b7 Final' };
-  const TP  = { id:'m103', a:'FRA', b:'ENG', meta:'Sat Jul 18 \u00b7 Miami \u00b7 Third-place play-off' };
+  const TP  = { id:'m103', a:'FRA', b:'ENG', as:4, bs:6, meta:'Sat Jul 18 \u00b7 Miami \u00b7 England win 6\u20134' };
 
   const ROUNDS = [
     { k:'r32', label:'Round of 32', ties:R32 },
@@ -3853,7 +3903,7 @@ const KB = (function(){
     }
     const confirmed = R32.reduce((s,t)=>s+(t.a&&!t.a.tbd?1:0)+(t.b&&!t.b.tbd?1:0),0);
     C('kbNote').innerHTML = confirmed>=32
-      ? `Groups, Round of 32, Round of 16, Quarter-finals and Semi-finals are all complete. Spain beat France 2&ndash;0 in Dallas; Argentina came from behind to beat England 2&ndash;1 in Atlanta. The Final is set &mdash; Spain v Argentina at MetLife Stadium, New Jersey on July 19, with France and England contesting third place in Miami on July 18.`
+      ? `Groups, Round of 32, Round of 16, Quarter-finals and Semi-finals are all complete. Spain beat France 2&ndash;0 in Dallas; Argentina came from behind to beat England 2&ndash;1 in Atlanta. England took third place, beating France 6&ndash;4 in a Miami goal-fest (Saka hat-trick; Mbapp&eacute; a record 22nd World Cup goal). The Final remains &mdash; Spain v Argentina at MetLife Stadium, New Jersey on July 19.`
       : `${confirmed} of 32 Round-of-32 places confirmed. Remaining slots fill once Groups J, K and L finish and the eight best third-placed teams are ranked.`;
   }
   function render(){ renderRounds(); renderContent(); }
@@ -4571,7 +4621,7 @@ const PP = (function(){
     try {
       const el = document.getElementById('ppCutoffDate');
       if (el && typeof groups !== 'undefined') {
-        let latest = '2026-07-15'; // floor: latest played knockout tie (ENG 1-2 ARG, SF2, Jul 15)
+        let latest = '2026-07-18'; // floor: latest played knockout tie (FRA 4-6 ENG, third place, Jul 18)
         groups.forEach(g => g.matches.forEach(m => {
           if (m.status === 'finished' && m.hs != null && m.date && (!latest || m.date > latest)) latest = m.date;
         }));
@@ -4672,14 +4722,14 @@ const TL = (function(){
     {id:'Q4',round:'Quarter-final',home:'ARG',away:'SUI',hs:3,as:1,note:'Argentina win 3–1 after extra time',date:'2026-07-11',time:'20:00',venue:'kansas',status:'finished',ref:'TBD'},
     {id:'S1',round:'Semi-final',home:'FRA',away:'ESP',hs:0,as:2,note:'Oyarzabal 22′ (pen), Porro 58′',date:'2026-07-14',time:'14:00',venue:'dallas',status:'finished',ref:'Iván Barton'},
     {id:'S2',round:'Semi-final',home:'ENG',away:'ARG',hs:1,as:2,note:'Gordon 55′; E. Fernández 85′, Lautaro 90+2′',date:'2026-07-15',time:'15:00',venue:'atlanta',status:'finished',ref:'TBD'},
-    {id:'T3',round:'Third place',home:'FRA',away:'ENG',hs:null,as:null,date:'2026-07-18',time:'17:00',venue:'miami',status:'upcoming',ref:'TBD'},
+    {id:'T3',round:'Third place',home:'FRA',away:'ENG',hs:4,as:6,note:'Rice 3′, Konsa 18′, Saka 37′, 45+1′, 87′ pen, Bellingham 90+8′; Mbappé 48′, 66′, Barcola 54′, Dembélé 90+6′',date:'2026-07-18',time:'17:00',venue:'miami',status:'finished',ref:'Jesús Valenzuela'},
     {id:'FIN',round:'Final',home:'ESP',away:'ARG',hs:null,as:null,date:'2026-07-19',time:'15:00',venue:'metlife',status:'upcoming',ref:'TBD'}
   ];
   KO.forEach(m=>{ const b=m.round==='Final'?'FIN':m.round==='Third place'?'3rd':m.round==='Semi-final'?'SF':m.round==='Quarter-final'?'QF':m.round==='Round of 16'?'R16':'R32'; m.group=b; m.gcode=b; m.ko=true; ALL.push(m); });
   // Compute each match's Turkish (TUR) date/time once for grouping & display.
   ALL.forEach(m=>{ m._tr = TM.toTR(m.date, m.time, m.venue); });
   // Site's current day expressed in Turkish time (kickoffs that day land in TR).
-  const TODAY='2026-07-16';                 // Turkish-local "current" date (Thursday)
+  const TODAY='2026-07-19';                 // Turkish-local "current" date (Sunday — Final day)
   // Sorted unique list of Turkish match dates — TODAY is always included so the
   // schedule opens on the real current date even when no matches are played.
   const DATES=[...new Set([...ALL.map(m=>m._tr.date), TODAY])].sort();
@@ -4818,7 +4868,7 @@ const FW = (function(){
       {pos:'GK', n:'Matt Freese',         t:'USA', cost:5.0, pts:16},
       {pos:'GK', n:'Gregor Kobel',        t:'SUI', cost:5.0, pts:18},
       {pos:'GK', n:'Ørjan Nyland',        t:'NOR', cost:5.5, pts:27},
-      {pos:'GK', n:'Mike Maignan',        t:'FRA', cost:6.0, pts:36}
+      {pos:'GK', n:'Mike Maignan',        t:'FRA', cost:5.5, pts:33}
     ],
     DEF: [
       {pos:'RB', n:'Denzel Dumfries',  t:'NED', cost:8.0, pts:24},
@@ -4830,8 +4880,8 @@ const FW = (function(){
       {pos:'CB', n:'Kristoffer Ajer',  t:'NOR', cost:5.5, pts:22},
       {pos:'LB', n:'Antonee Robinson', t:'USA', cost:6.0, pts:16},
       {pos:'CB', n:'Virgil van Dijk',  t:'NED', cost:7.5, pts:18},
-      {pos:'RB', n:'Jules Koundé',     t:'FRA', cost:6.5, pts:35},
-      {pos:'CB', n:'Ezri Konsa',       t:'ENG', cost:5.5, pts:23},
+      {pos:'RB', n:'Jules Koundé',     t:'FRA', cost:6.5, pts:36},
+      {pos:'CB', n:'Ezri Konsa',       t:'ENG', cost:6.0, pts:28},
       {pos:'LB', n:'Marc Cucurella',   t:'ESP', cost:6.5, pts:34},
       {pos:'RB', n:'Pedro Porro',      t:'ESP', cost:6.5, pts:32},
       {pos:'RB', n:'Julian Ryerson',   t:'NOR', cost:5.5, pts:18},
@@ -4844,20 +4894,20 @@ const FW = (function(){
       {pos:'CAM', n:'Antoine Griezmann',t:'FRA', cost:9.5, pts:26},
       {pos:'CAM', n:'Charles De Ketelaere',t:'BEL', cost:8.0, pts:35},
       {pos:'CM', n:'Azzedine Ounahi',  t:'MAR', cost:6.5, pts:28},
-      {pos:'CM', n:'Bruno Guimarães',  t:'BRA', cost:8.0, pts:20},
+      {pos:'CDM', n:'Declan Rice',      t:'ENG', cost:7.0, pts:30},
       {pos:'CM', n:'Alexis Mac Allister',t:'ARG', cost:8.5, pts:33},
       {pos:'CAM', n:'Brahim Díaz',      t:'MAR', cost:7.0, pts:24},
       {pos:'CAM', n:'Malik Tillman',    t:'USA', cost:7.0, pts:24},
-      {pos:'CAM', n:'Jude Bellingham',  t:'ENG', cost:11.5,pts:52},
+      {pos:'CAM', n:'Jude Bellingham',  t:'ENG', cost:12.0,pts:58},
       {pos:'CM', n:'Pedri',            t:'ESP', cost:8.5, pts:26},
       {pos:'CAM', n:'Martin Ødegaard',  t:'NOR', cost:8.0, pts:25},
-      {pos:'RW', n:'Bukayo Saka',      t:'ENG', cost:8.5, pts:29},
-      {pos:'CAM', n:'Kevin De Bruyne',  t:'BEL', cost:9.5, pts:18},
+      {pos:'RW', n:'Bukayo Saka',      t:'ENG', cost:10.5,pts:50},
+      {pos:'RW', n:'Michael Olise',     t:'FRA', cost:9.5, pts:44},
       {pos:'CM', n:'Youri Tielemans',  t:'BEL', cost:7.5, pts:29},
       {pos:'CM', n:'Enzo Fernández',   t:'ARG', cost:8.0, pts:32}
     ],
     FWD: [
-      {pos:'ST', n:'Kylian Mbappé',    t:'FRA', cost:15.0,pts:71},
+      {pos:'ST', n:'Kylian Mbappé',    t:'FRA', cost:15.0,pts:84},
       {pos:'RW', n:'Lionel Messi',     t:'ARG', cost:15.0,pts:68},
       {pos:'ST', n:'Erling Haaland',   t:'NOR', cost:14.0,pts:54},
       {pos:'LW', n:'Cody Gakpo',       t:'NED', cost:10.0,pts:28},
@@ -4872,7 +4922,7 @@ const FW = (function(){
       {pos:'ST', n:'Julián Álvarez',   t:'ARG', cost:11.0,pts:40},
       {pos:'ST', n:'Mikel Oyarzabal',  t:'ESP', cost:9.5, pts:46},
       {pos:'ST', n:'Folarin Balogun',  t:'USA', cost:8.5, pts:22},
-      {pos:'RW', n:'Ousmane Dembélé',  t:'FRA', cost:11.0,pts:46}
+      {pos:'RW', n:'Ousmane Dembélé',  t:'FRA', cost:11.5,pts:52}
     ]
   };
   const NEED = {GK:1, DEF:4, MID:3, FWD:3};
@@ -7323,6 +7373,7 @@ const FC = (function(){
     try{ if(typeof TM!=='undefined' && TM.teams && Object.keys(TM.teams).length){ teams=TM.teams; codes=Object.keys(TM.teams); } }catch(e){}
 
     buildTeamGrid();
+    wireSortTabs();
     buildDiffList();
     wireDiffListTabs();
     wireButtons();
@@ -7383,13 +7434,16 @@ const FC = (function(){
     // difficulty is shown for YOUR currently-selected team (if none yet, a neutral
     // mid-strength baseline). Rank the nations hardest → easiest at the set level.
     const me = myCode || null;
-    const rows=[...codes].filter(c=>c!==me).map(c=>({ c, nd:nationDifficulty100(dlLevel,c,me), st:starsFor(c), r:fcRating(c) }))
+    // ALL 48 nations stay listed — including your own pick, which is flagged
+    // rather than filtered out so the ranking never has a hole in it. Its score
+    // is the mirror match-up (identical strengths, so the gap term is zero).
+    const rows=[...codes].map(c=>({ c, mine:c===me, nd:nationDifficulty100(dlLevel,c,me), st:starsFor(c), r:fcRating(c) }))
                          .sort((a,b)=> b.nd.score-a.nd.score || b.r-a.r || teams[a.c].name.localeCompare(teams[b.c].name));
     host.innerHTML = rows.map((o,i)=>
-      `<div class="fc-dl-row">`+
+      `<div class="fc-dl-row${o.mine?' is-you':''}">`+
         `<span class="fc-dl-rank">${i+1}</span>`+
         `<span class="fc-dl-flag">${teams[o.c].flag}</span>`+
-        `<span class="fc-dl-name">${teams[o.c].name}</span>`+
+        `<span class="fc-dl-name">${teams[o.c].name}${o.mine?'<span class="fc-dl-you">Your team</span>':''}</span>`+
         `<span class="fc-dl-stars">${dlStars(o.st)}</span>`+
         `<span class="fc-dl-badge ${o.nd.cls}">${o.nd.score}/100</span>`+
       `</div>`
@@ -7405,36 +7459,95 @@ const FC = (function(){
     });
   }
 
+  // ── Team ordering ───────────────────────────────────────────────────────
+  // Both select grids share one order, chosen via the segmented control on
+  // each screen. 'power' = strongest first (FC_RATING desc, name as the
+  // tiebreak) and is the DEFAULT; 'alpha' = A–Z by nation name. Re-ordering
+  // never clears a pick — the selection is re-applied after every render.
+  let sortMode='power';
+  // Power rank is GLOBAL (all 48), computed once — never the row's position in
+  // the list being drawn. The opponent grid hides your own team, so a
+  // positional number would relabel France "#1" the moment you picked Spain.
+  let rankOf={};
+  function computeRanks(){
+    rankOf={};
+    [...codes]
+      .sort((a,b)=> fcRating(b)-fcRating(a) || teams[a].name.localeCompare(teams[b].name))
+      .forEach((c,i)=>{ rankOf[c]=i+1; });
+  }
+  function orderCodes(list){
+    const arr=[...list];
+    return sortMode==='alpha'
+      ? arr.sort((a,b)=>teams[a].name.localeCompare(teams[b].name))
+      : arr.sort((a,b)=> fcRating(b)-fcRating(a) || teams[a].name.localeCompare(teams[b].name));
+  }
+  // Rank chips only make sense while the list is ordered by strength.
+  function teamCardHTML(c){
+    const rank = sortMode==='power'
+      ? `<span class="fc-team-rank" title="Power rank ${rankOf[c]} of ${codes.length}">${rankOf[c]}</span>` : '';
+    return `<div class="fc-team" data-c="${c}">${rank}<span class="fl">${teams[c].flag}</span>`+
+           `<span class="nm">${teams[c].name}</span>${starHTML(starsFor(c))}</div>`;
+  }
+  function paintGrid(grid,list,selected){
+    if(!Object.keys(rankOf).length) computeRanks();
+    grid.innerHTML = orderCodes(list).map(c=>teamCardHTML(c)).join('');
+    if(selected){
+      const el=grid.querySelector(`.fc-team[data-c="${selected}"]`);
+      if(el) el.classList.add('sel');
+    }
+  }
+  function renderTeamGrid(){
+    const grid=document.getElementById('fcTeamGrid'); if(!grid) return;
+    paintGrid(grid,codes,myCode);
+    document.getElementById('fcToMatch').disabled = !myCode;
+  }
+  // Opponent grid excludes the player's chosen team.
+  function renderOppGrid(){
+    const grid=document.getElementById('fcOppGrid'); if(!grid) return;
+    paintGrid(grid,codes.filter(c=>c!==myCode),oppCode);
+    document.getElementById('fcToVs').disabled = !oppCode;
+  }
   function buildTeamGrid(){
     const grid=document.getElementById('fcTeamGrid');
-    const sorted=[...codes].sort((a,b)=>teams[a].name.localeCompare(teams[b].name));
-    grid.innerHTML = sorted.map(c=>
-      `<div class="fc-team" data-c="${c}"><span class="fl">${teams[c].flag}</span><span class="nm">${teams[c].name}</span>${starHTML(starsFor(c))}</div>`
-    ).join('');
-    grid.addEventListener('click',e=>{
+    computeRanks();
+    renderTeamGrid();
+    // onclick (not addEventListener) so repeated builds can't stack handlers
+    grid.onclick = e=>{
       const t=e.target.closest('.fc-team'); if(!t) return;
       grid.querySelectorAll('.fc-team').forEach(x=>x.classList.remove('sel'));
       t.classList.add('sel'); myCode=t.dataset.c;
       buildDiffList();   // difficulty list now reflects YOUR team's strength
       document.getElementById('fcToMatch').disabled=false;
-    });
+    };
   }
-  // Build the opponent grid, excluding the player's chosen team.
   function buildOppGrid(){
     const grid=document.getElementById('fcOppGrid');
-    const sorted=[...codes].filter(c=>c!==myCode).sort((a,b)=>teams[a].name.localeCompare(teams[b].name));
-    grid.innerHTML = sorted.map(c=>
-      `<div class="fc-team" data-c="${c}"><span class="fl">${teams[c].flag}</span><span class="nm">${teams[c].name}</span>${starHTML(starsFor(c))}</div>`
-    ).join('');
-    oppCode=null;
-    document.getElementById('fcToVs').disabled=true;
-    // single delegated handler (rebuilt grid replaces innerHTML each time)
+    oppCode=null;               // entering the screen fresh clears the pick
+    renderOppGrid();
     grid.onclick = e=>{
       const t=e.target.closest('.fc-team'); if(!t) return;
       grid.querySelectorAll('.fc-team').forEach(x=>x.classList.remove('sel'));
       t.classList.add('sel'); oppCode=t.dataset.c;
       document.getElementById('fcToVs').disabled=false;
     };
+  }
+  // Wire both segmented controls; they stay mirrored so the order is the same
+  // on the team screen and the opponent screen.
+  function wireSortTabs(){
+    const bars=['fcSortTeam','fcSortOpp'].map(id=>document.getElementById(id)).filter(Boolean);
+    bars.forEach(bar=>{
+      bar.addEventListener('click', e=>{
+        const b=e.target.closest('button[data-sort]'); if(!b) return;
+        if(b.dataset.sort===sortMode) return;
+        sortMode=b.dataset.sort;
+        bars.forEach(x=>x.querySelectorAll('button[data-sort]').forEach(btn=>{
+          const on = btn.dataset.sort===sortMode;
+          btn.classList.toggle('active',on);
+          btn.setAttribute('aria-pressed', on?'true':'false');
+        }));
+        renderTeamGrid(); renderOppGrid();
+      });
+    });
   }
   function goOpp(){ buildOppGrid(); state='idle'; showOnly(scr.opp); }
   function wireButtons(){
